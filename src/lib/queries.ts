@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Agency, Plan, Role, SubAccount, User } from "@prisma/client";
 import AgencyDetails from "@/components/forms/agency-details";
 import { v4 } from "uuid";
+import { CreateMediaType } from "./types";
 
 const clerkClient = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
@@ -403,51 +404,51 @@ export const changeUserPermissions = async (
         email: userEmail,
         subAccountId: subAccountId,
       },
-    })
-    return response
+    });
+    return response;
   } catch (error) {
-    console.log('Could not change persmission', error)
+    console.log("Could not change persmission", error);
   }
-}
+};
 
 export const getSubaccountDetails = async (subaccountId: string) => {
   const response = await db.subAccount.findUnique({
     where: {
       id: subaccountId,
     },
-  })
-  return response
-}
+  });
+  return response;
+};
 
 export const deleteSubAccount = async (subaccountId: string) => {
   const response = await db.subAccount.delete({
     where: {
       id: subaccountId,
     },
-  })
-  return response
-}
+  });
+  return response;
+};
 
 export const deleteUser = async (userId: string) => {
   await clerkClient.users.updateUserMetadata(userId, {
     privateMetadata: {
       role: undefined,
     },
-  })
-  const deletedUser = await db.user.delete({ where: { id: userId } })
+  });
+  const deletedUser = await db.user.delete({ where: { id: userId } });
 
-  return deletedUser
-}
+  return deletedUser;
+};
 
 export const getUser = async (id: string) => {
   const user = await db.user.findUnique({
     where: {
       id,
     },
-  })
+  });
 
-  return user
-}
+  return user;
+};
 
 export const sendInvitation = async (
   role: Role,
@@ -456,7 +457,7 @@ export const sendInvitation = async (
 ) => {
   const resposne = await db.invitation.create({
     data: { email, agencyId, role },
-  })
+  });
 
   try {
     const invitation = await clerkClient.invitations.createInvitation({
@@ -466,11 +467,47 @@ export const sendInvitation = async (
         throughInvitation: true,
         role,
       },
-    })
+    });
   } catch (error) {
-    console.log(error)
-    throw error
+    console.log(error);
+    throw error;
   }
 
-  return resposne
+  return resposne;
+};
+
+export const getMedia = async (subaccountId: string) => {
+  const mediafiles = await db.subAccount.findUnique({
+    where: {
+      id: subaccountId,
+    },
+    include: {
+      Media: true,
+    },
+  });
+  return mediafiles;
+};
+
+export const createMedia = async (
+  subaccountId: string,
+  mediaFile: CreateMediaType
+) => {
+  const response = await db.media.create({
+    data: {
+      link: mediaFile.link,
+      name: mediaFile.name,
+      subAccountId: subaccountId,
+    },
+  })
+
+  return response
+}
+
+export const deleteMedia = async (mediaId: string) => {
+  const response = await db.media.delete({
+    where: {
+      id: mediaId,
+    },
+  })
+  return response
 }
