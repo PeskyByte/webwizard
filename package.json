@@ -38,6 +38,7 @@
     "@react-aria/datepicker": "^3.12.0",
     "@react-stately/datepicker": "^3.11.0",
     "@remixicon/react": "^4.6.0",
+    "@tanstack/react-table": "^8.20.6",
     "@tremor/react": "^3.18.6",
     "@types/uuid": "^10.0.0",
     "@uploadthing/react": "^7.1.3",
