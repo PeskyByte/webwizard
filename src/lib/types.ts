@@ -123,4 +123,9 @@ typeof getFunnels
 
 export type UpsertFunnelPage = Prisma.FunnelPageCreateWithoutFunnelInput
 
-//export type PricesList = Stripe.ApiList<Stripe.Price>
+export const FunnelPageSchema = z.object({
+  name: z.string().min(1),
+  pathName: z.string().optional(),
+})
+
+/*export type PricesList = Stripe.ApiList<Stripe.Price>*/
