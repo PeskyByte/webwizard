@@ -22,7 +22,7 @@ import { CreateFunnelFormSchema } from "@/lib/types";
 import { saveActivityLogsNotification, upsertFunnel } from "@/lib/queries";
 import { v4 } from "uuid";
 import { toast } from "@/hooks/use-toast";
-import { useModal } from "../modal-provider";
+import { useModal } from "../../providers/modal-provider";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FileUpload from "../file-upload";

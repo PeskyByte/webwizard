@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import PipelineLane from "./pipeline-lane";
-import { useModal } from "@/components/modal-provider";
+import { useModal } from "@/providers/modal-provider";
 import CustomModal from "@/components/custom-modal";
 
 type Props = {

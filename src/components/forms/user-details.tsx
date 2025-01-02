@@ -3,7 +3,7 @@ import {
   AuthUserWithAgencySigebarOptionsSubAccounts,
   UserWithPermissionsAndSubAccounts,
 } from '@/lib/types'
-import { useModal } from '../modal-provider'
+import { useModal } from '../../providers/modal-provider'
 import { SubAccount, User } from '@prisma/client'
 import React, { useEffect, useState } from 'react'
 

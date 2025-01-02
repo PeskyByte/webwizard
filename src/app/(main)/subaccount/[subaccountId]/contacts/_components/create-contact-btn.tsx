@@ -2,7 +2,7 @@
 import ContactUserForm from '@/components/forms/contact-user-form'
 import CustomModal from '@/components/custom-modal'
 import { Button } from '@/components/ui/button'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 import React from 'react'
 
 type Props = {

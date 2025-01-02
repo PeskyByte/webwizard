@@ -35,7 +35,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 import UserDetails from '@/components/forms/user-details'
 
 import { deleteUser, getUser } from '@/lib/queries'

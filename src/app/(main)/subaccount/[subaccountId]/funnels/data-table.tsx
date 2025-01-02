@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import CustomModal from '@/components/custom-modal'

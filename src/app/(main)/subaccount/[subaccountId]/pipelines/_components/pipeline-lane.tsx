@@ -24,7 +24,7 @@ import {
 import { deleteLane, saveActivityLogsNotification } from '@/lib/queries'
 import { LaneDetail, TicketWithTags } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { Edit, MoreVertical, PlusCircleIcon, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'

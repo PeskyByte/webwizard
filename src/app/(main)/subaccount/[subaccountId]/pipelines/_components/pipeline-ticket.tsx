@@ -41,7 +41,7 @@ import { Contact2, Edit, MoreHorizontalIcon, Trash, User2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { Dispatch, SetStateAction } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 
 type Props = {
   setAllTickets: Dispatch<SetStateAction<TicketWithTags>>

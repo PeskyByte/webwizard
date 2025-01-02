@@ -16,7 +16,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useModal } from '@/components/modal-provider'
+import { useModal } from '@/providers/modal-provider'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
