@@ -96,7 +96,7 @@ const AgencyDetails = ({ data }: Props) => {
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
-      let newUserData
+      let newUserData;
       if (!data?.id) {
         const bodyData = {
           email: values.companyEmail,
@@ -118,11 +118,11 @@ const AgencyDetails = ({ data }: Props) => {
             postal_code: values.zipCode,
             state: values.zipCode,
           },
-        }
+        };
       }
 
-      newUserData = await initUser({ role: 'AGENCY_OWNER' })
-      if (!data) return
+      newUserData = await initUser({ role: "AGENCY_OWNER" });
+      if (!data) return;
 
       const response = await upsertAgency({
         id: data?.id ? data.id : v4(),
@@ -138,23 +138,23 @@ const AgencyDetails = ({ data }: Props) => {
         createdAt: new Date(),
         updatedAt: new Date(),
         companyEmail: values.companyEmail,
-        connectAccountId: '',
+        connectAccountId: "",
         goal: 5,
-      })
+      });
       toast({
-        title: 'Created Agency',
-      })
-      if (data?.id) return router.refresh()
-      return router.refresh()
+        title: "Created Agency",
+      });
+      if (data?.id) return router.refresh();
+      return router.refresh();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast({
-        variant: 'destructive',
-        title: 'Oppse!',
-        description: 'could not create your agency',
-      })
+        variant: "destructive",
+        title: "Oppse!",
+        description: "could not create your agency",
+      });
     }
-  }
+  };
 
   const handleDeleteAgency = async () => {
     if (!data?.id) return;

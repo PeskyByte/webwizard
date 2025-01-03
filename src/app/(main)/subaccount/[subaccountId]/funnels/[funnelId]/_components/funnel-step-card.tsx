@@ -1,35 +1,32 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { FunnelPage } from '@prisma/client'
-import { ArrowDown, Mail } from 'lucide-react'
-import React from 'react'
-import { Draggable } from 'react-beautiful-dnd'
-import { createPortal } from 'react-dom'
+import { Card, CardContent } from "@/components/ui/card";
+import { FunnelPage } from "@prisma/client";
+import { ArrowDown, Mail } from "lucide-react";
+import React from "react";
+import { Draggable } from "react-beautiful-dnd";
+import { createPortal } from "react-dom";
 
 type Props = {
-  funnelPage: FunnelPage
-  index: number
-  activePage: boolean
-}
+  funnelPage: FunnelPage;
+  index: number;
+  activePage: boolean;
+};
 
 const FunnelStepCard = ({ activePage, funnelPage, index }: Props) => {
-  let portal = document.getElementById('blur-page')
+  let portal = document.getElementById("blur-page");
 
   return (
-    <Draggable
-      draggableId={funnelPage.id.toString()}
-      index={index}
-    >
+    <Draggable draggableId={funnelPage.id.toString()} index={index}>
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
-          const offset = { x: 300 }
+          const offset = { x: 300 };
           //@ts-ignore
-          const x = provided.draggableProps.style?.left - offset.x
+          const x = provided.draggableProps.style?.left - offset.x;
           //@ts-ignore
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             //@ts-ignore
             left: x,
-          }
+          };
         }
         const component = (
           <Card
@@ -52,15 +49,15 @@ const FunnelStepCard = ({ activePage, funnelPage, index }: Props) => {
               <div className="w-2 top-2 right-2 h-2 absolute bg-emerald-500 rounded-full" />
             )}
           </Card>
-        )
-        if (!portal) return component
+        );
+        if (!portal) return component;
         if (snapshot.isDragging) {
-          return createPortal(component, portal)
+          return createPortal(component, portal);
         }
-        return component
+        return component;
       }}
     </Draggable>
-  )
-}
+  );
+};
 
-export default FunnelStepCard
+export default FunnelStepCard;

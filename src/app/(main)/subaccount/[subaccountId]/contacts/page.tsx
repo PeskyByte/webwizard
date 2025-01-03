@@ -16,10 +16,11 @@ import { format } from "date-fns/format";
 import CraeteContactButton from "./_components/create-contact-btn";
 
 type Props = {
-  params: { subaccountId: string };
+  params: Promise<{ subaccountId: string }>;
 };
 
-const ContactPage = async ({ params }: Props) => {
+const ContactPage = async (props: Props) => {
+  const params = await props.params;
   type SubAccountWithContacts = SubAccount & {
     Contact: (Contact & { Ticket: Ticket[] })[];
   };

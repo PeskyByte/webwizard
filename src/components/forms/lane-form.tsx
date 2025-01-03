@@ -1,105 +1,94 @@
-'use client'
-import React, { useEffect } from 'react'
-import { z } from 'zod'
+"use client";
+import React, { useEffect } from "react";
+import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card'
-import { useForm } from 'react-hook-form'
-import { Funnel, Lane, Pipeline } from '@prisma/client'
-import { Input } from '../ui/input'
-
-import { Button } from '../ui/button'
-import Loading from '..//loading'
-import { LaneFormSchema } from '@/lib/types'
+} from "@/components/ui/form";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { Lane } from "@prisma/client";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import Loading from "..//loading";
+import { LaneFormSchema } from "@/lib/types";
 import {
   getPipelineDetails,
   saveActivityLogsNotification,
-  upsertFunnel,
   upsertLane,
-  upsertPipeline,
-} from '@/lib/queries'
-import { v4 } from 'uuid'
-import { toast } from '@/hooks/use-toast'
-import { useModal } from '../../providers/modal-provider'
-import { useRouter } from 'next/navigation'
-import { zodResolver } from '@hookform/resolvers/zod'
+} from "@/lib/queries";
+import { toast } from "@/hooks/use-toast";
+import { useModal } from "../../providers/modal-provider";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface CreateLaneFormProps {
-  defaultData?: Lane
-  pipelineId: string
+  defaultData?: Lane;
+  pipelineId: string;
 }
 
 const LaneForm: React.FC<CreateLaneFormProps> = ({
   defaultData,
   pipelineId,
 }) => {
-  const { setClose } = useModal()
-  const router = useRouter()
+  const { setClose } = useModal();
+  const router = useRouter();
   const form = useForm<z.infer<typeof LaneFormSchema>>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: zodResolver(LaneFormSchema),
     defaultValues: {
-      name: defaultData?.name || '',
+      name: defaultData?.name || "",
     },
-  })
+  });
 
   useEffect(() => {
     if (defaultData) {
       form.reset({
-        name: defaultData.name || '',
-      })
+        name: defaultData.name || "",
+      });
     }
-  }, [defaultData])
+  }, [defaultData]);
 
-  const isLoading = form.formState.isLoading
+  const isLoading = form.formState.isLoading;
 
   const onSubmit = async (values: z.infer<typeof LaneFormSchema>) => {
-    if (!pipelineId) return
+    if (!pipelineId) return;
     try {
       const response = await upsertLane({
         ...values,
         id: defaultData?.id,
         pipelineId: pipelineId,
         order: defaultData?.order,
-      })
+      });
 
-      const d = await getPipelineDetails(pipelineId)
-      if (!d) return
+      const d = await getPipelineDetails(pipelineId);
+      if (!d) return;
 
       await saveActivityLogsNotification({
         agencyId: undefined,
         description: `Updated a lane | ${response?.name}`,
         subaccountId: d.subAccountId,
-      })
+      });
 
       toast({
-        title: 'Success',
-        description: 'Saved pipeline details',
-      })
+        title: "Success",
+        description: "Saved pipeline details",
+      });
 
-      router.refresh()
+      router.refresh();
     } catch (error) {
       toast({
-        variant: 'destructive',
-        title: 'Oppse!',
-        description: 'Could not save pipeline details',
-      })
+        variant: "destructive",
+        title: "Oppse!",
+        description: "Could not save pipeline details",
+      });
     }
-    setClose()
-  }
+    setClose();
+  };
   return (
     <Card className="w-full ">
       <CardHeader>
@@ -119,28 +108,21 @@ const LaneForm: React.FC<CreateLaneFormProps> = ({
                 <FormItem>
                   <FormLabel>Lane Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Lane Name"
-                      {...field}
-                    />
+                    <Input placeholder="Lane Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button
-              className="w-20 mt-4"
-              disabled={isLoading}
-              type="submit"
-            >
-              {form.formState.isSubmitting ? <Loading /> : 'Save'}
+            <Button className="w-20 mt-4" disabled={isLoading} type="submit">
+              {form.formState.isSubmitting ? <Loading /> : "Save"}
             </Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default LaneForm
+export default LaneForm;

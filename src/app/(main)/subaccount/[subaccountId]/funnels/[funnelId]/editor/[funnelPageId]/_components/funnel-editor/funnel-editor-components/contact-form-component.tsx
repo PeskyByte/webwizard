@@ -1,114 +1,112 @@
-'use client'
-import ContactForm from '@/components/forms/contact-form'
-import { Badge } from '@/components/ui/badge'
-import { toast } from '@/hooks/use-toast'
-import { EditorBtns } from '@/lib/constants'
+"use client";
+import ContactForm from "@/components/forms/contact-form";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "@/hooks/use-toast";
+import { EditorBtns } from "@/lib/constants";
 import {
   getFunnel,
   saveActivityLogsNotification,
   upsertContact,
-} from '@/lib/queries'
-
-import { ContactUserFormSchema } from '@/lib/types'
-import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
-import clsx from 'clsx'
-import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-
-import React from 'react'
-import { z } from 'zod'
+} from "@/lib/queries";
+import { ContactUserFormSchema } from "@/lib/types";
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
+import clsx from "clsx";
+import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { z } from "zod";
 
 type Props = {
-  element: EditorElement
-}
+  element: EditorElement;
+};
 
 const ContactFormComponent = (props: Props) => {
-  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor()
-  const router = useRouter()
+  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor();
+  const router = useRouter();
 
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
-    if (type === null) return
-    e.dataTransfer.setData('componentType', type)
-  }
+    if (type === null) return;
+    e.dataTransfer.setData("componentType", type);
+  };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
-    e.stopPropagation()
+    e.stopPropagation();
     dispatch({
-      type: 'CHANGE_CLICKED_ELEMENT',
+      type: "CHANGE_CLICKED_ELEMENT",
       payload: {
         elementDetails: props.element,
       },
-    })
-  }
+    });
+  };
 
-  const styles = props.element.styles
+  const styles = props.element.styles;
 
   const goToNextPage = async () => {
-    if (!state.editor.liveMode) return
-    const funnelPages = await getFunnel(funnelId)
-    if (!funnelPages || !pageDetails) return
+    if (!state.editor.liveMode) return;
+    const funnelPages = await getFunnel(funnelId);
+    if (!funnelPages || !pageDetails) return;
     if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
       const nextPage = funnelPages.FunnelPages.find(
         (page) => page.order === pageDetails.order + 1
-      )
-      if (!nextPage) return
+      );
+      if (!nextPage) return;
       router.replace(
         `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
-      )
+      );
     }
-  }
+  };
 
   const handleDeleteElement = () => {
     dispatch({
-      type: 'DELETE_ELEMENT',
+      type: "DELETE_ELEMENT",
       payload: { elementDetails: props.element },
-    })
-  }
+    });
+  };
 
   const onFormSubmit = async (
     values: z.infer<typeof ContactUserFormSchema>
   ) => {
-    if (!state.editor.liveMode) return
+    if (!state.editor.liveMode) return;
 
     try {
       const response = await upsertContact({
         ...values,
         subAccountId: subaccountId,
-      })
+      });
       //WIP Call trigger endpoint
       await saveActivityLogsNotification({
         agencyId: undefined,
         description: `A New contact signed up | ${response?.name}`,
         subaccountId: subaccountId,
-      })
+      });
       toast({
-        title: 'Success',
-        description: 'Successfully Saved your info',
-      })
-      await goToNextPage()
+        title: "Success",
+        description: "Successfully Saved your info",
+      });
+      await goToNextPage();
     } catch (error) {
       toast({
-        variant: 'destructive',
-        title: 'Failed',
-        description: 'Could not save your information',
-      })
+        variant: "destructive",
+        title: "Failed",
+        description: "Could not save your information",
+      });
     }
-  }
+  };
 
   return (
     <div
       style={styles}
       draggable
-      onDragStart={(e) => handleDragStart(e, 'contactForm')}
+      onDragStart={(e) => handleDragStart(e, "contactForm")}
       onClick={handleOnClickBody}
       className={clsx(
-        'p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center',
+        "p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
         {
-          '!border-blue-500':
+          "!border-blue-500":
             state.editor.selectedElement.id === props.element.id,
 
-          '!border-solid': state.editor.selectedElement.id === props.element.id,
-          'border-dashed border-[1px] border-slate-300': !state.editor.liveMode,
+          "!border-solid": state.editor.selectedElement.id === props.element.id,
+          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
         }
       )}
     >
@@ -134,7 +132,7 @@ const ContactFormComponent = (props: Props) => {
           </div>
         )}
     </div>
-  )
-}
+  );
+};
 
-export default ContactFormComponent
+export default ContactFormComponent;

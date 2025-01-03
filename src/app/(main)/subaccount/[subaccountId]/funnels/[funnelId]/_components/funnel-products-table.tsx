@@ -1,26 +1,23 @@
-'use client'
-import React, { useState } from 'react'
+"use client";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table";
 /*import Stripe from 'stripe'*/
-import Image from 'next/image'
 import {
   saveActivityLogsNotification,
   updateFunnelProducts,
-} from '@/lib/queries'
-import { Funnel } from '@prisma/client'
-import { useRouter } from 'next/navigation'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+} from "@/lib/queries";
+import { Funnel } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface FunnelProductsTableProps {
-  defaultData: Funnel
+  defaultData: Funnel;
   /*products: Stripe.Product[]*/
 }
 
@@ -28,26 +25,26 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
   /*products,*/
   defaultData,
 }) => {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [liveProducts, setLiveProducts] = useState<
     { productId: string; recurring: boolean }[] | []
-  >(JSON.parse(defaultData.liveProducts || '[]'))
+  >(JSON.parse(defaultData.liveProducts || "[]"));
 
   const handleSaveProducts = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const response = await updateFunnelProducts(
       JSON.stringify(liveProducts),
       defaultData.id
-    )
+    );
     await saveActivityLogsNotification({
       agencyId: undefined,
       description: `Update funnel products | ${response.name}`,
       subaccountId: defaultData.subAccountId,
-    })
-    setIsLoading(false)
-    router.refresh()
-  }
+    });
+    setIsLoading(false);
+    router.refresh();
+  };
 
   /*const handleAddProduct = async (product: Stripe.Product) => {
     const productIdExists = liveProducts.find(
@@ -136,7 +133,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
         Save Products
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default FunnelProductsTable
+export default FunnelProductsTable;

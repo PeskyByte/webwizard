@@ -5,11 +5,10 @@ import { Plan } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: { plan: Plan; state: string; code: string };
+const Page = async (props: {
+  searchParams: Promise<{ plan: Plan; state: string; code: string }>;
 }) => {
+  const searchParams = await props.searchParams;
   const agencyId = await verifyAndAcceptInvitation();
   console.log(agencyId);
 
@@ -42,7 +41,9 @@ const Page = async ({
     <div className="flex justify-center items-center mt-4">
       <div className="max-w-[850px] border-[1px] p-4 rounded-xl">
         <h1 className="text-4xl">Create An Agency</h1>
-        <AgencyDetails data = {{companyEmail:authUser?.emailAddresses[0].emailAddress}}></AgencyDetails>
+        <AgencyDetails
+          data={{ companyEmail: authUser?.emailAddresses[0].emailAddress }}
+        ></AgencyDetails>
       </div>
     </div>
   );

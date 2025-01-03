@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Loading = () => {
   return (
@@ -20,7 +20,7 @@ const Loading = () => {
         />
       </svg>
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

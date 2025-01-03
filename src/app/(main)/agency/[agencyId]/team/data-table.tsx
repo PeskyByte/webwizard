@@ -1,5 +1,5 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 import {
   Table,
   TableBody,
@@ -7,27 +7,26 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-
+} from "@/components/ui/table";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   useReactTable,
-} from '@tanstack/react-table'
-import { useModal } from '@/providers/modal-provider'
-import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import CustomModal from '@/components/custom-modal'
+} from "@tanstack/react-table";
+import { useModal } from "@/providers/modal-provider";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import CustomModal from "@/components/custom-modal";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  filterValue: string
-  actionButtonText?: React.ReactNode
-  modalChildren?: React.ReactNode
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  filterValue: string;
+  actionButtonText?: React.ReactNode;
+  modalChildren?: React.ReactNode;
 }
 export default function DataTable<TData, TValue>({
   columns,
@@ -36,13 +35,13 @@ export default function DataTable<TData, TValue>({
   actionButtonText,
   modalChildren,
 }: DataTableProps<TData, TValue>) {
-  const { setOpen } = useModal()
+  const { setOpen } = useModal();
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-  })
+  });
   return (
     <>
       <div className="flex items-center justify-between">
@@ -51,10 +50,10 @@ export default function DataTable<TData, TValue>({
           <Input
             placeholder="Search Name..."
             value={
-              (table.getColumn(filterValue)?.getFilterValue() as string) ?? ''
+              (table.getColumn(filterValue)?.getFilterValue() as string) ?? ""
             }
             onChange={(event) => {
-              table.getColumn(filterValue)?.setFilterValue(event.target.value)
+              table.getColumn(filterValue)?.setFilterValue(event.target.value);
             }}
             className="h-12"
           />
@@ -70,7 +69,7 @@ export default function DataTable<TData, TValue>({
                 >
                   {modalChildren}
                 </CustomModal>
-              )
+              );
             }
           }}
         >
@@ -92,7 +91,7 @@ export default function DataTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -102,7 +101,7 @@ export default function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -128,5 +127,5 @@ export default function DataTable<TData, TValue>({
         </Table>
       </div>
     </>
-  )
+  );
 }

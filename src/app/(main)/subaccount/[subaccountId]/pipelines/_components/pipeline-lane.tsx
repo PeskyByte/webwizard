@@ -1,6 +1,5 @@
-'use client'
-import CreateLaneForm from '@/components/forms/lane-form'
-
+"use client";
+import CreateLaneForm from "@/components/forms/lane-form";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,8 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Badge } from '@/components/ui/badge'
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,27 +19,27 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { deleteLane, saveActivityLogsNotification } from '@/lib/queries'
-import { LaneDetail, TicketWithTags } from '@/lib/types'
-import { cn } from '@/lib/utils'
-import { useModal } from '@/providers/modal-provider'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { Edit, MoreVertical, PlusCircleIcon, Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React, { Dispatch, SetStateAction, useMemo } from 'react'
-import CustomModal from '@/components/custom-modal'
-import TicketForm from '@/components/forms/ticket-form'
-import PipelineTicket from './pipeline-ticket'
+} from "@/components/ui/dropdown-menu";
+import { deleteLane, saveActivityLogsNotification } from "@/lib/queries";
+import { LaneDetail, TicketWithTags } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { useModal } from "@/providers/modal-provider";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Edit, MoreVertical, PlusCircleIcon, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
+import CustomModal from "@/components/custom-modal";
+import TicketForm from "@/components/forms/ticket-form";
+import PipelineTicket from "./pipeline-ticket";
 
 interface PipelaneLaneProps {
-  setAllTickets: Dispatch<SetStateAction<TicketWithTags>>
-  allTickets: TicketWithTags
-  tickets: TicketWithTags
-  pipelineId: string
-  laneDetails: LaneDetail
-  subaccountId: string
-  index: number
+  setAllTickets: Dispatch<SetStateAction<TicketWithTags>>;
+  allTickets: TicketWithTags;
+  tickets: TicketWithTags;
+  pipelineId: string;
+  laneDetails: LaneDetail;
+  subaccountId: string;
+  index: number;
 }
 
 const PipelineLane: React.FC<PipelaneLaneProps> = ({
@@ -52,27 +51,27 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
   allTickets,
   index,
 }) => {
-  const { setOpen } = useModal()
-  const router = useRouter()
+  const { setOpen } = useModal();
+  const router = useRouter();
 
   const amt = new Intl.NumberFormat(undefined, {
-    style: 'currency',
-    currency: 'USD',
-  })
+    style: "currency",
+    currency: "USD",
+  });
 
   const laneAmt = useMemo(() => {
     //console.log(tickets)
     return tickets.reduce(
       (sum, ticket) => sum + (Number(ticket?.value) || 0),
       0
-    )
-  }, [tickets])
+    );
+  }, [tickets]);
 
-  const randomColor = `#${Math.random().toString(16).slice(2, 8)}`
+  const randomColor = `#${Math.random().toString(16).slice(2, 8)}`;
 
   const addNewTicket = (ticket: TicketWithTags[0]) => {
-    setAllTickets([...allTickets, ticket])
-  }
+    setAllTickets([...allTickets, ticket]);
+  };
 
   const handleCreateTicket = () => {
     setOpen(
@@ -86,36 +85,30 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
           subaccountId={subaccountId}
         />
       </CustomModal>
-    )
-  }
+    );
+  };
 
   const handleEditLane = () => {
     setOpen(
-      <CustomModal
-        title="Edit Lane Details"
-        subheading=""
-      >
-        <CreateLaneForm
-          pipelineId={pipelineId}
-          defaultData={laneDetails}
-        />
+      <CustomModal title="Edit Lane Details" subheading="">
+        <CreateLaneForm pipelineId={pipelineId} defaultData={laneDetails} />
       </CustomModal>
-    )
-  }
+    );
+  };
 
   const handleDeleteLane = async () => {
     try {
-      const response = await deleteLane(laneDetails.id)
+      const response = await deleteLane(laneDetails.id);
       await saveActivityLogsNotification({
         agencyId: undefined,
         description: `Deleted a lane | ${response?.name}`,
         subaccountId,
-      })
-      router.refresh()
+      });
+      router.refresh();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <Draggable
@@ -126,17 +119,17 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
           //@ts-ignore
-          const offset = { x: 300, y: 0 }
+          const offset = { x: 300, y: 0 };
           //@ts-ignore
-          const x = provided.draggableProps.style?.left - offset.x
+          const x = provided.draggableProps.style?.left - offset.x;
           //@ts-ignore
-          const y = provided.draggableProps.style?.top - offset.y
+          const y = provided.draggableProps.style?.top - offset.y;
           //@ts-ignore
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             top: y,
             left: x,
-          }
+          };
         }
         return (
           <div
@@ -155,7 +148,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                       {/* {laneDetails.order} */}
                       <div className="flex items-center w-full gap-2">
                         <div
-                          className={cn('w-4 h-4 rounded-full')}
+                          className={cn("w-4 h-4 rounded-full")}
                           style={{ background: randomColor }}
                         />
                         <span className="font-bold text-sm">
@@ -250,10 +243,10 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
               </DropdownMenu>
             </AlertDialog>
           </div>
-        )
+        );
       }}
     </Draggable>
-  )
-}
+  );
+};
 
-export default PipelineLane
+export default PipelineLane;

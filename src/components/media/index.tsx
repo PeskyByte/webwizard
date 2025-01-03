@@ -1,6 +1,6 @@
-import { GetMediaFiles } from '@/lib/types'
-import React from 'react'
-import MediaUploadButton from './upload-buttons'
+import { GetMediaFiles } from "@/lib/types";
+import React from "react";
+import MediaUploadButton from "./upload-buttons";
 import {
   Command,
   CommandEmpty,
@@ -8,14 +8,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '../ui/command'
-import MediaCard from './media-card'
-import { FolderSearch } from 'lucide-react'
+} from "../ui/command";
+import MediaCard from "./media-card";
+import { FolderSearch } from "lucide-react";
 
 type Props = {
-  data: GetMediaFiles
-  subaccountId: string
-}
+  data: GetMediaFiles;
+  subaccountId: string;
+};
 
 const MediaComponent = ({ data, subaccountId }: Props) => {
   return (
@@ -54,7 +54,7 @@ const MediaComponent = ({ data, subaccountId }: Props) => {
         </CommandList>
       </Command>
     </div>
-  )
-}
+  );
+};
 
-export default MediaComponent
+export default MediaComponent;

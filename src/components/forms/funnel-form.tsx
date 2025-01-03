@@ -4,7 +4,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { Funnel } from "@prisma/client";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-
 import { Button } from "../ui/button";
 import Loading from "../loading";
 import { CreateFunnelFormSchema } from "@/lib/types";

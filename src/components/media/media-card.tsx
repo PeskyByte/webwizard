@@ -1,7 +1,7 @@
-'use client'
-import { Media } from '@prisma/client'
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+"use client";
+import { Media } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,17 +20,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Copy, MoreHorizontal, Trash } from 'lucide-react'
-import Image from 'next/image'
-import { deleteMedia, saveActivityLogsNotification } from '@/lib/queries'
-import { toast } from '@/hooks/use-toast'
+} from "@/components/ui/alert-dialog";
+import { Copy, MoreHorizontal, Trash } from "lucide-react";
+import Image from "next/image";
+import { deleteMedia, saveActivityLogsNotification } from "@/lib/queries";
+import { toast } from "@/hooks/use-toast";
 
-type Props = { file: Media }
+type Props = { file: Media };
 
 const MediaCard = ({ file }: Props) => {
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   return (
     <AlertDialog>
@@ -63,8 +63,8 @@ const MediaCard = ({ file }: Props) => {
             <DropdownMenuItem
               className="flex gap-2"
               onClick={() => {
-                navigator.clipboard.writeText(file.link)
-                toast({ title: 'Copied To Clipboard' })
+                navigator.clipboard.writeText(file.link);
+                toast({ title: "Copied To Clipboard" });
               }}
             >
               <Copy size={15} /> Copy Image Link
@@ -93,19 +93,19 @@ const MediaCard = ({ file }: Props) => {
             disabled={loading}
             className="bg-destructive hover:bg-destructive"
             onClick={async () => {
-              setLoading(true)
-              const response = await deleteMedia(file.id)
+              setLoading(true);
+              const response = await deleteMedia(file.id);
               await saveActivityLogsNotification({
                 agencyId: undefined,
                 description: `Deleted a media file | ${response?.name}`,
                 subaccountId: response.subAccountId,
-              })
+              });
               toast({
-                title: 'Deleted File',
-                description: 'Successfully deleted the file',
-              })
-              setLoading(false)
-              router.refresh()
+                title: "Deleted File",
+                description: "Successfully deleted the file",
+              });
+              setLoading(false);
+              router.refresh();
             }}
           >
             Delete
@@ -113,7 +113,7 @@ const MediaCard = ({ file }: Props) => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
-}
+  );
+};
 
-export default MediaCard
+export default MediaCard;

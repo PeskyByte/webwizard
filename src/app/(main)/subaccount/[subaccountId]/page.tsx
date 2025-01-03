@@ -1,58 +1,60 @@
-import BlurPage from '@/components/blur-page'
-import CircleProgress from '@/components/circle-progress'
-import PipelineValue from '@/components/pipeline-value'
-import SubaccountFunnelChart from '@/components/subaccount-funnel-chart'
-import { Badge } from '@/components/ui/badge'
+import BlurPage from "@/components/blur-page";
+import CircleProgress from "@/components/circle-progress";
+import PipelineValue from "@/components/pipeline-value";
+import SubaccountFunnelChart from "@/components/subaccount-funnel-chart";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { db } from '@/lib/db'
-import { AreaChart, BadgeDelta } from '@tremor/react'
-import { ClipboardIcon, Contact2, DollarSign, ShoppingCart } from 'lucide-react'
-import Link from 'next/link'
-import React from 'react'
+} from "@/components/ui/table";
+import { db } from "@/lib/db";
+import { AreaChart, BadgeDelta } from "@tremor/react";
+import {
+  ClipboardIcon,
+  Contact2,
+  DollarSign,
+  ShoppingCart,
+} from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 type Props = {
-  params: { subaccountId: string }
-  searchParams: {
-    code: string
-  }
-}
+  params: Promise<{ subaccountId: string }>;
+  searchParams: Promise<{
+    code: string;
+  }>;
+};
 
-const SubaccountPageId = async ({ params, searchParams }: Props) => {
-  let currency = 'USD'
-  let sessions
-  let totalClosedSessions
-  let totalPendingSessions
-  let net = 0
-  let potentialIncome = 0
-  let closingRate = 0
+const SubaccountPageId = async (props: Props) => {
+  const params = await props.params;
+  let currency = "USD";
+  let sessions;
+  let totalClosedSessions;
+  let totalPendingSessions;
+  let net = 0;
+  let potentialIncome = 0;
+  let closingRate = 0;
 
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
       id: params.subaccountId,
     },
-  })
+  });
 
-  const currentYear = new Date().getFullYear()
-  const startDate = new Date(`${currentYear}-01-01T00:00:00Z`).getTime() / 1000
-  const endDate = new Date(`${currentYear}-12-31T23:59:59Z`).getTime() / 1000
+  const currentYear = new Date().getFullYear();
+  const startDate = new Date(`${currentYear}-01-01T00:00:00Z`).getTime() / 1000;
+  const endDate = new Date(`${currentYear}-12-31T23:59:59Z`).getTime() / 1000;
 
-  if (!subaccountDetails) return
+  if (!subaccountDetails) return;
 
   const funnels = await db.funnel.findMany({
     where: {
@@ -61,7 +63,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
     include: {
       FunnelPages: true,
     },
-  })
+  });
 
   const funnelPerformanceMetrics = funnels.map((funnel) => ({
     ...funnel,
@@ -69,7 +71,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
       (total, page) => total + page.visits,
       0
     ),
-  }))
+  }));
 
   return (
     <BlurPage>
@@ -132,13 +134,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
             <Card className="xl:w-fit">
               <CardHeader>
                 <CardDescription>Conversions</CardDescription>
-                <CircleProgress
-                  value={closingRate}
-                  description={
-                    <> 
-                    </>
-                  }
-                />
+                <CircleProgress value={closingRate} description={<></>} />
               </CardHeader>
             </Card>
           </div>
@@ -165,8 +161,8 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
                 className="text-sm stroke-primary"
                 data={sessions || []}
                 index="created"
-                categories={['amount_total']}
-                colors={['primary']}
+                categories={["amount_total"]}
+                colors={["primary"]}
                 yAxisWidth={30}
                 showAnimation={true}
               />
@@ -195,9 +191,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
                       <TableHead className="text-right">Value</TableHead>
                     </TableRow>
                   </TableHeader>
-                  <TableBody className="font-medium truncate">
-                    
-                  </TableBody>
+                  <TableBody className="font-medium truncate"></TableBody>
                 </Table>
               </CardHeader>
             </Card>
@@ -205,7 +199,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
         </div>
       </div>
     </BlurPage>
-  )
-}
+  );
+};
 
-export default SubaccountPageId
+export default SubaccountPageId;

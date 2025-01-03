@@ -1,8 +1,8 @@
-import React from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Database, Plus, SettingsIcon, SquareStackIcon } from 'lucide-react'
+import React from "react";
+import { TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Database, Plus, SettingsIcon, SquareStackIcon } from "lucide-react";
 
-type Props = {}
+type Props = {};
 
 const TabList = (props: Props) => {
   return (
@@ -33,7 +33,7 @@ const TabList = (props: Props) => {
         <Database />
       </TabsTrigger>
     </TabsList>
-  )
-}
+  );
+};
 
-export default TabList
+export default TabList;

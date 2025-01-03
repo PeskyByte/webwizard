@@ -1,66 +1,66 @@
-import { DeviceTypes, EditorElement } from './editor-provider'
+import { DeviceTypes, EditorElement } from "./editor-provider";
 
 export type EditorAction =
   | {
-      type: 'ADD_ELEMENT'
+      type: "ADD_ELEMENT";
       payload: {
-        containerId: string
-        elementDetails: EditorElement
-      }
+        containerId: string;
+        elementDetails: EditorElement;
+      };
     }
   | {
-      type: 'UPDATE_ELEMENT'
+      type: "UPDATE_ELEMENT";
       payload: {
-        elementDetails: EditorElement
-      }
+        elementDetails: EditorElement;
+      };
     }
   | {
-      type: 'DELETE_ELEMENT'
+      type: "DELETE_ELEMENT";
       payload: {
-        elementDetails: EditorElement
-      }
+        elementDetails: EditorElement;
+      };
     }
   | {
-      type: 'CHANGE_CLICKED_ELEMENT'
+      type: "CHANGE_CLICKED_ELEMENT";
       payload: {
         elementDetails?:
           | EditorElement
           | {
-              id: ''
-              content: []
-              name: ''
-              styles: {}
-              type: null
-            }
-      }
+              id: "";
+              content: [];
+              name: "";
+              styles: {};
+              type: null;
+            };
+      };
     }
   | {
-      type: 'CHANGE_DEVICE'
+      type: "CHANGE_DEVICE";
       payload: {
-        device: DeviceTypes
-      }
+        device: DeviceTypes;
+      };
     }
   | {
-      type: 'TOGGLE_PREVIEW_MODE'
+      type: "TOGGLE_PREVIEW_MODE";
     }
   | {
-      type: 'TOGGLE_LIVE_MODE'
+      type: "TOGGLE_LIVE_MODE";
       payload?: {
-        value: boolean
-      }
+        value: boolean;
+      };
     }
-  | { type: 'REDO' }
-  | { type: 'UNDO' }
+  | { type: "REDO" }
+  | { type: "UNDO" }
   | {
-      type: 'LOAD_DATA'
+      type: "LOAD_DATA";
       payload: {
-        elements: EditorElement[]
-        withLive: boolean
-      }
+        elements: EditorElement[];
+        withLive: boolean;
+      };
     }
   | {
-      type: 'SET_FUNNELPAGE_ID'
+      type: "SET_FUNNELPAGE_ID";
       payload: {
-        funnelPageId: string
-      }
-    }
+        funnelPageId: string;
+      };
+    };

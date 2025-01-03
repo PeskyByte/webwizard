@@ -1,13 +1,13 @@
-'use client'
-import React from 'react'
-import { z } from 'zod'
+"use client";
+import React from "react";
+import { z } from "zod";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/card'
+} from "../ui/card";
 import {
   Form,
   FormControl,
@@ -15,63 +15,63 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '../ui/input'
+} from "../ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select'
-import { Button } from '../ui/button'
-import Loading from '../loading'
-import { saveActivityLogsNotification, sendInvitation } from '@/lib/queries'
-import { useToast } from '@/hooks/use-toast'
+} from "../ui/select";
+import { Button } from "../ui/button";
+import Loading from "../loading";
+import { saveActivityLogsNotification, sendInvitation } from "@/lib/queries";
+import { useToast } from "@/hooks/use-toast";
 
 interface SendInvitationProps {
-  agencyId: string
+  agencyId: string;
 }
 
 const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
-  const { toast } = useToast()
+  const { toast } = useToast();
   const userDataSchema = z.object({
     email: z.string().email(),
-    role: z.enum(['AGENCY_ADMIN', 'SUBACCOUNT_USER', 'SUBACCOUNT_GUEST']),
-  })
+    role: z.enum(["AGENCY_ADMIN", "SUBACCOUNT_USER", "SUBACCOUNT_GUEST"]),
+  });
 
   const form = useForm<z.infer<typeof userDataSchema>>({
     resolver: zodResolver(userDataSchema),
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
-      email: '',
-      role: 'SUBACCOUNT_USER',
+      email: "",
+      role: "SUBACCOUNT_USER",
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof userDataSchema>) => {
     try {
-      const res = await sendInvitation(values.role, values.email, agencyId)
+      const res = await sendInvitation(values.role, values.email, agencyId);
       await saveActivityLogsNotification({
         agencyId: agencyId,
         description: `Invited ${res.email}`,
         subaccountId: undefined,
-      })
+      });
       toast({
-        title: 'Success',
-        description: 'Created and sent invitation',
-      })
+        title: "Success",
+        description: "Created and sent invitation",
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast({
-        variant: 'destructive',
-        title: 'Oppse!',
-        description: 'Could not send invitation',
-      })
+        variant: "destructive",
+        title: "Oppse!",
+        description: "Could not send invitation",
+      });
     }
-  }
+  };
 
   return (
     <Card>
@@ -97,10 +97,7 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
                 <FormItem className="flex-1">
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Email"
-                      {...field}
-                    />
+                    <Input placeholder="Email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,17 +133,14 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
                 </FormItem>
               )}
             />
-            <Button
-              disabled={form.formState.isSubmitting}
-              type="submit"
-            >
-              {form.formState.isSubmitting ? <Loading /> : 'Send Invitation'}
+            <Button disabled={form.formState.isSubmitting} type="submit">
+              {form.formState.isSubmitting ? <Loading /> : "Send Invitation"}
             </Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default SendInvitation
+export default SendInvitation;

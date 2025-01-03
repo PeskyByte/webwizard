@@ -1,35 +1,36 @@
-import BlurPage from '@/components/blur-page'
-import { Button } from '@/components/ui/button'
+import BlurPage from "@/components/blur-page";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { db } from '@/lib/db'
-import { CheckCircleIcon } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+} from "@/components/ui/card";
+import { db } from "@/lib/db";
+import { CheckCircleIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 type Props = {
-  searchParams: {
-    state: string
-    code: string
-  }
-  params: { subaccountId: string }
-}
+  searchParams: Promise<{
+    state: string;
+    code: string;
+  }>;
+  params: Promise<{ subaccountId: string }>;
+};
 
-const LaunchPad = async ({ params, searchParams }: Props) => {
+const LaunchPad = async (props: Props) => {
+  const params = await props.params;
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
       id: params.subaccountId,
     },
-  })
+  });
 
   if (!subaccountDetails) {
-    return
+    return;
   }
 
   const allDetailsExist =
@@ -40,7 +41,7 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
     subaccountDetails.companyPhone &&
     subaccountDetails.country &&
     subaccountDetails.name &&
-    subaccountDetails.state
+    subaccountDetails.state;
 
   return (
     <BlurPage>
@@ -112,7 +113,7 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
         </div>
       </div>
     </BlurPage>
-  )
-}
+  );
+};
 
-export default LaunchPad
+export default LaunchPad;
