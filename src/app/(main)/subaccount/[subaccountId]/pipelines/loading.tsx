@@ -1,5 +1,6 @@
-import LoadingPage from "@/components/loading-page";
 import React from "react";
+
+import LoadingPage from "@/components/loading-page";
 
 const Loading = () => {
   return (

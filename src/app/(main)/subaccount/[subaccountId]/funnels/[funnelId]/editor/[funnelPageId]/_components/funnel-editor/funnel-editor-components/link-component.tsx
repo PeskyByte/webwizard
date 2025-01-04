@@ -1,11 +1,13 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import { EditorBtns } from "@/lib/constants";
-import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
+
 import clsx from "clsx";
 import { Trash } from "lucide-react";
 import Link from "next/link";
 import React, { useRef } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { EditorBtns } from "@/lib/constants";
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
 
 type Props = {
   element: EditorElement;
@@ -52,7 +54,7 @@ const LinkComponent = (props: Props) => {
 
           "!border-solid": state.editor.selectedElement.id === props.element.id,
           "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
-        }
+        },
       )}
     >
       {state.editor.selectedElement.id === props.element.id &&

@@ -1,7 +1,10 @@
 "use client";
-import { getPipelines } from "@/lib/queries";
+
 import { Prisma } from "@prisma/client";
 import React, { useEffect, useMemo, useState } from "react";
+
+import { getPipelines } from "@/lib/queries";
+
 import { Card, CardContent, CardDescription, CardHeader } from "./ui/card";
 import { Progress } from "./ui/progress";
 import {
@@ -43,7 +46,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
           ?.Lane?.reduce((totalLanes, lane, currentLaneIndex, array) => {
             const laneTicketsTotal = lane.Tickets.reduce(
               (totalTickets, ticket) => totalTickets + Number(ticket?.value),
-              0
+              0,
             );
             if (currentLaneIndex === array.length - 1) {
               setPipelineClosedValue(laneTicketsTotal || 0);
@@ -59,7 +62,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
   const pipelineRate = useMemo(
     () =>
       (pipelineClosedValue / (totalPipelineValue + pipelineClosedValue)) * 100,
-    [pipelineClosedValue, totalPipelineValue]
+    [pipelineClosedValue, totalPipelineValue],
   );
 
   return (

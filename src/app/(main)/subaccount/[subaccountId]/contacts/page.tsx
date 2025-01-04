@@ -1,3 +1,7 @@
+import { Contact, SubAccount, Ticket } from "@prisma/client";
+import { format } from "date-fns/format";
+import React from "react";
+
 import BlurPage from "@/components/blur-page";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -10,9 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { db } from "@/lib/db";
-import { Contact, SubAccount, Ticket } from "@prisma/client";
-import React from "react";
-import { format } from "date-fns/format";
+
 import CraeteContactButton from "./_components/create-contact-btn";
 
 type Props = {
@@ -57,7 +59,7 @@ const ContactPage = async (props: Props) => {
 
     const laneAmt = tickets.reduce(
       (sum, ticket) => sum + (Number(ticket?.value) || 0),
-      0
+      0,
     );
 
     return amt.format(laneAmt);

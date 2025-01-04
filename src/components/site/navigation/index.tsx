@@ -1,8 +1,9 @@
+import { UserButton } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import React from "react";
+
 import { ModeToggle } from "@/components/mode-toggle";
 
 type Props = {
@@ -13,12 +14,7 @@ const Navigation = ({ user }: Props) => {
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-10">
       <aside className="flex items-center gap-2">
-        <Image
-          src={"./assets/webwizard-logo.svg"}
-          width={40}
-          height={40}
-          alt="logo"
-        />
+        <Image src="/webwizard-logo.svg" width={40} height={40} alt="logo" />
         <span className="text-xl font-bold"> WebWizard.</span>
       </aside>
       <nav className="hidden md:block absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">

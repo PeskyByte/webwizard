@@ -8,6 +8,9 @@ import {
   Ticket,
   User,
 } from "@prisma/client";
+import { z } from "zod";
+
+import { db } from "./db";
 import {
   _getTicketsWithAllRelations,
   getAuthUserDetails,
@@ -17,8 +20,6 @@ import {
   getTicketsWithTags,
   getUserPermissions,
 } from "./queries";
-import { db } from "./db";
-import { z } from "zod";
 
 export type NotificationWithUser =
   | ({
@@ -43,7 +44,7 @@ export type AuthUserWithAgencySigebarOptionsSubAccounts =
   Prisma.PromiseReturnType<typeof getAuthUserDetails>;
 
 const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
-  agencyId: string
+  agencyId: string,
 ) => {
   return await db.user.findFirst({
     where: { Agency: { id: agencyId } },

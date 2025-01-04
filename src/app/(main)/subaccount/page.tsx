@@ -1,7 +1,8 @@
-import Unauthorized from "@/components/unauthorized";
-import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 import { redirect } from "next/navigation";
 import React from "react";
+
+import Unauthorized from "@/components/unauthorized";
+import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 
 type Props = {
   searchParams: Promise<{ state: string; code: string }>;
@@ -19,7 +20,7 @@ const SubAccountMainPage = async (props: Props) => {
   if (!user) return;
 
   const getFirstSubaccountWithAccess = user.Permissions.find(
-    (permission) => permission.access === true
+    (permission) => permission.access === true,
   );
 
   if (searchParams.state) {
@@ -27,7 +28,7 @@ const SubAccountMainPage = async (props: Props) => {
     const stateSubaccountId = searchParams.state.split("___")[1];
     if (!stateSubaccountId) return <Unauthorized />;
     return redirect(
-      `/subaccount/${stateSubaccountId}/${statePath}?code=${searchParams.code}`
+      `/subaccount/${stateSubaccountId}/${statePath}?code=${searchParams.code}`,
     );
   }
 

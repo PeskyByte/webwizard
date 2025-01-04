@@ -1,5 +1,10 @@
 "use client";
+
+import { Funnel } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -12,9 +17,6 @@ import {
   saveActivityLogsNotification,
   updateFunnelProducts,
 } from "@/lib/queries";
-import { Funnel } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 
 interface FunnelProductsTableProps {
   defaultData: Funnel;
@@ -35,7 +37,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
     setIsLoading(true);
     const response = await updateFunnelProducts(
       JSON.stringify(liveProducts),
-      defaultData.id
+      defaultData.id,
     );
     await saveActivityLogsNotification({
       agencyId: undefined,

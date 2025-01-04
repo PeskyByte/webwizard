@@ -1,3 +1,8 @@
+import { AreaChart } from "@tremor/react";
+import { ClipboardIcon, Contact2, DollarSign, Goal } from "lucide-react";
+import Link from "next/link";
+import React from "react";
+
 import CircleProgress from "@/components/circle-progress";
 import {
   Card,
@@ -10,10 +15,6 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/db";
-import { AreaChart } from "@tremor/react";
-import { ClipboardIcon, Contact2, DollarSign, Goal } from "lucide-react";
-import Link from "next/link";
-import React from "react";
 
 const Page = async (props: {
   params: Promise<{ agencyId: string }>;

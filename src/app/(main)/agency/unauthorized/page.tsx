@@ -1,5 +1,6 @@
-import Unauthorized from "@/components/unauthorized";
 import React from "react";
+
+import Unauthorized from "@/components/unauthorized";
 
 type Props = {};
 const Page = (props: Props) => {

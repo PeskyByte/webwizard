@@ -1,13 +1,5 @@
 "use client";
-import React from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   AlignCenter,
   AlignHorizontalJustifyCenterIcon,
@@ -23,7 +15,16 @@ import {
   ChevronsLeftRightIcon,
   LucideImageDown,
 } from "lucide-react";
-import { Tabs, TabsTrigger, TabsList } from "@/components/ui/tabs";
+import React from "react";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -33,8 +34,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEditor } from "@/providers/editor/editor-provider";
 import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsTrigger, TabsList } from "@/components/ui/tabs";
+import { useEditor } from "@/providers/editor/editor-provider";
 
 type Props = {};
 
@@ -342,7 +344,7 @@ const SettingsTab = (props: Props) => {
                   : parseFloat(
                       (
                         state.editor.selectedElement.styles?.opacity || "0"
-                      ).replace("%", "")
+                      ).replace("%", ""),
                     ) || 0}
                 %
               </small>
@@ -362,7 +364,7 @@ const SettingsTab = (props: Props) => {
                   : parseFloat(
                       (
                         state.editor.selectedElement.styles?.opacity || "0"
-                      ).replace("%", "")
+                      ).replace("%", ""),
                     ) || 0,
               ]}
               max={100}
@@ -379,7 +381,7 @@ const SettingsTab = (props: Props) => {
                   : parseFloat(
                       (
                         state.editor.selectedElement.styles?.borderRadius || "0"
-                      ).replace("px", "")
+                      ).replace("px", ""),
                     ) || 0}
                 px
               </small>
@@ -400,7 +402,7 @@ const SettingsTab = (props: Props) => {
                   : parseFloat(
                       (
                         state.editor.selectedElement.styles?.borderRadius || "0"
-                      ).replace("%", "")
+                      ).replace("%", ""),
                     ) || 0,
               ]}
               max={100}

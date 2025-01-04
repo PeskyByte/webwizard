@@ -1,9 +1,10 @@
-import AgencyDetails from "@/components/forms/agency-details";
-import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 import { currentUser } from "@clerk/nextjs/server";
 import { Plan } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
+
+import AgencyDetails from "@/components/forms/agency-details";
+import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 
 const Page = async (props: {
   searchParams: Promise<{ plan: Plan; state: string; code: string }>;
@@ -19,7 +20,7 @@ const Page = async (props: {
     } else if (user?.role === "AGENCY_OWNER" || user?.role === "AGENCY_ADMIN") {
       if (searchParams.plan) {
         return redirect(
-          `/agency/${agencyId}/billing?plan=${searchParams.plan}`
+          `/agency/${agencyId}/billing?plan=${searchParams.plan}`,
         );
       }
       if (searchParams.state) {
@@ -29,7 +30,7 @@ const Page = async (props: {
           return <div>Not authorized</div>;
         }
         return redirect(
-          `/agency/${stateAgencyId}/${statePath}?code=${searchParams.code}`
+          `/agency/${stateAgencyId}/${statePath}?code=${searchParams.code}`,
         );
       } else return redirect(`/agency/${agencyId}`);
     } else {

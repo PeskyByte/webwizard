@@ -1,29 +1,13 @@
 "use client";
-import {
-  AuthUserWithAgencySigebarOptionsSubAccounts,
-  UserWithPermissionsAndSubAccounts,
-} from "@/lib/types";
-import { useModal } from "../../providers/modal-provider";
-import { SubAccount, User } from "@prisma/client";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  changeUserPermissions,
-  getAuthUserDetails,
-  getUserPermissions,
-  saveActivityLogsNotification,
-  updateUser,
-} from "@/lib/queries";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { SubAccount, User } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { v4 } from "uuid";
+import { z } from "zod";
+
 import {
   Form,
   FormControl,
@@ -33,7 +17,30 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
+import {
+  changeUserPermissions,
+  getAuthUserDetails,
+  getUserPermissions,
+  saveActivityLogsNotification,
+  updateUser,
+} from "@/lib/queries";
+import {
+  AuthUserWithAgencySigebarOptionsSubAccounts,
+  UserWithPermissionsAndSubAccounts,
+} from "@/lib/types";
+
+import { useModal } from "../../providers/modal-provider";
 import FileUpload from "../file-upload";
+import Loading from "../loading";
+import { Button } from "../ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -42,12 +49,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Button } from "../ui/button";
-import Loading from "../loading";
 import { Separator } from "../ui/separator";
 import { Switch } from "../ui/switch";
-import { v4 } from "uuid";
-import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   id: string | null;
@@ -125,7 +128,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
   const onChangePermission = async (
     subAccountId: string,
     val: boolean,
-    permissionsId: string | undefined
+    permissionsId: string | undefined,
   ) => {
     if (!data.user?.email) return;
     setLoadingPermissions(true);
@@ -133,18 +136,18 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
       permissionsId ? permissionsId : v4(),
       data.user.email,
       subAccountId,
-      val
+      val,
     );
     if (type === "agency") {
       await saveActivityLogsNotification({
         agencyId: authUserData?.Agency?.id,
         description: `Gave ${userData?.name} access to | ${
           subAccountPermissions?.Permissions.find(
-            (p) => p.subAccountId === subAccountId
+            (p) => p.subAccountId === subAccountId,
           )?.SubAccount.name
         } `,
         subaccountId: subAccountPermissions?.Permissions.find(
-          (p) => p.subAccountId === subAccountId
+          (p) => p.subAccountId === subAccountId,
         )?.SubAccount.id,
       });
     }
@@ -179,8 +182,8 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
       const updatedUser = await updateUser(values);
       authUserData?.Agency?.SubAccount.filter((subacc) =>
         authUserData.Permissions.find(
-          (p) => p.subAccountId === subacc.id && p.access
-        )
+          (p) => p.subAccountId === subacc.id && p.access,
+        ),
       ).forEach(async (subaccount) => {
         await saveActivityLogsNotification({
           agencyId: undefined,
@@ -286,7 +289,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
                         value === "SUBACCOUNT_GUEST"
                       ) {
                         setRoleState(
-                          "You need to have subaccounts to assign Subaccount access to team members."
+                          "You need to have subaccounts to assign Subaccount access to team members.",
                         );
                       } else {
                         setRoleState("");
@@ -339,7 +342,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
                   {subAccounts?.map((subAccount) => {
                     const subAccountPermissionsDetails =
                       subAccountPermissions?.Permissions.find(
-                        (p) => p.subAccountId === subAccount.id
+                        (p) => p.subAccountId === subAccount.id,
                       );
                     return (
                       <div
@@ -356,7 +359,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
                             onChangePermission(
                               subAccount.id,
                               permission,
-                              subAccountPermissionsDetails?.id
+                              subAccountPermissionsDetails?.id,
                             );
                           }}
                         />

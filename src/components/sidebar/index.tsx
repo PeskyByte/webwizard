@@ -1,5 +1,7 @@
-import { getAuthUserDetails } from "@/lib/queries";
 import React from "react";
+
+import { getAuthUserDetails } from "@/lib/queries";
+
 import MenuOptions from "./menu-options";
 
 type Props = {
@@ -40,8 +42,8 @@ const Sidebar = async ({ id, type }: Props) => {
   const subaccounts = user.Agency.SubAccount.filter((subaccount) =>
     user.Permissions.find(
       (permission) =>
-        permission.subAccountId === subaccount.id && permission.access
-    )
+        permission.subAccountId === subaccount.id && permission.access,
+    ),
   );
 
   return (

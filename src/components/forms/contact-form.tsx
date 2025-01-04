@@ -1,8 +1,12 @@
-import { ContactUserFormSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { ContactUserFormSchema } from "@/lib/types";
+
+import Loading from "../loading";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -19,8 +23,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import Loading from "../loading";
 
 type Props = {
   title: string;

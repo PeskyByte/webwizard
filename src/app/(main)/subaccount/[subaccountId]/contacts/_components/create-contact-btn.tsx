@@ -1,9 +1,11 @@
 "use client";
-import ContactUserForm from "@/components/forms/contact-user-form";
+
+import React from "react";
+
 import CustomModal from "@/components/custom-modal";
+import ContactUserForm from "@/components/forms/contact-user-form";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/providers/modal-provider";
-import React from "react";
 
 type Props = {
   subaccountId: string;
@@ -19,7 +21,7 @@ const CraeteContactButton = ({ subaccountId }: Props) => {
         subheading="Contacts are like customers."
       >
         <ContactUserForm subaccountId={subaccountId} />
-      </CustomModal>
+      </CustomModal>,
     );
   };
 

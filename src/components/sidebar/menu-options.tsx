@@ -1,18 +1,24 @@
 "use client";
+
 import {
   Agency,
   AgencySidebarOption,
   SubAccount,
   SubAccountSidebarOption,
 } from "@prisma/client";
-import React, { useEffect, useMemo, useState } from "react";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
-import { ChevronsUpDown, Compass, Menu, PlusCircleIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import clsx from "clsx";
-import { AspectRatio } from "../ui/aspect-ratio";
+import { ChevronsUpDown, Compass, Menu, PlusCircleIcon } from "lucide-react";
 import Image from "next/image";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import Link from "next/link";
+import React, { useEffect, useMemo, useState } from "react";
+
+import { icons } from "@/lib/constants";
+
+import { useModal } from "../../providers/modal-provider";
+import CustomModal from "../custom-modal";
+import SubAccountDetails from "../forms/subaccount-details";
+import { AspectRatio } from "../ui/aspect-ratio";
+import { Button } from "../ui/button";
 import {
   Command,
   CommandEmpty,
@@ -21,12 +27,9 @@ import {
   CommandItem,
   CommandList,
 } from "../ui/command";
-import Link from "next/link";
-import { useModal } from "../../providers/modal-provider";
-import CustomModal from "../custom-modal";
-import SubAccountDetails from "../forms/subaccount-details";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
-import { icons } from "@/lib/constants";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 
 type Props = {
   defaultOpen?: boolean;
@@ -52,7 +55,7 @@ const MenuOptions = ({
 
   const openState = useMemo(
     () => (defaultOpen ? { open: true } : {}),
-    [defaultOpen]
+    [defaultOpen],
   );
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const MenuOptions = ({
           {
             "hidden md:inline-block z-0 w-[300px]": defaultOpen,
             "inline-block md:hidden z-[100] w-full": !defaultOpen,
-          }
+          },
         )}
       >
         <div>
@@ -236,7 +239,7 @@ const MenuOptions = ({
                               userId={user?.id as string}
                               userName={user?.name}
                             />
-                          </CustomModal>
+                          </CustomModal>,
                         );
                       }}
                     >
@@ -259,7 +262,7 @@ const MenuOptions = ({
                   {sidebarOpt.map((sidebarOptions) => {
                     let val;
                     const result = icons.find(
-                      (icon) => icon.value === sidebarOptions.icon
+                      (icon) => icon.value === sidebarOptions.icon,
                     );
                     if (result) {
                       val = <result.path />;

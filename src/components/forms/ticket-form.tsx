@@ -1,20 +1,13 @@
 "use client";
-import {
-  getSubAccountTeamMembers,
-  saveActivityLogsNotification,
-  searchContacts,
-  upsertTicket,
-} from "@/lib/queries";
-import { TicketFormSchema, TicketWithTags } from "@/lib/types";
-import { useModal } from "../../providers/modal-provider";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Contact, Tag, User } from "@prisma/client";
+import { CheckIcon, ChevronsUpDownIcon, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "@/hooks/use-toast";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+
 import {
   Form,
   FormControl,
@@ -23,8 +16,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -32,10 +23,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
+import {
+  getSubAccountTeamMembers,
+  saveActivityLogsNotification,
+  searchContacts,
+  upsertTicket,
+} from "@/lib/queries";
+import { TicketFormSchema, TicketWithTags } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
+import { useModal } from "../../providers/modal-provider";
+import Loading from "../loading";
+import TagCreator from "../tag-creator";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { CheckIcon, ChevronsUpDownIcon, User2 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Command,
   CommandEmpty,
@@ -44,9 +47,9 @@ import {
   CommandItem,
   CommandList,
 } from "../ui/command";
-import { cn } from "@/lib/utils";
-import Loading from "../loading";
-import TagCreator from "../tag-creator";
+import { Input } from "../ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Textarea } from "../ui/textarea";
 
 type Props = {
   laneId: string;
@@ -64,7 +67,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const [allTeamMembers, setAllTeamMembers] = useState<User[]>([]);
   const [assignedTo, setAssignedTo] = useState(
-    defaultData.ticket?.Assigned?.id || ""
+    defaultData.ticket?.Assigned?.id || "",
   );
   const form = useForm<z.infer<typeof TicketFormSchema>>({
     mode: "onChange",
@@ -100,7 +103,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
       const fetchData = async () => {
         const response = await searchContacts(
           //@ts-ignore
-          defaultData.ticket?.Customer?.name
+          defaultData.ticket?.Customer?.name,
         );
         setContactList(response);
       };
@@ -119,7 +122,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
           assignedUserId: assignedTo,
           ...(contact ? { customerId: contact } : {}),
         },
-        tags
+        tags,
       );
 
       await saveActivityLogsNotification({
@@ -270,7 +273,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                       saveTimerRef.current = setTimeout(async () => {
                         const response = await searchContacts(
                           //@ts-ignore
-                          value.target.value
+                          value.target.value,
                         );
                         setContactList(response);
                         setSearch("");
@@ -286,7 +289,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                           value={c.id}
                           onSelect={(currentValue) => {
                             setContact(
-                              currentValue === contact ? "" : currentValue
+                              currentValue === contact ? "" : currentValue,
                             );
                           }}
                         >
@@ -294,7 +297,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                           <CheckIcon
                             className={cn(
                               "ml-auto h-4 w-4",
-                              contact === c.id ? "opacity-100" : "opacity-0"
+                              contact === c.id ? "opacity-100" : "opacity-0",
                             )}
                           />
                         </CommandItem>

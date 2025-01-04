@@ -1,15 +1,8 @@
 "use client";
-import CreateFunnelPage from "@/components/forms/funnel-page";
-import CustomModal from "@/components/custom-modal";
-import { AlertDialog } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { toast } from "@/hooks/use-toast";
-import { upsertFunnelPage } from "@/lib/queries";
-import { FunnelsForSubAccount } from "@/lib/types";
-import { useModal } from "@/providers/modal-provider";
+
 import { FunnelPage } from "@prisma/client";
 import { Check, ExternalLink, LucideEdit } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 import {
   DragDropContext,
@@ -17,14 +10,24 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import Link from "next/link";
+
+import CustomModal from "@/components/custom-modal";
+import CreateFunnelPage from "@/components/forms/funnel-page";
 import FunnelPagePlaceholder from "@/components/icons/funnel-page-placeholder";
+import { AlertDialog } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { toast } from "@/hooks/use-toast";
+import { upsertFunnelPage } from "@/lib/queries";
+import { FunnelsForSubAccount } from "@/lib/types";
+import { useModal } from "@/providers/modal-provider";
+
 import FunnelStepCard from "./funnel-step-card";
 
 type Props = {
@@ -36,7 +39,7 @@ type Props = {
 
 const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
   const [clickedPage, setClickedPage] = useState<FunnelPage | undefined>(
-    pages[0]
+    pages[0],
   );
   const { setOpen } = useModal();
   const [pagesState, setPagesState] = useState(pages);
@@ -75,7 +78,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
             order: index,
             name: page.name,
           },
-          funnelId
+          funnelId,
         );
       } catch (error) {
         console.log(error);
@@ -149,7 +152,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
                     funnelId={funnelId}
                     order={pagesState.length}
                   />
-                </CustomModal>
+                </CustomModal>,
               );
             }}
           >

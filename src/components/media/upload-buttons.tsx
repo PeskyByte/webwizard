@@ -1,9 +1,11 @@
 "use client";
-import { useModal } from "../../providers/modal-provider";
+
 import React from "react";
-import { Button } from "../ui/button";
+
+import { useModal } from "../../providers/modal-provider";
 import CustomModal from "../custom-modal";
 import UploadMediaForm from "../forms/upload-media";
+import { Button } from "../ui/button";
 
 type Props = {
   subaccountId: string;
@@ -21,7 +23,7 @@ const MediaUploadButton = ({ subaccountId }: Props) => {
             subheading="Upload a file to your media bucket"
           >
             <UploadMediaForm subaccountId={subaccountId}></UploadMediaForm>
-          </CustomModal>
+          </CustomModal>,
         );
       }}
     >

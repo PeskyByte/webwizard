@@ -1,15 +1,11 @@
 "use client";
+
 import { Media } from "@prisma/client";
+import { Copy, MoreHorizontal, Trash } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,10 +17,16 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Copy, MoreHorizontal, Trash } from "lucide-react";
-import Image from "next/image";
-import { deleteMedia, saveActivityLogsNotification } from "@/lib/queries";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
+import { deleteMedia, saveActivityLogsNotification } from "@/lib/queries";
 
 type Props = { file: Media };
 

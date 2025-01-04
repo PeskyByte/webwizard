@@ -1,7 +1,12 @@
-import TicketForm from "@/components/forms/ticket-form";
+import { Contact2, Edit, MoreHorizontalIcon, Trash, User2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { Dispatch, SetStateAction } from "react";
+import { Draggable } from "react-beautiful-dnd";
+
 import CustomModal from "@/components/custom-modal";
-import TagComponent from "@/components/tag";
+import TicketForm from "@/components/forms/ticket-form";
 import LinkIcon from "@/components/icons/link";
+import TagComponent from "@/components/tag";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,10 +42,6 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { deleteTicket, saveActivityLogsNotification } from "@/lib/queries";
 import { TicketWithTags } from "@/lib/types";
-import { Contact2, Edit, MoreHorizontalIcon, Trash, User2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { Dispatch, SetStateAction } from "react";
-import { Draggable } from "react-beautiful-dnd";
 import { useModal } from "@/providers/modal-provider";
 
 type Props = {
@@ -68,7 +69,7 @@ const PipelineTicket = ({
           return ticket;
         }
         return t;
-      })
+      }),
     );
   };
 
@@ -83,7 +84,7 @@ const PipelineTicket = ({
       </CustomModal>,
       async () => {
         return { ticket: ticket };
-      }
+      },
     );
   };
 

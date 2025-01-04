@@ -1,9 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { FunnelPage } from "@prisma/client";
 import { ArrowDown, Mail } from "lucide-react";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { createPortal } from "react-dom";
+
+import { Card, CardContent } from "@/components/ui/card";
 
 type Props = {
   funnelPage: FunnelPage;

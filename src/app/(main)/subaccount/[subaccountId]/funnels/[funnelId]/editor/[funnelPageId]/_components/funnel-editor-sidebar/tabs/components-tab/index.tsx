@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Accordion,
   AccordionContent,
@@ -5,14 +7,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { EditorBtns } from "@/lib/constants";
-import React from "react";
-import TextPlaceholder from "./text-placeholder";
-import ContainerPlaceholder from "./container-placeholder";
-import VideoPlaceholder from "./video-placeholder";
-import TwoColumnsPlaceholder from "./two-columns-placeholder";
-import LinkPlaceholder from "./link-placeholder";
-import ContactFormComponentPlaceholder from "./contact-form-placeholder";
+
 import CheckoutPlaceholder from "./checkout-placeholder";
+import ContactFormComponentPlaceholder from "./contact-form-placeholder";
+import ContainerPlaceholder from "./container-placeholder";
+import LinkPlaceholder from "./link-placeholder";
+import TextPlaceholder from "./text-placeholder";
+import TwoColumnsPlaceholder from "./two-columns-placeholder";
+import VideoPlaceholder from "./video-placeholder";
 
 type Props = {};
 

@@ -23,7 +23,7 @@ export default clerkMiddleware(async (auth, request) => {
 
   if (customSubDomain) {
     return NextResponse.rewrite(
-      new URL(`/${customSubDomain}${pathWithSearchParams}`, request.url)
+      new URL(`/${customSubDomain}${pathWithSearchParams}`, request.url),
     );
   }
 
@@ -43,7 +43,7 @@ export default clerkMiddleware(async (auth, request) => {
     url.pathname.startsWith("/subaccount")
   ) {
     return NextResponse.rewrite(
-      new URL(`${pathWithSearchParams}`, request.url)
+      new URL(`${pathWithSearchParams}`, request.url),
     );
   }
 });

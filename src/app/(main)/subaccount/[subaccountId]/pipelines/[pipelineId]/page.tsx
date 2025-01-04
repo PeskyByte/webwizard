@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import React from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/lib/db";
 import {
@@ -7,8 +10,7 @@ import {
   updateTicketsOrder,
 } from "@/lib/queries";
 import { LaneDetail } from "@/lib/types";
-import { redirect } from "next/navigation";
-import React from "react";
+
 import PipelineInfoBar from "../_components/pipeline-infobar";
 import PipelineSettings from "../_components/pipeline-settings";
 import PipelineView from "../_components/pipeline-view";
@@ -28,7 +30,7 @@ const PipelinePage = async (props: Props) => {
   });
 
   const lanes = (await getLanesWithTicketAndTags(
-    params.pipelineId
+    params.pipelineId,
   )) as LaneDetail[];
 
   return (

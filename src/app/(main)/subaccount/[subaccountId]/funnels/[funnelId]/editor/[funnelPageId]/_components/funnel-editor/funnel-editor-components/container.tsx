@@ -1,12 +1,15 @@
 "use client";
+
+import clsx from "clsx";
+import { Trash } from "lucide-react";
+import React from "react";
+import { v4 } from "uuid";
+
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns, defaultStyles } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
-import clsx from "clsx";
-import React from "react";
-import { v4 } from "uuid";
+
 import Recursive from "./recursive";
-import { Trash } from "lucide-react";
 
 type Props = { element: EditorElement };
 
@@ -215,7 +218,7 @@ const Container = ({ element }: Props) => {
             block:
               state.editor.selectedElement.id === element.id &&
               !state.editor.liveMode,
-          }
+          },
         )}
       >
         {element.name}

@@ -1,7 +1,16 @@
 "use client";
+
 import { UserButton } from "@clerk/nextjs";
+import { Role } from "@prisma/client";
+import { Bell } from "lucide-react";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
+
+import { NotificationWithUser } from "@/lib/types";
+
+import { ModeToggle } from "./mode-toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Card } from "./ui/card";
 import {
   Sheet,
   SheetContent,
@@ -10,13 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Bell } from "lucide-react";
-import { Role } from "@prisma/client";
-import { Card } from "./ui/card";
 import { Switch } from "./ui/switch";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { ModeToggle } from "./mode-toggle";
-import { NotificationWithUser } from "@/lib/types";
 
 type Props = {
   notifications: NotificationWithUser | [];
@@ -36,7 +39,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
       if (notifications?.length !== 0) {
         setAllNotifications(
           notifications?.filter((item) => item.subAccountId === subAccountId) ??
-            []
+            [],
         );
       }
     }
@@ -48,7 +51,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
       <div
         className={twMerge(
           "fixed z-[20] md:left-[300px] left-0 right-0 top-0 p-4 bg-background/80 backdrop-blur-md flex  gap-4 items-center border-b-[1px] ",
-          className
+          className,
         )}
       >
         <div className="flex items-center gap-2 ml-auto">

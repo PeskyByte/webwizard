@@ -1,3 +1,13 @@
+import { AreaChart, BadgeDelta } from "@tremor/react";
+import {
+  ClipboardIcon,
+  Contact2,
+  DollarSign,
+  ShoppingCart,
+} from "lucide-react";
+import Link from "next/link";
+import React from "react";
+
 import BlurPage from "@/components/blur-page";
 import CircleProgress from "@/components/circle-progress";
 import PipelineValue from "@/components/pipeline-value";
@@ -17,15 +27,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { db } from "@/lib/db";
-import { AreaChart, BadgeDelta } from "@tremor/react";
-import {
-  ClipboardIcon,
-  Contact2,
-  DollarSign,
-  ShoppingCart,
-} from "lucide-react";
-import Link from "next/link";
-import React from "react";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;
@@ -69,7 +70,7 @@ const SubaccountPageId = async (props: Props) => {
     ...funnel,
     totalFunnelVisits: funnel.FunnelPages.reduce(
       (total, page) => total + page.visits,
-      0
+      0,
     ),
   }));
 

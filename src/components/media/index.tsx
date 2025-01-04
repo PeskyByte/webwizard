@@ -1,6 +1,8 @@
-import { GetMediaFiles } from "@/lib/types";
+import { FolderSearch } from "lucide-react";
 import React from "react";
-import MediaUploadButton from "./upload-buttons";
+
+import { GetMediaFiles } from "@/lib/types";
+
 import {
   Command,
   CommandEmpty,
@@ -10,7 +12,7 @@ import {
   CommandList,
 } from "../ui/command";
 import MediaCard from "./media-card";
-import { FolderSearch } from "lucide-react";
+import MediaUploadButton from "./upload-buttons";
 
 type Props = {
   data: GetMediaFiles;

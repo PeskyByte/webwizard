@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import {
   ColumnDef,
   flexRender,
@@ -8,6 +8,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Search } from "lucide-react";
+import React from "react";
+
+import CustomModal from "@/components/custom-modal";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -17,9 +22,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useModal } from "@/providers/modal-provider";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import CustomModal from "@/components/custom-modal";
 
 interface FunnelsDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,7 +72,7 @@ export default function FunnelsDataTable<TData, TValue>({
                   subheading="Funnels are a like websites, but better! Try creating one!"
                 >
                   {modalChildren}
-                </CustomModal>
+                </CustomModal>,
               );
           }}
         >
@@ -89,7 +91,7 @@ export default function FunnelsDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -108,7 +110,7 @@ export default function FunnelsDataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

@@ -1,11 +1,25 @@
 "use client";
-import { useToast } from "@/hooks/use-toast";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Agency } from "@prisma/client";
+import { NumberInput } from "@tremor/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { NumberInput } from "@tremor/react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 } from "uuid";
+import * as z from "zod";
+
+import { useToast } from "@/hooks/use-toast";
+import {
+  deleteAgency,
+  initUser,
+  saveActivityLogsNotification,
+  updateAgencyDetails,
+  upsertAgency,
+} from "@/lib/queries";
+
+import FileUpload from "../file-upload";
+import Loading from "../loading";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Input } from "../ui/input";
-import { Switch } from "../ui/switch";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -35,18 +48,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import * as z from "zod";
-import FileUpload from "../file-upload";
-import { Button } from "../ui/button";
-import {
-  deleteAgency,
-  initUser,
-  saveActivityLogsNotification,
-  updateAgencyDetails,
-  upsertAgency,
-} from "@/lib/queries";
-import Loading from "../loading";
-import { v4 } from "uuid";
+import { Input } from "../ui/input";
+import { Switch } from "../ui/switch";
 
 type Props = {
   data?: Partial<Agency>;

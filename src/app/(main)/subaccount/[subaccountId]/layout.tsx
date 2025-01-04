@@ -1,3 +1,8 @@
+import { currentUser } from "@clerk/nextjs/server";
+import { Role } from "@prisma/client";
+import { redirect } from "next/navigation";
+import React from "react";
+
 import InfoBar from "@/components/infobar";
 import Sidebar from "@/components/sidebar";
 import Unauthorized from "@/components/unauthorized";
@@ -6,10 +11,6 @@ import {
   getNotificationAndUser,
   verifyAndAcceptInvitation,
 } from "@/lib/queries";
-import { currentUser } from "@clerk/nextjs/server";
-import { Role } from "@prisma/client";
-import { redirect } from "next/navigation";
-import React from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -36,7 +37,7 @@ const SubaccountLayout = async (props: Props) => {
     const allPermissions = await getAuthUserDetails();
     const hasPermission = allPermissions?.Permissions.find(
       (permissions) =>
-        permissions.access && permissions.subAccountId === params.subaccountId
+        permissions.access && permissions.subAccountId === params.subaccountId,
     );
     if (!hasPermission) {
       return <Unauthorized />;
@@ -51,7 +52,7 @@ const SubaccountLayout = async (props: Props) => {
       notifications = allNotifications;
     } else {
       const filteredNoti = allNotifications?.filter(
-        (item) => item.subAccountId === params.subaccountId
+        (item) => item.subAccountId === params.subaccountId,
       );
       if (filteredNoti) notifications = filteredNoti;
     }

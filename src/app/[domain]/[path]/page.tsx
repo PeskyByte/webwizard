@@ -1,8 +1,9 @@
+import { notFound } from "next/navigation";
+import React from "react";
+
 import FunnelEditor from "@/app/(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor";
 import { getDomainContent } from "@/lib/queries";
 import EditorProvider from "@/providers/editor/editor-provider";
-import { notFound } from "next/navigation";
-import React from "react";
 
 const Page = async (props: {
   params: Promise<{ domain: string; path: string }>;
@@ -10,7 +11,7 @@ const Page = async (props: {
   const params = await props.params;
   const domainData = await getDomainContent(params.domain.slice(0, -1));
   const pageData = domainData?.FunnelPages.find(
-    (page) => page.pathName === params.path
+    (page) => page.pathName === params.path,
   );
 
   if (!pageData || !domainData) return notFound();

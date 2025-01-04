@@ -1,8 +1,11 @@
 "use client";
-import { EditorBtns } from "@/lib/constants";
-import { EditorAction } from "./editor-actions";
-import { Dispatch, createContext, useContext, useReducer } from "react";
+
 import { FunnelPage } from "@prisma/client";
+import { Dispatch, createContext, useContext, useReducer } from "react";
+
+import { EditorBtns } from "@/lib/constants";
+
+import { EditorAction } from "./editor-actions";
 
 export type DeviceTypes = "Desktop" | "Mobile" | "Tablet";
 
@@ -70,11 +73,11 @@ const initialState: EditorState = {
 
 const addAnElement = (
   editorArray: EditorElement[],
-  action: EditorAction
+  action: EditorAction,
 ): EditorElement[] => {
   if (action.type !== "ADD_ELEMENT")
     throw Error(
-      "You sent the wrong action type to the Add Element editor State"
+      "You sent the wrong action type to the Add Element editor State",
     );
   return editorArray.map((item) => {
     if (item.id === action.payload.containerId && Array.isArray(item.content)) {
@@ -94,7 +97,7 @@ const addAnElement = (
 
 const updateAnElement = (
   editorArray: EditorElement[],
-  action: EditorAction
+  action: EditorAction,
 ): EditorElement[] => {
   if (action.type !== "UPDATE_ELEMENT") {
     throw Error("You sent the wrong action type to the update Element State");
@@ -114,11 +117,11 @@ const updateAnElement = (
 
 const deleteAnElement = (
   editorArray: EditorElement[],
-  action: EditorAction
+  action: EditorAction,
 ): EditorElement[] => {
   if (action.type !== "DELETE_ELEMENT")
     throw Error(
-      "You sent the wrong action type to the Delete Element editor State"
+      "You sent the wrong action type to the Delete Element editor State",
     );
   return editorArray.filter((item) => {
     if (item.id === action.payload.elementDetails.id) {
@@ -132,7 +135,7 @@ const deleteAnElement = (
 
 const editorReducer = (
   state: EditorState = initialState,
-  action: EditorAction
+  action: EditorAction,
 ): EditorState => {
   switch (action.type) {
     case "ADD_ELEMENT":
@@ -198,7 +201,7 @@ const editorReducer = (
       // Perform your logic to delete the element from the state
       const updatedElementsAfterDelete = deleteAnElement(
         state.editor.elements,
-        action
+        action,
       );
       const updatedEditorStateAfterDelete = {
         ...state.editor,

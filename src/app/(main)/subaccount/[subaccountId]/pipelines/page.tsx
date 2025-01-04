@@ -1,6 +1,7 @@
-import React from "react";
-import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import React from "react";
+
+import { db } from "@/lib/db";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;
@@ -14,7 +15,7 @@ const Pipelines = async (props: Props) => {
 
   if (pipelineExists)
     return redirect(
-      `/subaccount/${params.subaccountId}/pipelines/${pipelineExists.id}`
+      `/subaccount/${params.subaccountId}/pipelines/${pipelineExists.id}`,
     );
 
   try {
@@ -23,7 +24,7 @@ const Pipelines = async (props: Props) => {
     });
 
     return redirect(
-      `/subaccount/${params.subaccountId}/pipelines/${response.id}`
+      `/subaccount/${params.subaccountId}/pipelines/${response.id}`,
     );
   } catch (error) {
     console.log();

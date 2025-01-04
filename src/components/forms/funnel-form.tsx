@@ -1,6 +1,14 @@
 "use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Funnel } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { v4 } from "uuid";
 import { z } from "zod";
+
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -9,21 +17,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useForm } from "react-hook-form";
-import { Funnel } from "@prisma/client";
+import { toast } from "@/hooks/use-toast";
+import { saveActivityLogsNotification, upsertFunnel } from "@/lib/queries";
+import { CreateFunnelFormSchema } from "@/lib/types";
+
+import { useModal } from "../../providers/modal-provider";
+import FileUpload from "../file-upload";
+import Loading from "../loading";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-import Loading from "../loading";
-import { CreateFunnelFormSchema } from "@/lib/types";
-import { saveActivityLogsNotification, upsertFunnel } from "@/lib/queries";
-import { v4 } from "uuid";
-import { toast } from "@/hooks/use-toast";
-import { useModal } from "../../providers/modal-provider";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import FileUpload from "../file-upload";
 
 interface CreateFunnelProps {
   defaultData?: Funnel;
@@ -67,7 +70,7 @@ const FunnelForm: React.FC<CreateFunnelProps> = ({
     const response = await upsertFunnel(
       subAccountId,
       { ...values, liveProducts: defaultData?.liveProducts || "[]" },
-      defaultData?.id || v4()
+      defaultData?.id || v4(),
     );
     await saveActivityLogsNotification({
       agencyId: undefined,

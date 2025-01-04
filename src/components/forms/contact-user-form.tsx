@@ -1,8 +1,18 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -12,21 +22,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import Loading from "../loading";
-import { ContactUserFormSchema } from "@/lib/types";
-import { saveActivityLogsNotification, upsertContact } from "@/lib/queries";
 import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { saveActivityLogsNotification, upsertContact } from "@/lib/queries";
+import { ContactUserFormSchema } from "@/lib/types";
+
 import { useModal } from "../../providers/modal-provider";
+import Loading from "../loading";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 interface ContactUserFormProps {
   subaccountId: string;
@@ -53,7 +56,7 @@ const ContactUserForm: React.FC<ContactUserFormProps> = ({ subaccountId }) => {
   const isLoading = form.formState.isLoading;
 
   const handleSubmit = async (
-    values: z.infer<typeof ContactUserFormSchema>
+    values: z.infer<typeof ContactUserFormSchema>,
   ) => {
     try {
       const response = await upsertContact({

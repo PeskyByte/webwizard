@@ -1,8 +1,6 @@
 "use server";
 
 import { createClerkClient, currentUser } from "@clerk/nextjs/server";
-import { db } from "./db";
-import { redirect } from "next/navigation";
 import {
   Agency,
   Lane,
@@ -14,15 +12,19 @@ import {
   Ticket,
   User,
 } from "@prisma/client";
-import AgencyDetails from "@/components/forms/agency-details";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { v4 } from "uuid";
+import { z } from "zod";
+
+import AgencyDetails from "@/components/forms/agency-details";
+
+import { db } from "./db";
 import {
   CreateFunnelFormSchema,
   CreateMediaType,
   UpsertFunnelPage,
 } from "./types";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
 
 const clerkClient = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
@@ -136,7 +138,7 @@ export const saveActivityLogsNotification = async ({
   if (!foundAgencyId) {
     if (!subaccountId) {
       throw new Error(
-        "You need to provide atleast an agency id or subaccount id"
+        "You need to provide atleast an agency id or subaccount id",
       );
     }
     const response = await db.subAccount.findUnique({
@@ -190,7 +192,7 @@ export const createTeamUser = async (agencyId: string, user: User) => {
 
 export const updateAgencyDetails = async (
   agencyId: string,
-  updateAgencyDetails: Partial<Agency>
+  updateAgencyDetails: Partial<Agency>,
 ) => {
   const response = await db.agency.update({
     where: { id: agencyId },
@@ -409,7 +411,7 @@ export const changeUserPermissions = async (
   permissionId: string | undefined,
   userEmail: string,
   subAccountId: string,
-  permission: boolean
+  permission: boolean,
 ) => {
   try {
     const response = await db.permissions.upsert({
@@ -469,7 +471,7 @@ export const getUser = async (id: string) => {
 export const sendInvitation = async (
   role: Role,
   email: string,
-  agencyId: string
+  agencyId: string,
 ) => {
   const resposne = await db.invitation.create({
     data: { email, agencyId, role },
@@ -506,7 +508,7 @@ export const getMedia = async (subaccountId: string) => {
 
 export const createMedia = async (
   subaccountId: string,
-  mediaFile: CreateMediaType
+  mediaFile: CreateMediaType,
 ) => {
   const response = await db.media.create({
     data: {
@@ -562,7 +564,7 @@ export const getLanesWithTicketAndTags = async (pipelineId: string) => {
 export const upsertFunnel = async (
   subaccountId: string,
   funnel: z.infer<typeof CreateFunnelFormSchema> & { liveProducts: string },
-  funnelId: string
+  funnelId: string,
 ) => {
   const response = await db.funnel.upsert({
     where: { id: funnelId },
@@ -578,7 +580,7 @@ export const upsertFunnel = async (
 };
 
 export const upsertPipeline = async (
-  pipeline: Prisma.PipelineUncheckedCreateWithoutLaneInput
+  pipeline: Prisma.PipelineUncheckedCreateWithoutLaneInput,
 ) => {
   const response = await db.pipeline.upsert({
     where: { id: pipeline.id || v4() },
@@ -606,7 +608,7 @@ export const updateLanesOrder = async (lanes: Lane[]) => {
         data: {
           order: lane.order,
         },
-      })
+      }),
     );
 
     await db.$transaction(updateTrans);
@@ -627,7 +629,7 @@ export const updateTicketsOrder = async (tickets: Ticket[]) => {
           order: ticket.order,
           laneId: ticket.laneId,
         },
-      })
+      }),
     );
 
     await db.$transaction(updateTrans);
@@ -726,7 +728,7 @@ export const searchContacts = async (searchTerms: string) => {
 
 export const upsertTicket = async (
   ticket: Prisma.TicketUncheckedCreateInput,
-  tags: Tag[]
+  tags: Tag[],
 ) => {
   let order: number;
   if (!ticket.order) {
@@ -767,7 +769,7 @@ export const deleteTicket = async (ticketId: string) => {
 
 export const upsertTag = async (
   subaccountId: string,
-  tag: Prisma.TagUncheckedCreateInput
+  tag: Prisma.TagUncheckedCreateInput,
 ) => {
   const response = await db.tag.upsert({
     where: { id: tag.id || v4(), subAccountId: subaccountId },
@@ -792,7 +794,7 @@ export const deleteTag = async (tagId: string) => {
 };
 
 export const upsertContact = async (
-  contact: Prisma.ContactUncheckedCreateInput
+  contact: Prisma.ContactUncheckedCreateInput,
 ) => {
   const response = await db.contact.upsert({
     where: { id: contact.id || v4() },
@@ -828,7 +830,7 @@ export const getFunnel = async (funnelId: string) => {
 
 export const updateFunnelProducts = async (
   products: string,
-  funnelId: string
+  funnelId: string,
 ) => {
   const data = await db.funnel.update({
     where: { id: funnelId },
@@ -840,7 +842,7 @@ export const updateFunnelProducts = async (
 export const upsertFunnelPage = async (
   subaccountId: string,
   funnelPage: UpsertFunnelPage,
-  funnelId: string
+  funnelId: string,
 ) => {
   if (!subaccountId || !funnelId) return;
   const response = await db.funnelPage.upsert({

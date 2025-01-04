@@ -1,16 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { saveActivityLogsNotification, upsertFunnelPage } from "@/lib/queries";
-import { DeviceTypes, useEditor } from "@/providers/editor/editor-provider";
+
 import { FunnelPage } from "@prisma/client";
 import clsx from "clsx";
 import {
@@ -26,6 +15,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FocusEventHandler, useEffect } from "react";
 import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { saveActivityLogsNotification, upsertFunnelPage } from "@/lib/queries";
+import { DeviceTypes, useEditor } from "@/providers/editor/editor-provider";
 
 type Props = {
   funnelId: string;
@@ -49,7 +51,7 @@ const FunnelEditorNavigation = ({
   }, [funnelPageDetails]);
 
   const handleOnBlurTitleChange: FocusEventHandler<HTMLInputElement> = async (
-    event
+    event,
   ) => {
     if (event.target.value === funnelPageDetails.name) return;
     if (event.target.value) {
@@ -60,7 +62,7 @@ const FunnelEditorNavigation = ({
           name: event.target.value,
           order: funnelPageDetails.order,
         },
-        funnelId
+        funnelId,
       );
 
       toast("Success", {
@@ -97,7 +99,7 @@ const FunnelEditorNavigation = ({
           ...funnelPageDetails,
           content,
         },
-        funnelId
+        funnelId,
       );
       await saveActivityLogsNotification({
         agencyId: undefined,
@@ -119,7 +121,7 @@ const FunnelEditorNavigation = ({
       <nav
         className={clsx(
           "border-b-[1px] flex items-center justify-between p-6 gap-2 transition-all",
-          { "!h-0 !p-0 !overflow-hidden": state.editor.previewMode }
+          { "!h-0 !p-0 !overflow-hidden": state.editor.previewMode },
         )}
       >
         <aside className="flex items-center gap-4 max-w-[260px] w-[300px]">

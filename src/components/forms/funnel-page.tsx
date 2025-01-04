@@ -1,6 +1,25 @@
 "use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FunnelPage } from "@prisma/client";
+import { CopyPlusIcon, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { v4 } from "uuid";
 import { z } from "zod";
+
+import { useToast } from "@/hooks/use-toast";
+import {
+  deleteFunnelePage,
+  getFunnels,
+  saveActivityLogsNotification,
+  upsertFunnelPage,
+} from "@/lib/queries";
+import { FunnelPageSchema } from "@/lib/types";
+
+import Loading from "../loading";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -16,23 +35,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import Loading from "../loading";
-import { useToast } from "@/hooks/use-toast";
-import { FunnelPage } from "@prisma/client";
-import { FunnelPageSchema } from "@/lib/types";
-import {
-  deleteFunnelePage,
-  getFunnels,
-  saveActivityLogsNotification,
-  upsertFunnelPage,
-} from "@/lib/queries";
-import { useRouter } from "next/navigation";
-import { v4 } from "uuid";
-import { CopyPlusIcon, Trash } from "lucide-react";
 
 interface CreateFunnelPageProps {
   defaultData?: FunnelPage;
@@ -80,7 +83,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
           order: defaultData?.order || order,
           pathName: values.pathName || "",
         },
-        funnelId
+        funnelId,
       );
 
       await saveActivityLogsNotification({
@@ -188,7 +191,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
                   onClick={async () => {
                     const response = await getFunnels(subaccountId);
                     const lastFunnelPage = response.find(
-                      (funnel) => funnel.id === funnelId
+                      (funnel) => funnel.id === funnelId,
                     )?.FunnelPages.length;
 
                     await upsertFunnelPage(
@@ -202,7 +205,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
                         pathName: `${defaultData.pathName}copy`,
                         content: defaultData.content,
                       },
-                      funnelId
+                      funnelId,
                     );
                     toast({
                       title: "Success",

@@ -1,3 +1,7 @@
+import clsx from "clsx";
+import { Check } from "lucide-react";
+import Link from "next/link";
+
 import {
   Card,
   CardContent,
@@ -6,9 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { pricingCards } from "@/lib/constants";
-import clsx from "clsx";
-import { Check } from "lucide-react";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -62,7 +63,7 @@ export default function Home() {
                   href={"/agency?plan=${card.priceId}"}
                   className={clsx(
                     "w-full text-center bg-primary p-2 rounded-md",
-                    { "!bg-muted-foreground": card.title !== "Unlimited Saas" }
+                    { "!bg-muted-foreground": card.title !== "Unlimited Saas" },
                   )}
                 >
                   Get Started

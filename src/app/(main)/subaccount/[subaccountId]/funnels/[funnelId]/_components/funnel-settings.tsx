@@ -1,6 +1,6 @@
-import React from "react";
 import { Funnel } from "@prisma/client";
-import { db } from "@/lib/db";
+import React from "react";
+
 import FunnelForm from "@/components/forms/funnel-form";
 import {
   Card,
@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { db } from "@/lib/db";
+
 import FunnelProductsTable from "./funnel-products-table";
 
 interface FunnelSettingsProps {

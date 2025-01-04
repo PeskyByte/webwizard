@@ -1,7 +1,8 @@
+import React from "react";
+
 import BlurPage from "@/components/blur-page";
 import MediaComponent from "@/components/media";
 import { getMedia } from "@/lib/queries";
-import React from "react";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;

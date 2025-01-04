@@ -1,12 +1,14 @@
 "use client";
-import SubAccountDetails from "@/components/forms/subaccount-details";
-import CustomModal from "@/components/custom-modal";
-import { Button } from "@/components/ui/button";
-import { useModal } from "@/providers/modal-provider";
+
 import { Agency, AgencySidebarOption, SubAccount, User } from "@prisma/client";
 import { PlusCircleIcon } from "lucide-react";
 import React from "react";
 import { twMerge } from "tailwind-merge";
+
+import CustomModal from "@/components/custom-modal";
+import SubAccountDetails from "@/components/forms/subaccount-details";
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/providers/modal-provider";
 
 type Props = {
   user: User & {
@@ -44,7 +46,7 @@ const CreateSubaccountButton = ({ className, id, user }: Props) => {
               userId={user.id}
               userName={user.name}
             />
-          </CustomModal>
+          </CustomModal>,
         );
       }}
     >

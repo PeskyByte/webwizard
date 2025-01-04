@@ -1,10 +1,13 @@
-import { EditorElement } from "@/providers/editor/editor-provider";
 import React from "react";
-import TextComponent from "./text";
-import Container from "./container";
-import VideoComponent from "./video";
-import LinkComponent from "./link-component";
+
+import { EditorElement } from "@/providers/editor/editor-provider";
+
 import ContactFormComponent from "./contact-form-component";
+import Container from "./container";
+import LinkComponent from "./link-component";
+import TextComponent from "./text";
+import VideoComponent from "./video";
+
 /*import Checkout from './checkout'*/
 
 type Props = {

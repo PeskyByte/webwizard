@@ -1,9 +1,10 @@
-import SubAccountDetails from "@/components/forms/subaccount-details";
-import UserDetails from "@/components/forms/user-details";
-import BlurPage from "@/components/blur-page";
-import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
+
+import BlurPage from "@/components/blur-page";
+import SubAccountDetails from "@/components/forms/subaccount-details";
+import UserDetails from "@/components/forms/user-details";
+import { db } from "@/lib/db";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;

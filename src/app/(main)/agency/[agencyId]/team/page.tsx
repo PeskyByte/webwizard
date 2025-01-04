@@ -1,10 +1,12 @@
-import { db } from "@/lib/db";
-import React from "react";
-import DataTable from "./data-table";
-import { Plus } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
-import { columns } from "./columns";
+import { Plus } from "lucide-react";
+import React from "react";
+
 import SendInvitation from "@/components/forms/send-invitation";
+import { db } from "@/lib/db";
+
+import { columns } from "./columns";
+import DataTable from "./data-table";
 
 type Props = {
   params: Promise<{ agencyId: string }>;

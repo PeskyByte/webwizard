@@ -1,17 +1,15 @@
 "use client";
-import clsx from "clsx";
-import { ColumnDef } from "@tanstack/react-table";
+
 import { Role } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+import clsx from "clsx";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import CustomModal from "@/components/custom-modal";
+import UserDetails from "@/components/forms/user-details";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,16 +21,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useModal } from "@/providers/modal-provider";
-import UserDetails from "@/components/forms/user-details";
-import { deleteUser, getUser } from "@/lib/queries";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { deleteUser, getUser } from "@/lib/queries";
 import { UsersWithAgencySubAccountPermissionsSidebarOptions } from "@/lib/types";
-import CustomModal from "@/components/custom-modal";
+import { useModal } from "@/providers/modal-provider";
 
 export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptions>[] =
   [
@@ -78,7 +80,7 @@ export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptio
       cell: ({ row }) => {
         const isAgencyOwner = row.getValue("role") === "AGENCY_OWNER";
         const ownedAccounts = row.original?.Permissions.filter(
-          (per) => per.access
+          (per) => per.access,
         );
 
         if (isAgencyOwner)
@@ -186,7 +188,7 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
                 </CustomModal>,
                 async () => {
                   return { user: await getUser(rowData?.id) };
-                }
+                },
               );
             }}
           >

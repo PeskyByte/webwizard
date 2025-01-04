@@ -1,10 +1,13 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { getFunnelPageDetails } from "@/lib/queries";
-import { useEditor } from "@/providers/editor/editor-provider";
+
 import clsx from "clsx";
 import { EyeOff } from "lucide-react";
 import React, { useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
+import { getFunnelPageDetails } from "@/lib/queries";
+import { useEditor } from "@/providers/editor/editor-provider";
+
 import Recursive from "./funnel-editor-components/recursive";
 
 type Props = { funnelPageId: string; liveMode?: boolean };
@@ -59,7 +62,7 @@ const FunnelEditor = ({ funnelPageId, liveMode }: Props) => {
           "!w-[850px]": state.editor.device === "Tablet",
           "!w-[420px]": state.editor.device === "Mobile",
           "w-full": state.editor.device === "Desktop",
-        }
+        },
       )}
       onClick={handleClick}
     >

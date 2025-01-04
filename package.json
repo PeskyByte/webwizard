@@ -4,9 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:desktop": "tauri dev",
+    "dev:mobile": "tauri android dev",
     "build": "next build",
+    "build:desktop": "tauri build",
+    "build:mobile": "tauri android build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier . --write  --log-level warn",
+    "check": "bun format && bun lint",
+    "tauri": "tauri",
+    "prisma": "prisma",
+    "studio": "prisma studio --browser none",
+    "push": "prisma db push",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate"
   },
   "dependencies": {
     "@clerk/backend": "^1.21.4",
@@ -68,12 +80,15 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.2.2",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "postcss": "^8",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "prisma": "^6.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

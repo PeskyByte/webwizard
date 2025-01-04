@@ -1,5 +1,5 @@
-import { withUt } from "uploadthing/tw";
 import colors from "tailwindcss/colors";
+import { withUt } from "uploadthing/tw";
 
 module.exports = withUt({
   darkMode: ["class"],
