@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import React from "react";
 
 import FunnelEditor from "@/app/(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor";
 import { getDomainContent } from "@/lib/queries";

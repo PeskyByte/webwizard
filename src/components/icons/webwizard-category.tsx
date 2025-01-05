@@ -1,6 +1,4 @@
-import React from "react";
-
-const PluraCategory = () => {
+const WebWizardCategory = () => {
   return (
     <svg
       width="24"
@@ -45,4 +43,4 @@ const PluraCategory = () => {
   );
 };
 
-export default PluraCategory;
+export default WebWizardCategory;

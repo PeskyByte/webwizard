@@ -2,7 +2,6 @@
 
 import { Agency, AgencySidebarOption, SubAccount, User } from "@prisma/client";
 import { PlusCircleIcon } from "lucide-react";
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import CustomModal from "@/components/custom-modal";

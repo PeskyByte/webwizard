@@ -1,7 +1,6 @@
 import { AreaChart } from "@tremor/react";
 import { ClipboardIcon, Contact2, DollarSign, Goal } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 import CircleProgress from "@/components/circle-progress";
 import {

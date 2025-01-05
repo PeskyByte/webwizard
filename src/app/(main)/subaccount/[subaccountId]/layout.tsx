@@ -1,7 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { Role } from "@prisma/client";
 import { redirect } from "next/navigation";
-import React from "react";
 
 import InfoBar from "@/components/infobar";
 import Sidebar from "@/components/sidebar";

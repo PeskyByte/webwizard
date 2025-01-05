@@ -1,5 +1,3 @@
-import React from "react";
-
 import { EditorElement } from "@/providers/editor/editor-provider";
 
 import ContactFormComponent from "./contact-form-component";

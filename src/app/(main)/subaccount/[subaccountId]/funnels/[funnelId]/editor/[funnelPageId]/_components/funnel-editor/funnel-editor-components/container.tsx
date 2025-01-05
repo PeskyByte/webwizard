@@ -2,7 +2,6 @@
 
 import clsx from "clsx";
 import { Trash } from "lucide-react";
-import React from "react";
 import { v4 } from "uuid";
 
 import { Badge } from "@/components/ui/badge";

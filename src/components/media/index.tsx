@@ -1,5 +1,4 @@
 import { FolderSearch } from "lucide-react";
-import React from "react";
 
 import { GetMediaFiles } from "@/lib/types";
 

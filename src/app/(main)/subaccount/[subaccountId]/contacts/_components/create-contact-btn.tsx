@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import CustomModal from "@/components/custom-modal";
 import ContactUserForm from "@/components/forms/contact-user-form";
 import { Button } from "@/components/ui/button";

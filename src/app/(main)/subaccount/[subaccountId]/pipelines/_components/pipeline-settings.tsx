@@ -2,7 +2,6 @@
 
 import { Pipeline } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 import CreatePipelineForm from "@/components/forms/create-pipeline-form";
 import {

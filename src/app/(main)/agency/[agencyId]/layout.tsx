@@ -1,6 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import React from "react";
 
 import BlurPage from "@/components/blur-page";
 import InfoBar from "@/components/infobar";

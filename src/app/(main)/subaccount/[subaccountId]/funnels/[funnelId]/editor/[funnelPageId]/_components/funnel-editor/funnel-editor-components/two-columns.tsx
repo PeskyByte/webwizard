@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import React from "react";
 import { v4 } from "uuid";
 
 import { Badge } from "@/components/ui/badge";

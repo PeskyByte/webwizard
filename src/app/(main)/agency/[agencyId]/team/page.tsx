@@ -1,6 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { Plus } from "lucide-react";
-import React from "react";
 
 import SendInvitation from "@/components/forms/send-invitation";
 import { db } from "@/lib/db";

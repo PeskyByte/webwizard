@@ -1,5 +1,4 @@
 import { currentUser } from "@clerk/nextjs/server";
-import React from "react";
 
 import AgencyDetails from "@/components/forms/agency-details";
 import UserDetails from "@/components/forms/user-details";

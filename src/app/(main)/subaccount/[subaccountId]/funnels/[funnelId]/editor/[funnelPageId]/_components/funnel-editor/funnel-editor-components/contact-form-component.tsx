@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { z } from "zod";
 
 import ContactForm from "@/components/forms/contact-form";

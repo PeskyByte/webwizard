@@ -1,5 +1,4 @@
 import { Plus } from "lucide-react";
-import React from "react";
 
 import BlurPage from "@/components/blur-page";
 import FunnelForm from "@/components/forms/funnel-form";

@@ -1,5 +1,4 @@
 import { Contact2Icon, TypeIcon } from "lucide-react";
-import React from "react";
 
 import { EditorBtns } from "@/lib/constants";
 

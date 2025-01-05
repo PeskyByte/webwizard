@@ -6,7 +6,6 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 import BlurPage from "@/components/blur-page";
 import CircleProgress from "@/components/circle-progress";

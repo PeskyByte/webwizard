@@ -1,5 +1,4 @@
 import { currentUser } from "@clerk/nextjs/server";
-import React from "react";
 
 import BlurPage from "@/components/blur-page";
 import SubAccountDetails from "@/components/forms/subaccount-details";

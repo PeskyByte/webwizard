@@ -1,5 +1,3 @@
-import React from "react";
-
 import { getAuthUserDetails } from "@/lib/queries";
 
 import MenuOptions from "./menu-options";

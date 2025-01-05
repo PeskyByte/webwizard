@@ -1,5 +1,4 @@
 import { Funnel } from "@prisma/client";
-import React from "react";
 
 import FunnelForm from "@/components/forms/funnel-form";
 import {

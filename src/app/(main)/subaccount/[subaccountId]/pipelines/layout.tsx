@@ -1,5 +1,3 @@
-import React from "react";
-
 import BlurPage from "@/components/blur-page";
 
 const PipelinesLayout = ({ children }: { children: React.ReactNode }) => {

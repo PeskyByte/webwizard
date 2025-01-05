@@ -8,7 +8,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Search } from "lucide-react";
-import React from "react";
 
 import CustomModal from "@/components/custom-modal";
 import { Button } from "@/components/ui/button";

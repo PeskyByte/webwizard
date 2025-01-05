@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { useModal } from "../../providers/modal-provider";
 import CustomModal from "../custom-modal";
 import UploadMediaForm from "../forms/upload-media";
