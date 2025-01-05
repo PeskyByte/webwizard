@@ -4,6 +4,7 @@ import { Pipeline } from "@prisma/client";
 import { CommandList } from "cmdk";
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
 import CustomModal from "@/components/custom-modal";
 import CreatePipelineForm from "@/components/forms/create-pipeline-form";

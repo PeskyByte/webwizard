@@ -3,7 +3,7 @@
 import { FunnelPage } from "@prisma/client";
 import { Check, ExternalLink, LucideEdit } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
   DragStart,
@@ -48,6 +48,10 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
     const { draggableId } = event;
     const value = pagesState.find((page) => page.id === draggableId);
   };
+
+  useEffect(() => {
+    setPagesState(pages);
+  }, [pages]);
 
   const onDragEnd = (dropResult: DropResult) => {
     const { destination, source } = dropResult;
