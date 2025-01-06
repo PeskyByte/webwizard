@@ -12,7 +12,6 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import {
   deleteFunnelePage,
-  getFunnels,
   getFunnelPages,
   saveActivityLogsNotification,
   upsertFunnelPage,
@@ -196,24 +195,37 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
                   disabled={form.formState.isSubmitting}
                   type="button"
                   onClick={async () => {
-                    const response = await getFunnels(subaccountId);
-                    const lastFunnelPage = response.find(
-                      (funnel) => funnel.id === funnelId,
-                    )?.FunnelPages.length;
+                    const funnelPages = await getFunnelPages(funnelId);
+
+                    const copyNumbers = funnelPages
+                      .map((funnel) => {
+                        const regex = new RegExp(
+                          `^${defaultData.pathName}-copy-(\\d+)$`,
+                        );
+                        const match = funnel.pathName.match(regex);
+                        return match ? parseInt(match[1], 10) : 0;
+                      })
+                      .filter((num) => num > 0);
+
+                    const maxCopyNumber =
+                      copyNumbers.length > 0 ? Math.max(...copyNumbers) : 0;
+
+                    const newPathName = `${defaultData.pathName}-copy-${maxCopyNumber + 1}`;
 
                     await upsertFunnelPage(
                       subaccountId,
                       {
                         ...defaultData,
                         id: v4(),
-                        order: lastFunnelPage ? lastFunnelPage : 0,
+                        order: funnelPages.length,
                         visits: 0,
                         name: `${defaultData.name} Copy`,
-                        pathName: `${defaultData.pathName}copy`,
+                        pathName: newPathName,
                         content: defaultData.content,
                       },
                       funnelId,
                     );
+
                     toast({
                       title: "Success",
                       description: "Saves Funnel Page Details",
