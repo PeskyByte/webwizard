@@ -51,6 +51,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
 
   useEffect(() => {
     setPagesState(pages);
+    setClickedPage(pages[0]);
   }, [pages]);
 
   const onDragEnd = (dropResult: DropResult) => {

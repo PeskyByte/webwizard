@@ -1,3 +1,4 @@
+import { MoveLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -22,8 +23,9 @@ const FunnelPage = async (props: Props) => {
     <BlurPage>
       <Link
         href={`/subaccount/${params.subaccountId}/funnels`}
-        className="flex justify-between gap-4 mb-4 text-muted-foreground"
+        className="flex gap-4 mb-4 text-muted-foreground"
       >
+        <MoveLeftIcon />
         Back
       </Link>
       <h1 className="text-3xl mb-8">{funnelPages.name}</h1>
