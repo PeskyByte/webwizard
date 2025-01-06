@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   deleteFunnelePage,
   getFunnels,
+  getFunnelPages,
   saveActivityLogsNotification,
   upsertFunnelPage,
 } from "@/lib/queries";
@@ -71,11 +72,12 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
   }, [defaultData]);
 
   const onSubmit = async (values: z.infer<typeof FunnelPageSchema>) => {
-    if (order !== 0 && !values.pathName)
+    const funnelPages = await getFunnelPages(funnelId);
+    if (funnelPages.some((funnel) => funnel.pathName === values.pathName)) {
       return form.setError("pathName", {
-        message:
-          "Pages other than the first page in the funnel require a path name example 'secondstep'.",
+        message: "Path name already used",
       });
+    }
 
     try {
       const response = await upsertFunnelPage(
@@ -142,7 +144,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
               )}
             />
             <FormField
-              disabled={form.formState.isSubmitting || order === 0}
+              disabled={form.formState.isSubmitting}
               control={form.control}
               name="pathName"
               render={({ field }) => (

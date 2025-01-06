@@ -165,7 +165,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
           </Button>
         </aside>
         <aside className="flex-[0.7] bg-muted p-4 ">
-          {!!pages.length ? (
+          {pages.length ? (
             <Card className="h-full flex justify-between flex-col">
               <CardHeader>
                 <p className="text-sm text-muted-foreground">Page name</p>

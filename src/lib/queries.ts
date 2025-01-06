@@ -845,6 +845,7 @@ export const upsertFunnelPage = async (
   funnelId: string,
 ) => {
   if (!subaccountId || !funnelId) return;
+
   const response = await db.funnelPage.upsert({
     where: { id: funnelPage.id || "" },
     update: { ...funnelPage },
@@ -877,6 +878,16 @@ export const deleteFunnelePage = async (funnelPageId: string) => {
 
 export const deleteFunnel = async (funnelId: string) => {
   const response = await db.funnel.delete({ where: { id: funnelId } });
+
+  return response;
+};
+
+export const getFunnelPages = async (funnelId: string) => {
+  const response = await db.funnelPage.findMany({
+    where: {
+      funnelId: funnelId,
+    },
+  });
 
   return response;
 };
