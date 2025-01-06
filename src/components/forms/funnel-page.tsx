@@ -17,6 +17,7 @@ import {
   upsertFunnelPage,
 } from "@/lib/queries";
 import { FunnelPageSchema } from "@/lib/types";
+import { useModal } from "@/providers/modal-provider";
 
 import Loading from "../loading";
 import { Button } from "../ui/button";
@@ -50,6 +51,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
   order,
   subaccountId,
 }) => {
+  const { setClose } = useModal();
   const { toast } = useToast();
   const router = useRouter();
   //ch
@@ -74,6 +76,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
         message:
           "Pages other than the first page in the funnel require a path name example 'secondstep'.",
       });
+
     try {
       const response = await upsertFunnelPage(
         subaccountId,
@@ -96,7 +99,9 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
         title: "Success",
         description: "Saves Funnel Page Details",
       });
+
       router.refresh();
+      setClose();
     } catch (error) {
       console.log(error);
       toast({
