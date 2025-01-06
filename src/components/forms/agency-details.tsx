@@ -367,7 +367,7 @@ const AgencyDetails = ({ data }: Props) => {
                     defaultValue={data?.goal}
                     onValueChange={async (val) => {
                       if (!data?.id) return;
-                      await updateAgencyDetails(data.id, { goal: val });
+                      await updateAgencyDetails(data.id);
                       await saveActivityLogsNotification({
                         agencyId: data.id,
                         description: `Update the agency goal to | ${val} Sub Account`,

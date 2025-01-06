@@ -37,7 +37,7 @@ export default function FunnelsDataTable<TData, TValue>({
   modalChildren,
   actionButtonText,
 }: FunnelsDataTableProps<TData, TValue>) {
-  const { isOpen, setOpen, setClose } = useModal();
+  const { setOpen } = useModal();
 
   const table = useReactTable({
     data,

@@ -4,7 +4,6 @@ import { createClerkClient, currentUser } from "@clerk/nextjs/server";
 import {
   Agency,
   Lane,
-  Plan,
   Prisma,
   Role,
   SubAccount,
@@ -62,7 +61,7 @@ export const verifyAndAcceptInvitation = async () => {
     where: { email: user.emailAddresses[0].emailAddress, status: "PENDING" },
   });
   if (invitationExists) {
-    const userDetails = await createTeamUser(invitationExists.agencyId, {
+    const userDetails = await createTeamUser({
       email: invitationExists.email,
       agencyId: invitationExists.agencyId,
       avatarUrl: user.imageUrl,
@@ -184,16 +183,13 @@ export const saveActivityLogsNotification = async ({
   }
 };
 
-export const createTeamUser = async (agencyId: string, user: User) => {
+export const createTeamUser = async (user: User) => {
   if (user.role === "AGENCY_OWNER") return null;
   const response = await db.user.create({ data: { ...user } });
   return response;
 };
 
-export const updateAgencyDetails = async (
-  agencyId: string,
-  updateAgencyDetails: Partial<Agency>,
-) => {
+export const updateAgencyDetails = async (agencyId: string) => {
   const response = await db.agency.update({
     where: { id: agencyId },
     data: { ...AgencyDetails },
@@ -233,7 +229,7 @@ export const initUser = async (newUser: Partial<User>) => {
   return userData;
 };
 
-export const upsertAgency = async (agency: Agency, price?: Plan) => {
+export const upsertAgency = async (agency: Agency) => {
   if (!agency.companyEmail) return null;
   try {
     const agencyDetails = await db.agency.upsert({
@@ -468,7 +464,7 @@ export const sendInvitation = async (
   });
 
   try {
-    const invitation = await clerkClient.invitations.createInvitation({
+    await clerkClient.invitations.createInvitation({
       emailAddress: email,
       redirectUrl: process.env.NEXT_PUBLIC_URL,
       publicMetadata: {

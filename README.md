@@ -26,8 +26,14 @@ bun dev
 
 # Todo
 
+- [x] fix the funnel page state
+- [x] fix funnel steps page
+- [ ] add more widgets to the funnel eidtor
+- [ ] add more layouts to the funnel eidtor
+- [ ] fix the drag and drop of element in the funnel editor
+- [ ] implement layers in the funnel editor
+
+# on hold
+
 - [ ] add product template page in the subaccount
 - [ ] add orders page in the subaccount
-- [x] fix the funnel page state
-- [ ] implement layers in the funnel editor
-- [ ] add more widgets to the funnel eidtor

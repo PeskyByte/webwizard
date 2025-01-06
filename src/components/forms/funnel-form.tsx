@@ -65,32 +65,39 @@ const FunnelForm: React.FC<CreateFunnelProps> = ({
 
   const isLoading = form.formState.isLoading;
 
+  // TODO: implement error handling for funnels of the same domain
   const onSubmit = async (values: z.infer<typeof CreateFunnelFormSchema>) => {
     if (!subAccountId) return;
+
     const response = await upsertFunnel(
       subAccountId,
       { ...values, liveProducts: defaultData?.liveProducts || "[]" },
       defaultData?.id || v4(),
     );
+
     await saveActivityLogsNotification({
       agencyId: undefined,
       description: `Update funnel | ${response.name}`,
       subaccountId: subAccountId,
     });
-    if (response)
+
+    if (response) {
       toast({
         title: "Success",
         description: "Saved funnel details",
       });
-    else
+    } else {
       toast({
         variant: "destructive",
         title: "Oppse!",
         description: "Could not save funnel details",
       });
+    }
+
     setClose();
     router.refresh();
   };
+
   return (
     <Card className="flex-1">
       <CardHeader>
