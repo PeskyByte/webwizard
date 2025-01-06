@@ -259,11 +259,6 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
               link: `/agency/${agency.id}/launchpad`,
             },
             {
-              name: "Billing",
-              icon: "payment",
-              link: `/agency/${agency.id}/billing`,
-            },
-            {
               name: "Settings",
               icon: "settings",
               link: `/agency/${agency.id}/settings`,
@@ -355,11 +350,6 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
             name: "Media",
             icon: "database",
             link: `/subaccount/${subAccount.id}/media`,
-          },
-          {
-            name: "Automations",
-            icon: "chip",
-            link: `/subaccount/${subAccount.id}/automations`,
           },
           {
             name: "Pipelines",
