@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { db } from "@/lib/db";
 
+import DeleteButton from "../../_components/delete-funnel";
 import FunnelProductsTable from "./funnel-products-table";
 
 interface FunnelSettingsProps {
@@ -56,6 +57,18 @@ const FunnelSettings: React.FC<FunnelSettingsProps> = async ({
       </Card>
 
       <FunnelForm subAccountId={subaccountId} defaultData={defaultData} />
+
+      <Card className="flex-1 flex-shrink">
+        <CardHeader>
+          <CardTitle>Delete This Funnel</CardTitle>
+          <CardDescription>
+            This action will delete the current opened tunnel
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DeleteButton subaccountId={subaccountId} funnelId={defaultData.id} />
+        </CardContent>
+      </Card>
     </div>
   );
 };

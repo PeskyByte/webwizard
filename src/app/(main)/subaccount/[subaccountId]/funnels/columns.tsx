@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { FunnelsForSubAccount } from "@/lib/types";
 
+import DeleteButton from "./_components/delete-funnel";
+
 export const columns: ColumnDef<FunnelsForSubAccount>[] = [
   {
     accessorKey: "name",
@@ -42,5 +44,15 @@ export const columns: ColumnDef<FunnelsForSubAccount>[] = [
         <Badge variant={"secondary"}>Draft</Badge>
       );
     },
+  },
+  {
+    id: "action",
+    header: "Actions",
+    cell: ({ row }) => (
+      <DeleteButton
+        subaccountId={row.original.subAccountId}
+        funnelId={row.original.id}
+      />
+    ),
   },
 ];
