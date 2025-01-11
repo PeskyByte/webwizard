@@ -32,6 +32,7 @@ bun dev
 - [ ] add more layouts to the funnel eidtor
 - [ ] fix the drag and drop of element in the funnel editor
 - [ ] implement layers in the funnel editor
+- [ ] add more custom stuff for the image component
 
 # on hold
 
