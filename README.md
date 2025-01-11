@@ -33,7 +33,7 @@ bun dev
 - [ ] fix the drag and drop of element in the funnel editor
 - [ ] implement layers in the funnel editor
 - [ ] add more custom stuff for the image component
-
+- [ ] go back to the default fonts
 # on hold
 
 - [ ] add product template page in the subaccount
