@@ -13,6 +13,7 @@ import LinkPlaceholder from "./link-placeholder";
 import TextPlaceholder from "./text-placeholder";
 import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
+import ImagePlaceHolder from "./image-placeholde";
 
 type Props = {};
 
@@ -45,6 +46,12 @@ const ComponentsTab = (props: Props) => {
       Component: <VideoPlaceholder />,
       label: "Video",
       id: "video",
+      group: "elements",
+    },
+    {
+      Component: <ImagePlaceHolder />,
+      label: "Image",
+      id: "image",
       group: "elements",
     },
     {

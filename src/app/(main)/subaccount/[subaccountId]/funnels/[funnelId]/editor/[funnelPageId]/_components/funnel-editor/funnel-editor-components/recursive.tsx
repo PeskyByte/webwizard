@@ -5,6 +5,7 @@ import Container from "./container";
 import LinkComponent from "./link-component";
 import TextComponent from "./text";
 import VideoComponent from "./video";
+import ImageComponent from "./image";
 
 /*import Checkout from './checkout'*/
 
@@ -30,6 +31,8 @@ const Recursive = ({ element }: Props) => {
       return <Container element={element} />;
     case "link":
       return <LinkComponent element={element} />;
+    case "image":
+      return <ImageComponent element={element} />;
     default:
       return null;
   }
