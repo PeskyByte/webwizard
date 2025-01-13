@@ -61,12 +61,6 @@ const ComponentsTab = (props: Props) => {
       group: "elements",
     },
     {
-      Component: <CheckoutPlaceholder />,
-      label: "Checkout",
-      id: "paymentForm",
-      group: "elements",
-    },
-    {
       Component: <LinkPlaceholder />,
       label: "Link",
       id: "link",

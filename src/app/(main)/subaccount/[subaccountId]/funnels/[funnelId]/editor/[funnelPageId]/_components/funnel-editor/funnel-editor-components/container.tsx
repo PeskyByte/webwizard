@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns, defaultStyles } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
+import noImage from "@/components/icons/no-image.svg";
 
 import Recursive from "./recursive";
 
@@ -84,7 +85,7 @@ const Container = ({ element }: Props) => {
             containerId: id,
             elementDetails: {
               content: {
-                src: "https://www.youtube.com/embed/A3l6YYkXzzg?si=zbcCeWcpq7Cwf8W1",
+                src: "",
               },
               id: v4(),
               name: "Image",
@@ -120,21 +121,6 @@ const Container = ({ element }: Props) => {
               name: "Contact Form",
               styles: {},
               type: "contactForm",
-            },
-          },
-        });
-        break;
-      case "paymentForm":
-        dispatch({
-          type: "ADD_ELEMENT",
-          payload: {
-            containerId: id,
-            elementDetails: {
-              content: [],
-              id: v4(),
-              name: "Contact Form",
-              styles: {},
-              type: "paymentForm",
             },
           },
         });

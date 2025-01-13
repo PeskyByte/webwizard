@@ -113,7 +113,7 @@ const SettingsTab = (props: Props) => {
                   id="src"
                   placeholder="https:domain.example.com/pathname"
                   onChange={handleChangeCustomValues}
-                  value={state.editor.selectedElement.content.href}
+                  value={state.editor.selectedElement.content.src}
                 />
               </div>
             )}

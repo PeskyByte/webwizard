@@ -23,8 +23,6 @@ const Recursive = ({ element }: Props) => {
       return <VideoComponent element={element} />;
     case "contactForm":
       return <ContactFormComponent element={element} />;
-    /*case 'paymentForm':
-      return <Checkout element={element} />*/
     case "2Col":
       return <Container element={element} />;
     case "__body":

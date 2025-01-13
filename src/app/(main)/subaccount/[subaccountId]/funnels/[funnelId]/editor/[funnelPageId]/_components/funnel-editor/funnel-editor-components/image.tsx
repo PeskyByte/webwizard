@@ -65,7 +65,7 @@ const ImageComponent = (props: Props) => {
           width={Number(props.element.styles.width) || 100}
           height={Number(props.element.styles.height) || 100}
           alt={"Image"}
-          src={props.element.content.href || noImage}
+          src={props.element.content.src || noImage}
         ></Image>
       )}
 
