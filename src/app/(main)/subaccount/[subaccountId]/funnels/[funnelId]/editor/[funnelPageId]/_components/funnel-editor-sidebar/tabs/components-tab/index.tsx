@@ -5,8 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { EditorBtns } from "@/lib/constants";
-
-import CheckoutPlaceholder from "./checkout-placeholder";
 import ContactFormComponentPlaceholder from "./contact-form-placeholder";
 import ContainerPlaceholder from "./container-placeholder";
 import LinkPlaceholder from "./link-placeholder";
