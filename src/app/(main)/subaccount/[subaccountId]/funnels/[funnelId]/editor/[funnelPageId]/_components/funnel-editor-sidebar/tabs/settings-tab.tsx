@@ -105,10 +105,10 @@ const SettingsTab = (props: Props) => {
                 />
               </div>
             )}
-          {state.editor.selectedElement.type === "image" &&
+          {(state.editor.selectedElement.type === "image" || state.editor.selectedElement.type === "video") &&
             !Array.isArray(state.editor.selectedElement.content) && (
               <div className="flex flex-col gap-2">
-                <p className="text-muted-foreground">Image Path</p>
+                <p className="text-muted-foreground">Path</p>
                 <Input
                   id="src"
                   placeholder="https:domain.example.com/pathname"

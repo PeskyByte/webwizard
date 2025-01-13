@@ -224,11 +224,6 @@ const FunnelEditorNavigation = ({
             <Redo2 />
           </Button>
           <div className="flex flex-col item-center mr-4">
-            <div className="flex flex-row items-center gap-4">
-              Draft
-              <Switch disabled defaultChecked={true} />
-              Publish
-            </div>
             <span className="text-muted-foreground text-sm">
               Last updated {funnelPageDetails.updatedAt.toLocaleDateString()}
             </span>

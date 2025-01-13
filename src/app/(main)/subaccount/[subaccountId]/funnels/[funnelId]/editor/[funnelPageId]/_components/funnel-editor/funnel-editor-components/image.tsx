@@ -41,10 +41,10 @@ const ImageComponent = (props: Props) => {
     <div
       style={styles}
       draggable
-      onDragStart={(e) => handleDragStart(e, "video")}
+      onDragStart={(e) => handleDragStart(e, "image")}
       onClick={handleOnClick}
       className={clsx(
-        "p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
+        "w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
         {
           "!border-blue-500":
             state.editor.selectedElement.id === props.element.id,
