@@ -148,7 +148,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                     className=" h-14 backdrop-blur-lg dark:bg-background/40 bg-slate-200/60  absolute top-0 left-0 right-0 z-10 "
                   >
                     <div className="h-full flex items-center p-4 justify-between cursor-grab border-b-[1px] ">
-                      {/* {laneDetails.order} */}
+                      {}
                       <div className="flex items-center w-full gap-2">
                         <div
                           className={cn("w-4 h-4 rounded-full")}

@@ -7,8 +7,6 @@ import TextComponent from "./text";
 import VideoComponent from "./video";
 import ImageComponent from "./image";
 
-/*import Checkout from './checkout'*/
-
 type Props = {
   element: EditorElement;
 };
