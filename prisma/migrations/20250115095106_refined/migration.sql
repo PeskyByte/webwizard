@@ -70,6 +70,20 @@ CREATE TABLE `SubAccount` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Product` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL,
+    `price` DECIMAL(65, 30) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `subAccountId` VARCHAR(191) NOT NULL,
+
+    INDEX `Product_subAccountId_idx`(`subAccountId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Tag` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
@@ -123,61 +137,6 @@ CREATE TABLE `Ticket` (
     INDEX `Ticket_laneId_idx`(`laneId`),
     INDEX `Ticket_customerId_idx`(`customerId`),
     INDEX `Ticket_assignedUserId_idx`(`assignedUserId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Trigger` (
-    `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `type` ENUM('CONTACT_FORM') NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `subAccountId` VARCHAR(191) NOT NULL,
-
-    INDEX `Trigger_subAccountId_idx`(`subAccountId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Automation` (
-    `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `triggerId` VARCHAR(191) NULL,
-    `published` BOOLEAN NOT NULL DEFAULT false,
-    `subAccountId` VARCHAR(191) NOT NULL,
-
-    INDEX `Automation_triggerId_idx`(`triggerId`),
-    INDEX `Automation_subAccountId_idx`(`subAccountId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `AutomationInstance` (
-    `id` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `automationId` VARCHAR(191) NOT NULL,
-    `active` BOOLEAN NOT NULL DEFAULT false,
-
-    INDEX `AutomationInstance_automationId_idx`(`automationId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Action` (
-    `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `type` ENUM('CREATE_CONTACT') NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `automationId` VARCHAR(191) NOT NULL,
-    `order` INTEGER NOT NULL,
-    `laneId` VARCHAR(191) NOT NULL DEFAULT '0',
-
-    INDEX `Action_automationId_idx`(`automationId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -312,41 +271,6 @@ CREATE TABLE `Notification` (
     INDEX `Notification_agencyId_idx`(`agencyId`),
     INDEX `Notification_subAccountId_idx`(`subAccountId`),
     INDEX `Notification_userId_idx`(`userId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Subscription` (
-    `id` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `plan` ENUM('price_1OYxkqFj9oKEERu1NbKUxXxN', 'price_1OYxkqFj9oKEERu1KfJGWxgN') NULL,
-    `price` VARCHAR(191) NULL,
-    `active` BOOLEAN NOT NULL DEFAULT false,
-    `priceId` VARCHAR(191) NOT NULL,
-    `customerId` VARCHAR(191) NOT NULL,
-    `currentPeriodEndDate` DATETIME(3) NOT NULL,
-    `subscritiptionId` VARCHAR(191) NOT NULL,
-    `agencyId` VARCHAR(191) NULL,
-
-    UNIQUE INDEX `Subscription_subscritiptionId_key`(`subscritiptionId`),
-    UNIQUE INDEX `Subscription_agencyId_key`(`agencyId`),
-    INDEX `Subscription_customerId_idx`(`customerId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `AddOns` (
-    `id` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `active` BOOLEAN NOT NULL DEFAULT false,
-    `priceId` VARCHAR(191) NOT NULL,
-    `agencyId` VARCHAR(191) NULL,
-
-    UNIQUE INDEX `AddOns_priceId_key`(`priceId`),
-    INDEX `AddOns_agencyId_idx`(`agencyId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

@@ -126,6 +126,7 @@ model SubAccount {
   Tags             Tag[]
   Notification     Notification[]
   Product          Product[]
+
   @@index([agencyId])
 }
 
