@@ -1,6 +1,6 @@
 "use client";
 
-import { Agency, Contact, Plan, User } from "@prisma/client";
+import { Agency, Contact, User } from "@prisma/client";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { TicketDetails } from "@/lib/types";

@@ -1,12 +1,11 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { Plan } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 import AgencyDetails from "@/components/forms/agency-details";
 import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 
 const Page = async (props: {
-  searchParams: Promise<{ plan: Plan; state: string; code: string }>;
+  searchParams: Promise<{ state: string; code: string }>;
 }) => {
   const searchParams = await props.searchParams;
   const agencyId = await verifyAndAcceptInvitation();
@@ -17,11 +16,6 @@ const Page = async (props: {
     if (user?.role === "SUBACCOUNT_GUEST" || user?.role === "SUBACCOUNT_USER") {
       return redirect("/subaccount");
     } else if (user?.role === "AGENCY_OWNER" || user?.role === "AGENCY_ADMIN") {
-      if (searchParams.plan) {
-        return redirect(
-          `/agency/${agencyId}/billing?plan=${searchParams.plan}`,
-        );
-      }
       if (searchParams.state) {
         const statePath = searchParams.state.split("__")[0];
         const stateAgencyId = searchParams.state.split("___")[1];

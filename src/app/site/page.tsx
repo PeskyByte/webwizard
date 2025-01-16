@@ -1,16 +1,4 @@
-import clsx from "clsx";
-import { Check } from "lucide-react";
-import Link from "next/link";
-
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { pricingCards } from "@/lib/constants";
-
+import React from "react";
 export default function Home() {
   return (
     <>
@@ -24,53 +12,6 @@ export default function Home() {
           <h1 className="text-7xl font-bold text-center md:text-[200px]">
             WebWizard
           </h1>
-        </div>
-      </section>
-      <section className="flex justify-center items-center flex-col gap-4 md:!mt-20 mt-[-60px]">
-        <div className="flex justify-center gap-4 flex-wrap mt-6">
-          {pricingCards.map((card) => (
-            <Card
-              key={card.title}
-              className={clsx("w-[300px] flex flex-col justify-between", {
-                "border-2 border-primary": card.title === "Unlimited Saas",
-              })}
-            >
-              <CardHeader>
-                <CardTitle
-                  className={clsx("", {
-                    "text-muted-foreground": card.title !== "Unlimited Saas",
-                  })}
-                >
-                  {" "}
-                  {card.title}{" "}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {" "}
-                <span className="text-4xl font-bold">{card.price}</span>
-                <span className="text-muted-foreground">/m</span>
-              </CardContent>
-              <CardFooter className="flex flex-col items-start gap-4">
-                <div>
-                  {card.features.map((feature) => (
-                    <div key={feature} className="flex gap-2 items-center">
-                      <Check />
-                      <p>{feature}</p>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href={"/agency?plan=${card.priceId}"}
-                  className={clsx(
-                    "w-full text-center bg-primary p-2 rounded-md",
-                    { "!bg-muted-foreground": card.title !== "Unlimited Saas" },
-                  )}
-                >
-                  Get Started
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
         </div>
       </section>
     </>
