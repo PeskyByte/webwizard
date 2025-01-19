@@ -17,6 +17,7 @@ import {
   getFunnels,
   getMedia,
   getPipelineDetails,
+  getSubaccountProducts,
   getTicketsWithTags,
   getUserPermissions,
 } from "./queries";
@@ -146,3 +147,5 @@ export const FunnelPageSchema = z.object({
   name: z.string().min(1),
   pathName: z.string().optional(),
 });
+
+export type GetProduct = Prisma.PromiseReturnType<typeof getSubaccountProducts>;

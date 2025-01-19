@@ -1,8 +1,7 @@
 "use client";
 
-import { Media } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { Copy, MoreHorizontal, Trash } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -26,11 +25,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
-import { deleteMedia, saveActivityLogsNotification } from "@/lib/queries";
+import { deleteProduct, saveActivityLogsNotification } from "@/lib/queries";
 
-type Props = { file: Media };
+type Props = { product: Product };
 
-const MediaCard = ({ file }: Props) => {
+const ProductCard = ({ product }: Props) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -39,19 +38,14 @@ const MediaCard = ({ file }: Props) => {
       <DropdownMenu>
         <article className="border w-full rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white">
           <div className="relative w-full h-40">
-            <Image
-              src={file.link}
-              alt="preview image"
-              fill
-              className="object-cover rounded-lg"
-            />
+            <p>{product.description}</p>
           </div>
-          <p className="opacity-0 h-0 w-0">{file.name}</p>
+          <p className="opacity-0 h-0 w-0">{product.name}</p>
           <div className="p-4 relative">
             <p className="text-muted-foreground">
-              {file.createdAt.toDateString()}
+              {product.createdAt.toDateString()}
             </p>
-            <p>{file.name}</p>
+            <p>{product.name}</p>
             <div className="absolute top-4 right-4 p-[1px] cursor-pointer ">
               <DropdownMenuTrigger>
                 <MoreHorizontal />
@@ -62,18 +56,9 @@ const MediaCard = ({ file }: Props) => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Menu</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="flex gap-2"
-              onClick={() => {
-                navigator.clipboard.writeText(file.link);
-                toast({ title: "Copied To Clipboard" });
-              }}
-            >
-              <Copy size={15} /> Copy Image Link
-            </DropdownMenuItem>
             <AlertDialogTrigger asChild>
               <DropdownMenuItem className="flex gap-2">
-                <Trash size={15} /> Delete File
+                <Trash size={15} /> Delete Product
               </DropdownMenuItem>
             </AlertDialogTrigger>
           </DropdownMenuContent>
@@ -82,11 +67,10 @@ const MediaCard = ({ file }: Props) => {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-left">
-            Are you absolutely sure?
+            Delete Product
           </AlertDialogTitle>
           <AlertDialogDescription className="text-left">
-            Are you sure you want to delete this file? All subaccount using this
-            file will no longer have access to it!
+            Are you sure you want to delete this product?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex items-center">
@@ -96,15 +80,15 @@ const MediaCard = ({ file }: Props) => {
             className="bg-destructive hover:bg-destructive"
             onClick={async () => {
               setLoading(true);
-              const response = await deleteMedia(file.id);
+              const response = await deleteProduct(product.id);
               await saveActivityLogsNotification({
                 agencyId: undefined,
-                description: `Deleted a media file | ${response?.name}`,
+                description: `Deleted a product | ${response?.name}`,
                 subaccountId: response.subAccountId,
               });
               toast({
-                title: "Deleted File",
-                description: "Successfully deleted the file",
+                title: "Deleted Product",
+                description: "Successfully deleted the product",
               });
               setLoading(false);
               router.refresh();
@@ -118,4 +102,4 @@ const MediaCard = ({ file }: Props) => {
   );
 };
 
-export default MediaCard;
+export default ProductCard;

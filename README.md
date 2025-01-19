@@ -26,16 +26,15 @@ bun dev
 
 # Todo
 based on a meeting with dr osama, we need to prioritize these
-- [ ] Add dynamic behaviour, for example form submissions should show on the dashboard of the subbaccount,
+- [X] Add dynamic behaviour, for example form submissions should show on the dashboard of the subbaccount,
 users have the ability to add simple sign in functionality. 
-- [ ] fix the drag and drop of element in the funnel editor
 - [ ] add product template page in the subaccount
 - [ ] add orders page in the subaccount
+- [ ] fix the drag and drop of element in the funnel editor
+
 - [ ] add more widgets to the funnel editor
 - [ ] add more layouts to the funnel editor
 
 # on hold
-
-- [ ] implement layers in the funnel editor
 - [ ] add more custom stuff for the image component
 - [ ] go back to the default fonts

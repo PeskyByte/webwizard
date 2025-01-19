@@ -909,3 +909,37 @@ export const getPipelines = async (subaccountId: string) => {
   });
   return response;
 };
+
+export const upsertProduct = async (
+  product: Prisma.ProductUncheckedCreateInput,
+) => {
+  const response = await db.product.upsert({
+    where: { id: product.id || v4() },
+    update: product,
+    create: product,
+  });
+  return response;
+};
+
+export const getSubaccountProducts = async (subaccountId: string) => {
+  const response = await db.product.findMany({
+    where: {
+      subAccountId: subaccountId,
+    },
+  });
+  return response;
+};
+
+export const getSubaccountProduct = async (productId: string) => {
+  const response = await db.product.findUnique({
+    where: { id: productId },
+  });
+  return response;
+}
+
+export const deleteProduct = async (productId: string) => {
+  const response = await db.product.delete({
+    where: {id: productId}
+  });
+  return response;
+}
