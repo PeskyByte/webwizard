@@ -5,13 +5,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { EditorBtns } from "@/lib/constants";
+
 import ContactFormComponentPlaceholder from "./contact-form-placeholder";
 import ContainerPlaceholder from "./container-placeholder";
+import ImagePlaceHolder from "./image-placeholde";
 import LinkPlaceholder from "./link-placeholder";
 import TextPlaceholder from "./text-placeholder";
 import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
-import ImagePlaceHolder from "./image-placeholde";
 
 type Props = {};
 

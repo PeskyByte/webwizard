@@ -2,10 +2,10 @@ import { EditorElement } from "@/providers/editor/editor-provider";
 
 import ContactFormComponent from "./contact-form-component";
 import Container from "./container";
+import ImageComponent from "./image";
 import LinkComponent from "./link-component";
 import TextComponent from "./text";
 import VideoComponent from "./video";
-import ImageComponent from "./image";
 
 type Props = {
   element: EditorElement;

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Trash } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
 
 type Props = {
@@ -12,6 +13,11 @@ type Props = {
 
 const TextComponent = (props: Props) => {
   const { dispatch, state } = useEditor();
+
+  const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
+    if (type === null) return;
+    e.dataTransfer.setData("componentType", type);
+  };
 
   const handleDeleteElement = () => {
     dispatch({
@@ -31,7 +37,6 @@ const TextComponent = (props: Props) => {
     });
   };
 
-  //WE ARE NOT ADDING DRAG DROP
   return (
     <div
       style={styles}
@@ -45,7 +50,9 @@ const TextComponent = (props: Props) => {
           "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
         },
       )}
+      draggable
       onClick={handleOnClickBody}
+      onDragStart={(e) => handleDragStart(e, "text")}
     >
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (

@@ -935,11 +935,11 @@ export const getSubaccountProduct = async (productId: string) => {
     where: { id: productId },
   });
   return response;
-}
+};
 
 export const deleteProduct = async (productId: string) => {
   const response = await db.product.delete({
-    where: {id: productId}
+    where: { id: productId },
   });
   return response;
-}
+};

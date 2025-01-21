@@ -71,6 +71,73 @@ const initialState: EditorState = {
   history: initialHistoryState,
 };
 
+const moveElement = (
+  editorArray: EditorElement[],
+  action: EditorAction,
+): EditorElement[] => {
+  if (action.type !== "MOVE_ELEMENT") {
+    throw Error("You sent the wrong action type to the Move Element State");
+  }
+
+  const {
+    elementId,
+    sourceContainerId,
+    destinationContainerId,
+    destinationIndex,
+  } = action.payload;
+  let elementToMove: EditorElement | null = null;
+  let sourceArray: EditorElement[] = [];
+  let sourceIndex: number = -1;
+
+  const findElement = (array: EditorElement[], containerId: string): void => {
+    array.forEach((item, index) => {
+      if (item.id === containerId && Array.isArray(item.content)) {
+        item.content.forEach((child, childIndex) => {
+          if (child.id === elementId) {
+            elementToMove = child;
+            sourceArray = item.content as EditorElement[];
+            sourceIndex = childIndex;
+          }
+        });
+      }
+      if (item.content && Array.isArray(item.content)) {
+        findElement(item.content, containerId);
+      }
+    });
+  };
+
+  findElement(editorArray, sourceContainerId);
+
+  if (!elementToMove || !sourceArray) {
+    return editorArray;
+  }
+
+  sourceArray.splice(sourceIndex, 1);
+
+  const insertElement = (
+    array: EditorElement[],
+    containerId: string,
+  ): boolean => {
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i];
+      if (item.id === containerId && Array.isArray(item.content)) {
+        item.content.splice(destinationIndex, 0, elementToMove!);
+        return true;
+      }
+      if (item.content && Array.isArray(item.content)) {
+        if (insertElement(item.content, containerId)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  insertElement(editorArray, destinationContainerId);
+
+  return [...editorArray];
+};
+
 const addAnElement = (
   editorArray: EditorElement[],
   action: EditorAction,
@@ -138,6 +205,29 @@ const editorReducer = (
   action: EditorAction,
 ): EditorState => {
   switch (action.type) {
+    case "MOVE_ELEMENT": {
+      const updatedElements = moveElement(state.editor.elements, action);
+      const updatedEditorState = {
+        ...state.editor,
+        elements: updatedElements,
+      };
+
+      const updatedHistory = [
+        ...state.history.history.slice(0, state.history.currentIndex + 1),
+        { ...updatedEditorState },
+      ];
+
+      return {
+        ...state,
+        editor: updatedEditorState,
+        history: {
+          ...state.history,
+          history: updatedHistory,
+          currentIndex: updatedHistory.length - 1,
+        },
+      };
+    }
+
     case "ADD_ELEMENT":
       const updatedEditorState = {
         ...state.editor,

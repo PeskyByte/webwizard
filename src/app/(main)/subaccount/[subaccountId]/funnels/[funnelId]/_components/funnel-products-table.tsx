@@ -57,9 +57,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
             <TableHead className="text-right">Price</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="font-medium truncate">
-          {}
-        </TableBody>
+        <TableBody className="font-medium truncate">{}</TableBody>
       </Table>
       <Button
         disabled={isLoading}

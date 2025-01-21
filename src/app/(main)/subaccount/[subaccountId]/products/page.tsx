@@ -1,9 +1,18 @@
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import React from "react";
-import ProductCard from "./_components/product-card";
 import { FolderSearch } from "lucide-react";
-import ProductUploadButton from "./_components/product-upload-btn";
+import React from "react";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { GetProduct } from "@/lib/types";
+
+import ProductCard from "./_components/product-card";
+import ProductUploadButton from "./_components/product-upload-btn";
 
 type Props = {
   data: GetProduct[];
@@ -22,9 +31,7 @@ const Products = ({ data = [], subaccountId }: Props) => {
         <CommandList className="pb-40 max-h-full ">
           <CommandEmpty>No Products</CommandEmpty>
           <CommandGroup heading="Products">
-            <div className="flex flex-wrap gap-4 pt-4">
-              
-            </div>
+            <div className="flex flex-wrap gap-4 pt-4"></div>
           </CommandGroup>
         </CommandList>
       </Command>

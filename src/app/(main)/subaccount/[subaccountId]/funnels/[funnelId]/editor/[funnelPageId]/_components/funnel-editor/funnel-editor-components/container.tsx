@@ -4,10 +4,10 @@ import clsx from "clsx";
 import { Trash } from "lucide-react";
 import { v4 } from "uuid";
 
+import noImage from "@/components/icons/no-image.svg";
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns, defaultStyles } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
-import noImage from "@/components/icons/no-image.svg";
 
 import Recursive from "./recursive";
 
@@ -17,9 +17,64 @@ const Container = ({ element }: Props) => {
   const { id, content, name, styles, type } = element;
   const { dispatch, state } = useEditor();
 
-  const handleOnDrop = (e: React.DragEvent, type: string) => {
+  const findContainerById = (
+    elements: EditorElement[],
+    elementId: string,
+  ): EditorElement | null => {
+    for (const el of elements) {
+      if (Array.isArray(el.content)) {
+        if (el.content.some((child) => child.id === elementId)) {
+          return el;
+        }
+        const found = findContainerById(el.content, elementId);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  const handleOnDrop = (e: React.DragEvent, containerId: string) => {
     e.stopPropagation();
+
     const componentType = e.dataTransfer.getData("componentType") as EditorBtns;
+    const moveElementId = e.dataTransfer.getData("moveElementId");
+
+    if (moveElementId) {
+      const sourceContainer = findContainerById(
+        state.editor.elements,
+        moveElementId,
+      );
+      if (!sourceContainer) return;
+
+      const containerRect = e.currentTarget.getBoundingClientRect();
+      const y = e.clientY - containerRect.top;
+      let insertIndex = 0;
+
+      if (Array.isArray(element.content)) {
+        const children = element.content;
+        for (let i = 0; i < children.length; i++) {
+          const child = document.getElementById(children[i].id);
+          if (child) {
+            const childRect = child.getBoundingClientRect();
+            const childMiddle = childRect.top + childRect.height / 2;
+            if (e.clientY > childMiddle) {
+              insertIndex = i + 1;
+            }
+          }
+        }
+      }
+
+      dispatch({
+        type: "MOVE_ELEMENT",
+        payload: {
+          elementId: moveElementId,
+          sourceContainerId: sourceContainer.id,
+          destinationContainerId: containerId,
+          destinationIndex: insertIndex,
+        },
+      });
+      return;
+    }
 
     switch (componentType) {
       case "text":
@@ -162,9 +217,19 @@ const Container = ({ element }: Props) => {
     e.preventDefault();
   };
 
+  const handleDragLeave = (e: React.DragEvent) => {
+    const container = e.currentTarget as HTMLElement;
+    container.style.backgroundColor = "";
+  };
+
   const handleDragStart = (e: React.DragEvent, type: string) => {
     if (type === "__body") return;
-    e.dataTransfer.setData("componentType", type);
+
+    if (state.editor.selectedElement.id) {
+      e.dataTransfer.setData("moveElementId", state.editor.selectedElement.id);
+    } else {
+      e.dataTransfer.setData("componentType", type);
+    }
   };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
@@ -188,6 +253,7 @@ const Container = ({ element }: Props) => {
 
   return (
     <div
+      id={id}
       style={styles}
       className={clsx("relative p-4 transition-all group", {
         "max-w-full w-full": type === "container" || type === "2Col",
@@ -209,9 +275,9 @@ const Container = ({ element }: Props) => {
       })}
       onDrop={(e) => handleOnDrop(e, id)}
       onDragOver={handleDragOver}
-      draggable={type !== "__body"}
+      draggable={type !== "__body" && !state.editor.liveMode}
       onClick={handleOnClickBody}
-      onDragStart={(e) => handleDragStart(e, "container")}
+      onDragStart={(e) => handleDragStart(e, type!)}
     >
       <Badge
         className={clsx(

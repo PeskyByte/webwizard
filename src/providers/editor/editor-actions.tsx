@@ -2,6 +2,15 @@ import { DeviceTypes, EditorElement } from "./editor-provider";
 
 export type EditorAction =
   | {
+      type: "MOVE_ELEMENT";
+      payload: {
+        elementId: string;
+        sourceContainerId: string;
+        destinationContainerId: string;
+        destinationIndex: number;
+      };
+    }
+  | {
       type: "ADD_ELEMENT";
       payload: {
         containerId: string;

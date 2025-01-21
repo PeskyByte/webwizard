@@ -48,7 +48,7 @@ const AddProductForm = ({ subaccountId }: Props) => {
   const { data: defaultData, setClose } = useModal();
   const { toast } = useToast();
   const router = useRouter();
-  
+
   const form = useForm<z.infer<typeof ProductFormSchema>>({
     resolver: zodResolver(ProductFormSchema),
     mode: "onSubmit",
@@ -64,7 +64,7 @@ const AddProductForm = ({ subaccountId }: Props) => {
       const response = await upsertProduct({
         ...values,
         subAccountId: subaccountId,
-      })
+      });
 
       await saveActivityLogsNotification({
         agencyId: undefined,
@@ -88,7 +88,9 @@ const AddProductForm = ({ subaccountId }: Props) => {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Product Information</CardTitle>
-        <CardDescription>Please enter the details for the product</CardDescription>
+        <CardDescription>
+          Please enter the details for the product
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>

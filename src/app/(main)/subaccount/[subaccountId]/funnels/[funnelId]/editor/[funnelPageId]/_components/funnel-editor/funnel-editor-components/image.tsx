@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { Trash } from "lucide-react";
+import Image from "next/image";
 import React from "react";
+
 import noImage from "@/components/icons/no-image.svg";
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
-import Image from "next/image";
 
 type Props = {
   element: EditorElement;
