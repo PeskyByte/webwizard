@@ -32,20 +32,25 @@ type Props = { product: Product };
 const ProductCard = ({ product }: Props) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  //style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "normal", wordWrap: "break-word" }}
   return (
     <AlertDialog>
       <DropdownMenu>
-        <article className="border w-full rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white">
+        <article className="border w-56 h-64 rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white pt-3 pl-3 pr-3">
           <div className="relative w-full h-40">
-            <p>{product.description}</p>
+            <p className="overflow-ellipsis overflow-hidden whitespace-normal break-words">
+              {product.description === ""
+                ? "---No Description---"
+                : product.description}
+            </p>
           </div>
           <p className="opacity-0 h-0 w-0">{product.name}</p>
           <div className="p-4 relative">
             <p className="text-muted-foreground">
               {product.createdAt.toDateString()}
             </p>
-            <p>{product.name}  ||  {String(product.price)}</p>
+            <p>{product.name}</p>
+            <p>{String(product.price)}$</p>
             <div className="absolute top-4 right-4 p-[1px] cursor-pointer ">
               <DropdownMenuTrigger>
                 <MoreHorizontal />
