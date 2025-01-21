@@ -9,11 +9,11 @@ import { useModal } from "@/providers/modal-provider";
 
 type Props = {
   subaccountId: string;
-  productId: string;
 };
 
-const ProductUploadButton = ({ subaccountId, productId }: Props) => {
+const ProductUploadButton = ({ subaccountId }: Props) => {
   const { isOpen, setOpen, setClose } = useModal();
+  console.log("from button", subaccountId);
   return (
     <Button
       onClick={() => {

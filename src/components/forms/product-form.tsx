@@ -39,8 +39,8 @@ type Props = {
 };
 
 export const ProductFormSchema = z.object({
-  name: z.string().min(1),
-  description: z.string().min(0).max(255).optional(),
+  name: z.string().min(1).max(191),
+  description: z.string().min(0).max(191).optional(),
   price: z.string(),
 });
 
@@ -76,6 +76,8 @@ const AddProductForm = ({ subaccountId }: Props) => {
       router.refresh();
     } catch (error) {
       console.log(error);
+      console.log(values);
+      console.log(subaccountId);
       toast({
         variant: "destructive",
         title: "Failed",

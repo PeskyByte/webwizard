@@ -45,7 +45,7 @@ const ProductCard = ({ product }: Props) => {
             <p className="text-muted-foreground">
               {product.createdAt.toDateString()}
             </p>
-            <p>{product.name}</p>
+            <p>{product.name}  ||  {String(product.price)}</p>
             <div className="absolute top-4 right-4 p-[1px] cursor-pointer ">
               <DropdownMenuTrigger>
                 <MoreHorizontal />
