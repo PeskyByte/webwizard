@@ -40,7 +40,7 @@ interface SendInvitationProps {
 const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
   const { toast } = useToast();
   const userDataSchema = z.object({
-    email: z.string().email(),
+    email: z.string().email().max(191),
     role: z.enum(["AGENCY_ADMIN", "SUBACCOUNT_USER", "SUBACCOUNT_GUEST"]),
   });
 

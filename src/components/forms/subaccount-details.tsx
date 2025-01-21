@@ -33,15 +33,15 @@ import FileUpload from "../file-upload";
 import Loading from "../loading";
 
 const formSchema = z.object({
-  name: z.string(),
-  companyEmail: z.string(),
-  companyPhone: z.string().min(1),
-  address: z.string(),
-  city: z.string(),
-  subAccountLogo: z.string(),
-  zipCode: z.string(),
-  state: z.string(),
-  country: z.string(),
+  name: z.string().max(191),
+  companyEmail: z.string().max(191),
+  companyPhone: z.string().max(191).min(1),
+  address: z.string().max(191),
+  city: z.string().max(191),
+  subAccountLogo: z.string().max(191),
+  zipCode: z.string().max(191),
+  state: z.string().max(191),
+  country: z.string().max(191),
 });
 
 //CHALLENGE Give access for Subaccount Guest they should see a different view maybe a form that allows them to create tickets

@@ -84,9 +84,9 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
   }, [data]);
 
   const userDataSchema = z.object({
-    name: z.string().min(1),
-    email: z.string().email(),
-    avatarUrl: z.string(),
+    name: z.string().min(1).max(191),
+    email: z.string().email().max(191),
+    avatarUrl: z.string().max(191),
     role: z.enum([
       "AGENCY_OWNER",
       "AGENCY_ADMIN",
