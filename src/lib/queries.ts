@@ -10,6 +10,7 @@ import {
   Tag,
   Ticket,
   User,
+  Orders,
 } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -361,6 +362,16 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
             name: "Dashboard",
             icon: "category",
             link: `/subaccount/${subAccount.id}`,
+          },
+          {
+            name: "Products",
+            icon: "headphone",
+            link: `/subaccount/${subAccount.id}/products`,
+          },
+          {
+            name: "Orders",
+            icon: "receipt",
+            link: `/subaccount/${subAccount.id}/orders`,
           },
         ],
       },
@@ -940,6 +951,40 @@ export const getSubaccountProduct = async (productId: string) => {
 export const deleteProduct = async (productId: string) => {
   const response = await db.product.delete({
     where: { id: productId },
+  });
+  return response;
+};
+
+export const upsertOrder = async (
+  order: Prisma.OrdersUncheckedCreateInput,
+) => {
+  const response = await db.orders.upsert({
+    where: { id: order.id || v4() },
+    update: order,
+    create: order,
+  });
+  return response;
+};
+
+export const getSubaccountOrders = async (subaccountId: string) => {
+  const response = await db.orders.findMany({
+    where: {
+      subAccountId: subaccountId,
+    },
+  });
+  return response;
+};
+
+export const getSubaccountOrder = async (orderId: string) => {
+  const response = await db.orders.findUnique({
+    where: { id: orderId },
+  });
+  return response;
+};
+
+export const deleteOrder = async (orderId: string) => {
+  const response = await db.orders.delete({
+    where: { id: orderId },
   });
   return response;
 };
