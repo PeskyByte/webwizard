@@ -206,7 +206,7 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
-        case "separator":
+      case "separator":
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
@@ -241,13 +241,6 @@ const Container = ({ element }: Props) => {
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (type === "__body")
-      dispatch({
-        type: "CHANGE_CLICKED_ELEMENT",
-        payload: {
-          elementDetails: element,
-        },
-      });
     dispatch({
       type: "CHANGE_CLICKED_ELEMENT",
       payload: {
