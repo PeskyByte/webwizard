@@ -36,7 +36,7 @@ based on a meeting with dr osama, we need to prioritize these
 - [x] fix the drag and drop of element in the funnel editor
   - [x] keep the original data when dragging
   - [x] fix the dragging from the \_\_body container
-- [ ] image explosion fix
+- [x] image explosion fix
 - [ ] extra padding for layout components
 - [ ] add more widgets to the funnel editor
 - [ ] add more layouts to the funnel editor

@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { Trash } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 import noImage from "@/components/icons/no-image.svg";
@@ -62,12 +61,12 @@ const ImageComponent = (props: Props) => {
         )}
 
       {!Array.isArray(props.element.content) && (
-        <Image
+        <img
           width={Number(props.element.styles.width) || 100}
           height={Number(props.element.styles.height) || 100}
           alt={"Image"}
           src={props.element.content.src || noImage}
-        ></Image>
+        ></img>
       )}
 
       {state.editor.selectedElement.id === props.element.id &&
