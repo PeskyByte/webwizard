@@ -169,7 +169,7 @@ const SettingsTab = (props: Props) => {
           <div className="flex flex-col gap-2">
             <p className="text-muted-foreground">Font Family</p>
             <Input
-              id="DM Sans"
+              id="fontFamily"
               onChange={handleOnChanges}
               value={state.editor.selectedElement.styles.fontFamily}
             />
