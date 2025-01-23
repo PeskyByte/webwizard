@@ -265,7 +265,8 @@ const Container = ({ element }: Props) => {
       className={clsx("relative p-4 transition-all group", {
         "max-w-full w-full": type === "container" || type === "2Col",
         "h-fit": type === "container",
-        "h-full mb-[100px]": type === "__body",
+        "h-full": type === "__body",
+        "mb-[100px]": type === "__body" && !state.editor.liveMode,
         "overflow-auto ": type === "__body",
         "flex flex-col md:!flex-row": type === "2Col",
         "!border-blue-500":
