@@ -314,17 +314,30 @@ const editorReducer = (
       return deletedState;
 
     case "CHANGE_CLICKED_ELEMENT":
+      const { elementDetails } = action.payload;
+
+      const isAlreadySelected =
+        state.editor.selectedElement.id === elementDetails?.id;
+
       const clickedState = {
         ...state,
         editor: {
           ...state.editor,
-          selectedElement: action.payload.elementDetails || {
-            id: "",
-            content: [],
-            name: "",
-            styles: {},
-            type: null,
-          },
+          selectedElement: isAlreadySelected
+            ? {
+                id: "",
+                content: [],
+                name: "",
+                styles: {},
+                type: null,
+              }
+            : elementDetails || {
+                id: "",
+                content: [],
+                name: "",
+                styles: {},
+                type: null,
+              },
         },
         history: {
           ...state.history,
@@ -336,6 +349,7 @@ const editorReducer = (
         },
       };
       return clickedState;
+
     case "CHANGE_DEVICE":
       const changedDeviceState = {
         ...state,
