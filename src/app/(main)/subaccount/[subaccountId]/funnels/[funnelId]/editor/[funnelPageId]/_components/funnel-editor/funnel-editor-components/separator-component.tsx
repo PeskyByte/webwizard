@@ -1,17 +1,16 @@
 import clsx from "clsx";
 import { Trash } from "lucide-react";
 import React from "react";
-
-import noImage from "@/components/icons/no-image.svg";
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   element: EditorElement;
 };
 
-const ImageComponent = (props: Props) => {
+const SeparatorComponent = (props: Props) => {
   const { dispatch, state } = useEditor();
   const styles = props.element.styles;
 
@@ -41,7 +40,7 @@ const ImageComponent = (props: Props) => {
     <div
       style={styles}
       draggable
-      onDragStart={(e) => handleDragStart(e, "image")}
+      onDragStart={(e) => handleDragStart(e, "separator")}
       onClick={handleOnClick}
       className={clsx(
         "w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
@@ -61,13 +60,8 @@ const ImageComponent = (props: Props) => {
         )}
 
       {!Array.isArray(props.element.content) && (
-        console.log("ImageComponent.tsx", props.element),
-        <img
-          width={Number(props.element.styles.width) || 100}
-          height={Number(props.element.styles.height) || 100}
-          alt={"Image"}
-          src={props.element.content.src || noImage}
-        ></img>
+        console.log("SeparatorComponent.tsx", props.element),
+        <Separator className="my-6"/>
       )}
 
       {state.editor.selectedElement.id === props.element.id &&
@@ -84,4 +78,4 @@ const ImageComponent = (props: Props) => {
   );
 };
 
-export default ImageComponent;
+export default SeparatorComponent;

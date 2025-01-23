@@ -206,6 +206,21 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
+        case "separator":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId,
+            elementDetails: {
+              content: {},
+              id: v4(),
+              name: "Separator",
+              styles: {},
+              type: "separator",
+            },
+          },
+        });
+        break;
     }
 
     e.dataTransfer.setData("componentType", "");

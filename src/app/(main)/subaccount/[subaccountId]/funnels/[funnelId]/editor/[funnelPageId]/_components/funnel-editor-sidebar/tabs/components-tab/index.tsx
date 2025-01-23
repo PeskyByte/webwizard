@@ -13,6 +13,7 @@ import LinkPlaceholder from "./link-placeholder";
 import TextPlaceholder from "./text-placeholder";
 import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
+import Separator from "./serperator-placeholder";
 
 type Props = {};
 
@@ -63,6 +64,12 @@ const ComponentsTab = (props: Props) => {
       Component: <LinkPlaceholder />,
       label: "Link",
       id: "link",
+      group: "elements",
+    },
+    {
+      Component: <Separator />,
+      label: "Separator",
+      id: "separator",
       group: "elements",
     },
   ];

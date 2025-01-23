@@ -6,6 +6,7 @@ import ImageComponent from "./image";
 import LinkComponent from "./link-component";
 import TextComponent from "./text";
 import VideoComponent from "./video";
+import SeparatorComponent from "./separator-component";
 
 type Props = {
   element: EditorElement;
@@ -29,6 +30,8 @@ const Recursive = ({ element }: Props) => {
       return <LinkComponent element={element} />;
     case "image":
       return <ImageComponent element={element} />;
+    case "separator":
+      return <SeparatorComponent element={element} />;
     default:
       return null;
   }

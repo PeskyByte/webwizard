@@ -207,6 +207,7 @@ export type EditorBtns =
   | "video"
   | "__body"
   | "image"
+  | "separator"
   | null
   | "3Col";
 
