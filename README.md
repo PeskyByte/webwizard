@@ -32,10 +32,10 @@ based on a meeting with dr osama, we need to prioritize these
       dashboard of the subbaccount, users have the ability to add simple sign in
       functionality.
 - [x] add product template page in the subaccount
-- [ ] add orders page in the subaccount
+- [x] add orders page in the subaccount
 - [x] fix the drag and drop of element in the funnel editor
-  - [ ] keep the original data when dragging
-  - [ ] fix the dragging from the \_\_body container
+  - [x] keep the original data when dragging
+  - [x] fix the dragging from the \_\_body container
 - [ ] image explosion fix
 - [ ] extra padding for layout components
 - [ ] add more widgets to the funnel editor

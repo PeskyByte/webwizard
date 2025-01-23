@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { Trash } from "lucide-react";
 import { v4 } from "uuid";
 
-import noImage from "@/components/icons/no-image.svg";
 import { Badge } from "@/components/ui/badge";
 import { EditorBtns, defaultStyles } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
@@ -14,40 +13,35 @@ import Recursive from "./recursive";
 type Props = { element: EditorElement };
 
 const Container = ({ element }: Props) => {
-  const { id, content, name, styles, type } = element;
+  const { id, content, styles, type } = element;
   const { dispatch, state } = useEditor();
-
-  const findContainerById = (
-    elements: EditorElement[],
-    elementId: string,
-  ): EditorElement | null => {
-    for (const el of elements) {
-      if (Array.isArray(el.content)) {
-        if (el.content.some((child) => child.id === elementId)) {
-          return el;
-        }
-        const found = findContainerById(el.content, elementId);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
 
   const handleOnDrop = (e: React.DragEvent, containerId: string) => {
     e.stopPropagation();
 
-    const componentType = e.dataTransfer.getData("componentType") as EditorBtns;
-    const moveElementId = e.dataTransfer.getData("moveElementId");
+    if (state.editor.selectedElement.id) {
+      const findContainerById = (
+        elements: EditorElement[],
+        elementId: string,
+      ): EditorElement | null => {
+        for (const el of elements) {
+          if (Array.isArray(el.content)) {
+            if (el.content.some((child) => child.id === elementId)) {
+              return el;
+            }
+            const found = findContainerById(el.content, elementId);
+            if (found) return found;
+          }
+        }
+        return null;
+      };
 
-    if (moveElementId) {
       const sourceContainer = findContainerById(
         state.editor.elements,
-        moveElementId,
+        state.editor.selectedElement.id,
       );
       if (!sourceContainer) return;
 
-      const containerRect = e.currentTarget.getBoundingClientRect();
-      const y = e.clientY - containerRect.top;
       let insertIndex = 0;
 
       if (Array.isArray(element.content)) {
@@ -58,7 +52,7 @@ const Container = ({ element }: Props) => {
             const childRect = child.getBoundingClientRect();
             const childMiddle = childRect.top + childRect.height / 2;
             if (e.clientY > childMiddle) {
-              insertIndex = i + 1;
+              insertIndex = children.length;
             }
           }
         }
@@ -67,7 +61,7 @@ const Container = ({ element }: Props) => {
       dispatch({
         type: "MOVE_ELEMENT",
         payload: {
-          elementId: moveElementId,
+          elementId: state.editor.selectedElement.id,
           sourceContainerId: sourceContainer.id,
           destinationContainerId: containerId,
           destinationIndex: insertIndex,
@@ -76,12 +70,14 @@ const Container = ({ element }: Props) => {
       return;
     }
 
+    const componentType = e.dataTransfer.getData("componentType") as EditorBtns;
+
     switch (componentType) {
       case "text":
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: { innerText: "Text Element" },
               id: v4(),
@@ -99,7 +95,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: {
                 innerText: "Link Element",
@@ -120,7 +116,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: {
                 src: undefined,
@@ -137,7 +133,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: {
                 src: "",
@@ -154,7 +150,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: [],
               id: v4(),
@@ -169,7 +165,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: [],
               id: v4(),
@@ -184,7 +180,7 @@ const Container = ({ element }: Props) => {
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
-            containerId: id,
+            containerId,
             elementDetails: {
               content: [
                 {
@@ -211,6 +207,8 @@ const Container = ({ element }: Props) => {
         });
         break;
     }
+
+    e.dataTransfer.setData("componentType", "");
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -218,22 +216,23 @@ const Container = ({ element }: Props) => {
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
-    const container = e.currentTarget as HTMLElement;
-    container.style.backgroundColor = "";
+    e.preventDefault();
   };
 
   const handleDragStart = (e: React.DragEvent, type: string) => {
+    if (!state.editor.selectedElement.id) e.preventDefault();
     if (type === "__body") return;
-
-    if (state.editor.selectedElement.id) {
-      e.dataTransfer.setData("moveElementId", state.editor.selectedElement.id);
-    } else {
-      e.dataTransfer.setData("componentType", type);
-    }
   };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (type === "__body")
+      dispatch({
+        type: "CHANGE_CLICKED_ELEMENT",
+        payload: {
+          elementDetails: element,
+        },
+      });
     dispatch({
       type: "CHANGE_CLICKED_ELEMENT",
       payload: {
@@ -275,6 +274,7 @@ const Container = ({ element }: Props) => {
       })}
       onDrop={(e) => handleOnDrop(e, id)}
       onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
       draggable={type !== "__body" && !state.editor.liveMode}
       onClick={handleOnClickBody}
       onDragStart={(e) => handleDragStart(e, type!)}
