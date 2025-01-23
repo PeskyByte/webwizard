@@ -85,12 +85,13 @@ const moveElement = (
     destinationContainerId,
     destinationIndex,
   } = action.payload;
+
   let elementToMove: EditorElement | null = null;
   let sourceArray: EditorElement[] = [];
   let sourceIndex: number = -1;
 
   const findElement = (array: EditorElement[], containerId: string): void => {
-    array.forEach((item, index) => {
+    array.forEach((item, _) => {
       if (item.id === containerId && Array.isArray(item.content)) {
         item.content.forEach((child, childIndex) => {
           if (child.id === elementId) {
@@ -206,10 +207,9 @@ const editorReducer = (
 ): EditorState => {
   switch (action.type) {
     case "MOVE_ELEMENT": {
-      const updatedElements = moveElement(state.editor.elements, action);
       const updatedEditorState = {
         ...state.editor,
-        elements: updatedElements,
+        elements: moveElement(state.editor.elements, action),
       };
 
       const updatedHistory = [
@@ -233,13 +233,13 @@ const editorReducer = (
         ...state.editor,
         elements: addAnElement(state.editor.elements, action),
       };
-      // Update the history to include the entire updated EditorState
+
       const updatedHistory = [
         ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditorState }, // Save a copy of the updated state
+        { ...updatedEditorState },
       ];
 
-      const newEditorState = {
+      return {
         ...state,
         editor: updatedEditorState,
         history: {
@@ -249,34 +249,28 @@ const editorReducer = (
         },
       };
 
-      return newEditorState;
-
     case "UPDATE_ELEMENT":
-      // Perform your logic to update the element in the state
-      const updatedElements = updateAnElement(state.editor.elements, action);
-
-      const UpdatedElementIsSelected =
-        state.editor.selectedElement.id === action.payload.elementDetails.id;
-
       const updatedEditorStateWithUpdate = {
         ...state.editor,
-        elements: updatedElements,
-        selectedElement: UpdatedElementIsSelected
-          ? action.payload.elementDetails
-          : {
-              id: "",
-              content: [],
-              name: "",
-              styles: {},
-              type: null,
-            },
+        elements: updateAnElement(state.editor.elements, action),
+        selectedElement:
+          state.editor.selectedElement.id === action.payload.elementDetails.id
+            ? action.payload.elementDetails
+            : {
+                id: "",
+                content: [],
+                name: "",
+                styles: {},
+                type: null,
+              },
       };
 
       const updatedHistoryWithUpdate = [
         ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditorStateWithUpdate }, // Save a copy of the updated state
+        { ...updatedEditorStateWithUpdate },
       ];
-      const updatedEditor = {
+
+      return {
         ...state,
         editor: updatedEditorStateWithUpdate,
         history: {
@@ -285,24 +279,19 @@ const editorReducer = (
           currentIndex: updatedHistoryWithUpdate.length - 1,
         },
       };
-      return updatedEditor;
 
     case "DELETE_ELEMENT":
-      // Perform your logic to delete the element from the state
-      const updatedElementsAfterDelete = deleteAnElement(
-        state.editor.elements,
-        action,
-      );
       const updatedEditorStateAfterDelete = {
         ...state.editor,
-        elements: updatedElementsAfterDelete,
+        elements: deleteAnElement(state.editor.elements, action),
       };
+
       const updatedHistoryAfterDelete = [
         ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditorStateAfterDelete }, // Save a copy of the updated state
+        { ...updatedEditorStateAfterDelete },
       ];
 
-      const deletedState = {
+      return {
         ...state,
         editor: updatedEditorStateAfterDelete,
         history: {
@@ -311,33 +300,29 @@ const editorReducer = (
           currentIndex: updatedHistoryAfterDelete.length - 1,
         },
       };
-      return deletedState;
 
     case "CHANGE_CLICKED_ELEMENT":
-      const { elementDetails } = action.payload;
-
-      const isAlreadySelected =
-        state.editor.selectedElement.id === elementDetails?.id;
-
-      const clickedState = {
+      return {
         ...state,
         editor: {
           ...state.editor,
-          selectedElement: isAlreadySelected
-            ? {
-                id: "",
-                content: [],
-                name: "",
-                styles: {},
-                type: null,
-              }
-            : elementDetails || {
-                id: "",
-                content: [],
-                name: "",
-                styles: {},
-                type: null,
-              },
+          selectedElement:
+            state.editor.selectedElement.id ===
+            action.payload.elementDetails?.id
+              ? {
+                  id: "",
+                  content: [],
+                  name: "",
+                  styles: {},
+                  type: null,
+                }
+              : action.payload.elementDetails || {
+                  id: "",
+                  content: [],
+                  name: "",
+                  styles: {},
+                  type: null,
+                },
         },
         history: {
           ...state.history,
@@ -348,30 +333,27 @@ const editorReducer = (
           currentIndex: state.history.currentIndex + 1,
         },
       };
-      return clickedState;
 
     case "CHANGE_DEVICE":
-      const changedDeviceState = {
+      return {
         ...state,
         editor: {
           ...state.editor,
           device: action.payload.device,
         },
       };
-      return changedDeviceState;
 
     case "TOGGLE_PREVIEW_MODE":
-      const toggleState = {
+      return {
         ...state,
         editor: {
           ...state.editor,
           previewMode: !state.editor.previewMode,
         },
       };
-      return toggleState;
 
     case "TOGGLE_LIVE_MODE":
-      const toggleLiveMode: EditorState = {
+      return {
         ...state,
         editor: {
           ...state.editor,
@@ -380,7 +362,6 @@ const editorReducer = (
             : !state.editor.liveMode,
         },
       };
-      return toggleLiveMode;
 
     case "REDO":
       if (state.history.currentIndex < state.history.history.length - 1) {
@@ -433,10 +414,10 @@ const editorReducer = (
 
       const updatedHistoryWithFunnelPageId = [
         ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditorStateWithFunnelPageId }, // Save a copy of the updated state
+        { ...updatedEditorStateWithFunnelPageId },
       ];
 
-      const funnelPageIdState = {
+      return {
         ...state,
         editor: updatedEditorStateWithFunnelPageId,
         history: {
@@ -445,7 +426,6 @@ const editorReducer = (
           currentIndex: updatedHistoryWithFunnelPageId.length - 1,
         },
       };
-      return funnelPageIdState;
 
     default:
       return state;
