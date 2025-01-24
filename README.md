@@ -28,6 +28,8 @@ bun dev
 
 based on a meeting with dr osama, we need to prioritize these
 
+- [x] finish the project
+
 - [x] Add dynamic behaviour, for example form submissions should show on the
       dashboard of the subbaccount, users have the ability to add simple sign in
       functionality.
@@ -38,7 +40,7 @@ based on a meeting with dr osama, we need to prioritize these
   - [x] fix the dragging from the \_\_body container
 - [x] image explosion fix
 - [ ] extra padding for layout components
-- [ ] add more widgets to the funnel editor
+- [x] add more widgets to the funnel editor
 - [ ] add more layouts to the funnel editor
 - [ ] agency and subaccount landig pages
 

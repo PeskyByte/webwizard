@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { number, z } from "zod";
 
 import {
   Card,
@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
-import { saveActivityLogsNotification, upsertContact } from "@/lib/queries";
+import { saveActivityLogsNotification, upsertContact, upsertOrder } from "@/lib/queries";
 import { ContactUserFormSchema } from "@/lib/types";
 
 import { useModal } from "../../providers/modal-provider";
@@ -35,43 +35,62 @@ type Props = {
   productId: string;
 };
 
-const ProductUserForm = ({ subaccountId }: Props) => {
+export const OrderFormSchema = z.object({
+  contactName: z.string().max(191).min(1, "Required"),
+  contctEmail: z.string().max(191).email().min(1, "Required"),
+  contactNumber: z.string().max(191).min(1, "Required"),
+  address: z.string().max(191).min(1, "Required"),
+  quantity: number().min(1, "Required"),
+  city: z.string().max(191).min(1, "Required"),
+  state: z.string().max(191).min(1, "Required"),
+  country: z.string().max(191).min(1, "Required"),
+  zipCode: z.string().max(191).min(1, "Required"),
+});
+
+const ProductUserForm = ({ subaccountId, productId }: Props) => {
   const { setClose, data } = useModal();
   const router = useRouter();
-  const form = useForm<z.infer<typeof ContactUserFormSchema>>({
+  const form = useForm<z.infer<typeof OrderFormSchema>>({
     mode: "onChange",
-    resolver: zodResolver(ContactUserFormSchema),
+    resolver: zodResolver(OrderFormSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      contactName: "",
+      contctEmail: "",
+      contactNumber: "",
+      address: "",
+      quantity: 1,
+      city: "",
+      state: "",
+      country: "",
+      zipCode: "",
     },
   });
 
   useEffect(() => {
-    if (data.contact) {
-      form.reset(data.contact);
+    if (data.order) {
+      form.reset(data.order);
     }
   }, [data, form.reset]);
 
   const isLoading = form.formState.isLoading;
 
   const handleSubmit = async (
-    values: z.infer<typeof ContactUserFormSchema>,
+    values: z.infer<typeof OrderFormSchema>,
   ) => {
     try {
-      const response = await upsertContact({
-        email: values.email,
-        subAccountId: subaccountId,
-        name: values.name,
+      const response = await upsertOrder({
+          ...values,
+          subAccountId: subaccountId,
+          productId: productId,
       });
       await saveActivityLogsNotification({
         agencyId: undefined,
-        description: `Updated a contact | ${response?.name}`,
+        description: `order placed | ${response?.contactName}`,
         subaccountId: subaccountId,
       });
       toast({
         title: "Success",
-        description: "Saved funnel details",
+        description: "Saved order details",
       });
       setClose();
       router.refresh();
@@ -79,7 +98,7 @@ const ProductUserForm = ({ subaccountId }: Props) => {
       toast({
         variant: "destructive",
         title: "Oppse!",
-        description: "Could not save funnel details",
+        description: "Could not save order details",
       });
     }
   };
@@ -101,7 +120,7 @@ const ProductUserForm = ({ subaccountId }: Props) => {
             <FormField
               disabled={isLoading}
               control={form.control}
-              name="name"
+              name="contactName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
@@ -115,7 +134,7 @@ const ProductUserForm = ({ subaccountId }: Props) => {
             <FormField
               disabled={isLoading}
               control={form.control}
-              name="email"
+              name="contctEmail"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
@@ -126,12 +145,110 @@ const ProductUserForm = ({ subaccountId }: Props) => {
                 </FormItem>
               )}
             />
-
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="contactNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Quantity</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Quantity" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="City" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>State</FormLabel>
+                  <FormControl>
+                    <Input placeholder="State" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Country" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="zipCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Zip</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Zip" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+              
             <Button className="mt-4" disabled={isLoading} type="submit">
               {form.formState.isSubmitting ? (
                 <Loading />
               ) : (
-                "Save Contact Details!"
+                "Saved Order Details!"
               )}
             </Button>
           </form>
