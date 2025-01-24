@@ -19,7 +19,7 @@ const MediaBucketTab = (props: Props) => {
       setdata(response);
     };
     fetchData();
-  }, [props.subaccountId]);
+  }, [props]);
 
   return (
     <div className="h-[900px] overflow-auto p-4">

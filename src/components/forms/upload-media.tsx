@@ -7,6 +7,7 @@ import { z } from "zod";
 
 import { useToast } from "@/hooks/use-toast";
 import { createMedia, saveActivityLogsNotification } from "@/lib/queries";
+import { useModal } from "@/providers/modal-provider";
 
 import FileUpload from "../file-upload";
 import { Button } from "../ui/button";
@@ -37,6 +38,7 @@ const formSchema = z.object({
 });
 
 const UploadMediaForm = ({ subaccountId }: Props) => {
+  const { setClose } = useModal();
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,6 +59,7 @@ const UploadMediaForm = ({ subaccountId }: Props) => {
         subaccountId,
       });
 
+      setClose();
       toast({ title: "Succes", description: "Uploaded media" });
       router.refresh();
     } catch (error) {
