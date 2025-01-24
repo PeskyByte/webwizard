@@ -103,6 +103,13 @@ const SettingsTab = (props: Props) => {
                   onChange={handleChangeCustomValues}
                   value={state.editor.selectedElement.content.href}
                 />
+                <p className="text-muted-foreground">Link Text</p>
+                <Input
+                  id="innerText"
+                  placeholder="Text"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.innerText}
+                />
               </div>
             )}
           {(state.editor.selectedElement.type === "image" ||
