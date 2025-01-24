@@ -15,6 +15,7 @@ import { useEditor } from "@/providers/editor/editor-provider";
 import TabList from "./tabs";
 import ComponentsTab from "./tabs/components-tab";
 import MediaBucketTab from "./tabs/media-bucket-tab";
+import ProductsTab from "./tabs/product-tab";
 import SettingsTab from "./tabs/settings-tab";
 
 type Props = {
@@ -67,6 +68,9 @@ const FunnelEditorSidebar = ({ subaccountId }: Props) => {
                 </SheetDescription>
               </SheetHeader>
               <ComponentsTab />
+            </TabsContent>
+            <TabsContent value="Products">
+              <ProductsTab subaccountId={subaccountId} />
             </TabsContent>
           </div>
         </SheetContent>

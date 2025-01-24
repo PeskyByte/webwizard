@@ -21,7 +21,7 @@ const TabList = (props: Props) => {
       </TabsTrigger>
 
       <TabsTrigger
-        value="Layers"
+        value="Products"
         className="w-10 h-10 p-0 data-[state=active]:bg-muted"
       >
         <SquareStackIcon />
