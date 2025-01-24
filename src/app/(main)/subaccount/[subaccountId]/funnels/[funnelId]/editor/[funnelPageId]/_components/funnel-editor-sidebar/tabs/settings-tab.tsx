@@ -264,7 +264,7 @@ const SettingsTab = (props: Props) => {
                     <Label className="text-muted-foreground">Height</Label>
                     <Input
                       id="height"
-                      placeholder="px"
+                      placeholder="px, rem"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.height}
                     />
@@ -272,7 +272,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Width</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="width"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.width}
@@ -280,14 +280,14 @@ const SettingsTab = (props: Props) => {
                   </div>
                 </div>
               </div>
-              <p>Margin px</p>
+              <p>Margin</p>
               <div className="flex gap-4 flex-col">
                 <div className="flex gap-4">
                   <div>
                     <Label className="text-muted-foreground">Top</Label>
                     <Input
                       id="marginTop"
-                      placeholder="px"
+                      placeholder="px, rem"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.marginTop}
                     />
@@ -295,7 +295,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Bottom</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="marginBottom"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.marginBottom}
@@ -306,7 +306,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Left</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="marginLeft"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.marginLeft}
@@ -315,7 +315,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Right</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="marginRight"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.marginRight}
@@ -325,13 +325,13 @@ const SettingsTab = (props: Props) => {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <p>Padding px</p>
+              <p>Padding</p>
               <div className="flex gap-4 flex-col">
                 <div className="flex gap-4">
                   <div>
                     <Label className="text-muted-foreground">Top</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="paddingTop"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.paddingTop}
@@ -340,7 +340,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Bottom</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="paddingBottom"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.paddingBottom}
@@ -351,7 +351,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Left</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="paddingLeft"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.paddingLeft}
@@ -360,7 +360,7 @@ const SettingsTab = (props: Props) => {
                   <div>
                     <Label className="text-muted-foreground">Right</Label>
                     <Input
-                      placeholder="px"
+                      placeholder="px, rem"
                       id="paddingRight"
                       onChange={handleOnChanges}
                       value={state.editor.selectedElement.styles.paddingRight}
