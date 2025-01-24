@@ -5,8 +5,12 @@ import clsx from "clsx";
 import { Badge, Trash } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import CustomModal from "@/components/custom-modal";
+import ProductUserForm from "@/components/forms/product-user-form";
+import { Button } from "@/components/ui/button";
 import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
+import { useModal } from "@/providers/modal-provider";
 
 type Props = {
   element: EditorElement;
@@ -14,7 +18,7 @@ type Props = {
 
 const ProductComponent = (props: Props) => {
   const [product, setProduct] = useState<Product>();
-  const { dispatch, state } = useEditor();
+  const { dispatch, state, subaccountId } = useEditor();
 
   useEffect(() => {
     if (Array.isArray(props.element.content)) return;
@@ -43,6 +47,22 @@ const ProductComponent = (props: Props) => {
         elementDetails: props.element,
       },
     });
+  };
+
+  const { setOpen } = useModal();
+
+  const handleCreateProduct = (
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
+  ) => {
+    setOpen(
+      <CustomModal
+        title="Place your order"
+        subheading="Enter your contact details."
+      >
+        <ProductUserForm subaccountId={subaccountId} productId={id} />
+      </CustomModal>,
+    );
   };
 
   return (
@@ -81,6 +101,10 @@ const ProductComponent = (props: Props) => {
             <p>{product.name}</p>
             <p>{String(product.price)}$</p>
           </div>
+          <Button
+            onClick={(e) => handleCreateProduct(e, product.id)}
+            className="w-full"
+          />
         </article>
       )}
       {state.editor.selectedElement.id === props.element.id &&
