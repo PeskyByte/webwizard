@@ -13,7 +13,8 @@ import LinkPlaceholder from "./link-placeholder";
 import TextPlaceholder from "./text-placeholder";
 import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
-import Separator from "./serperator-placeholder";
+import CarouselPlaceholder from "./carousel-placeholder";
+import SeparatorPlaceholder from "./serperator-placeholder";
 
 type Props = {};
 
@@ -67,9 +68,15 @@ const ComponentsTab = (props: Props) => {
       group: "elements",
     },
     {
-      Component: <Separator />,
+      Component: <SeparatorPlaceholder />,
       label: "Separator",
       id: "separator",
+      group: "elements",
+    },
+    {
+      Component: <CarouselPlaceholder />,
+      label: "Carousel",
+      id: "carousel",
       group: "elements",
     },
   ];

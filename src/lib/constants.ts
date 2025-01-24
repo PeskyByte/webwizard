@@ -208,6 +208,7 @@ export type EditorBtns =
   | "__body"
   | "image"
   | "separator"
+  | "carousel"
   | null
   | "3Col";
 

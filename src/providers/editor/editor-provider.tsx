@@ -16,7 +16,7 @@ export type EditorElement = {
   type: EditorBtns;
   content:
     | EditorElement[]
-    | { href?: string; innerText?: string; src?: string };
+    | { href?: string; innerText?: string; src?: string ; csrc1? :string; csrc2? :string; csrc3? :string;};
 };
 
 export type Editor = {

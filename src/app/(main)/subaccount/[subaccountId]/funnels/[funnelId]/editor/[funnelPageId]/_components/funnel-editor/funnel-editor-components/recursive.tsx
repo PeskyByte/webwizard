@@ -4,9 +4,10 @@ import ContactFormComponent from "./contact-form-component";
 import Container from "./container";
 import ImageComponent from "./image";
 import LinkComponent from "./link-component";
+import SeparatorComponent from "./separator-component";
 import TextComponent from "./text";
 import VideoComponent from "./video";
-import SeparatorComponent from "./separator-component";
+import CarouselComponent from "./carousel-component";
 
 type Props = {
   element: EditorElement;
@@ -32,6 +33,8 @@ const Recursive = ({ element }: Props) => {
       return <ImageComponent element={element} />;
     case "separator":
       return <SeparatorComponent element={element} />;
+    case "carousel":
+      return <CarouselComponent element={element} />;
     default:
       return null;
   }

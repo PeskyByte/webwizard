@@ -118,6 +118,30 @@ const SettingsTab = (props: Props) => {
                 />
               </div>
             )}
+            {state.editor.selectedElement.type === "carousel" &&
+            !Array.isArray(state.editor.selectedElement.content) && (
+              <div className="flex flex-col gap-2">
+                <p className="text-muted-foreground">Images Paths</p>
+                <Input
+                  id="csrc1"
+                  placeholder="https:domain.example.com/pathname"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.csrc1}
+                />
+                <Input
+                  id="csrc2"
+                  placeholder="https:domain.example.com/pathname"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.csrc2}
+                />
+                <Input
+                  id="csrc3"
+                  placeholder="https:domain.example.com/pathname"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.csrc3}
+                />
+              </div>
+            )}
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="Typography" className="px-6 py-0  border-y-[1px]">

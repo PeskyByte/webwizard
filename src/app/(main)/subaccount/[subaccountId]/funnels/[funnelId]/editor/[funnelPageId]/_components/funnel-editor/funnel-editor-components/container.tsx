@@ -221,6 +221,21 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
+        case "carousel":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId,
+            elementDetails: {
+              content: {},
+              id: v4(),
+              name: "Carousel",
+              styles: {},
+              type: "carousel",
+            },
+          },
+        });
+        break;
     }
 
     e.dataTransfer.setData("componentType", "");
