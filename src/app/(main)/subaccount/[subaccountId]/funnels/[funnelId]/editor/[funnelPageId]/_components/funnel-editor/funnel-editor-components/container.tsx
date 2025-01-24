@@ -236,6 +236,21 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
+        case "accordion":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId,
+            elementDetails: {
+              content: {},
+              id: v4(),
+              name: "Accordion",
+              styles: {},
+              type: "accordion",
+            },
+          },
+        });
+        break;
     }
 
     e.dataTransfer.setData("componentType", "");

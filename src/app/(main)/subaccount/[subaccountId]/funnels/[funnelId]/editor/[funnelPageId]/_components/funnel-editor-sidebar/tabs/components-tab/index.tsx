@@ -15,6 +15,7 @@ import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
 import CarouselPlaceholder from "./carousel-placeholder";
 import SeparatorPlaceholder from "./serperator-placeholder";
+import AccordionPlaceholder from "./accordion-placeholder";
 
 type Props = {};
 
@@ -77,6 +78,12 @@ const ComponentsTab = (props: Props) => {
       Component: <CarouselPlaceholder />,
       label: "Carousel",
       id: "carousel",
+      group: "elements",
+    },
+    {
+      Component: <AccordionPlaceholder />,
+      label: "Accordion",
+      id: "accordion",
       group: "elements",
     },
   ];

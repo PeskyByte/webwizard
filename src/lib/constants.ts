@@ -209,6 +209,7 @@ export type EditorBtns =
   | "image"
   | "separator"
   | "carousel"
+  | "accordion"
   | null
   | "3Col";
 
