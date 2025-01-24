@@ -40,6 +40,7 @@ based on a meeting with dr osama, we need to prioritize these
 - [ ] extra padding for layout components
 - [ ] add more widgets to the funnel editor
 - [ ] add more layouts to the funnel editor
+- [ ] agency and subaccount landig pages
 
 # on hold
 
