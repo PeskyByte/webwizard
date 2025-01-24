@@ -14,8 +14,6 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FocusEventHandler, useEffect } from "react";
-import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -28,6 +26,7 @@ import {
 } from "@/components/ui/tooltip";
 import { saveActivityLogsNotification, upsertFunnelPage } from "@/lib/queries";
 import { DeviceTypes, useEditor } from "@/providers/editor/editor-provider";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   funnelId: string;
@@ -42,7 +41,7 @@ const FunnelEditorNavigation = ({
 }: Props) => {
   const router = useRouter();
   const { state, dispatch } = useEditor();
-
+  const { toast } = useToast();
   useEffect(() => {
     dispatch({
       type: "SET_FUNNELPAGE_ID",
@@ -65,12 +64,14 @@ const FunnelEditorNavigation = ({
         funnelId,
       );
 
-      toast("Success", {
+      toast({
+        title: "Success",
         description: "Saved Funnel Page title",
       });
       router.refresh();
     } else {
-      toast("Oppse!", {
+      toast({
+        title: "Oppse!", 
         description: "You need to have a title!",
       });
       event.target.value = funnelPageDetails.name;
@@ -106,11 +107,13 @@ const FunnelEditorNavigation = ({
         description: `Updated a funnel page | ${response?.name}`,
         subaccountId: subaccountId,
       });
-      toast("Success", {
+      toast({
+        title: "Success",
         description: "Saved Editor",
       });
     } catch (error) {
-      toast("Oppse!", {
+      toast({
+        title: "Opps!",
         description: "Could not save editor",
       });
     }
