@@ -971,6 +971,9 @@ export const getSubaccountOrders = async (subaccountId: string) => {
     where: {
       subAccountId: subaccountId,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
   return response;
 };

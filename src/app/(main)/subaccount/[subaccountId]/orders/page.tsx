@@ -11,6 +11,9 @@ import {
 
 import { getSubaccountOrders } from "@/lib/queries";
 import { Orders } from "@prisma/client";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Avatar } from "@/components/ui/avatar";
+import DeleteButton from "./_components/delete-order";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;
@@ -25,23 +28,37 @@ const Order = async ({ params }: Props) => {
       <div className="flex justify-between items-center">
         <h1 className="text-4xl">Orders</h1>
       </div>
-      <Command className="bg-transparent">
-        <CommandInput placeholder="Search for order name..." />
-        <CommandList className="pb-40 max-h-full ">
-          <CommandEmpty>No Orders</CommandEmpty>
-          <CommandGroup heading="Orders">
-            <div className="flex flex-wrap gap-4 pt-4">
-              {
-                data.map((order) => (
-                  <CommandItem key={order.id}>
-                    <p>{order.id}</p>
-                  </CommandItem>
-                ))
-              }
-            </div>
-          </CommandGroup>
-        </CommandList>
-      </Command>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[200px]">Name</TableHead>
+            <TableHead className="w-[300px]">Email</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead>Created Date</TableHead>
+            <TableHead>Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="font-medium truncate">
+          {data.map((order) => (
+            <TableRow key={order.id}>
+              <TableCell>{order.contactName}</TableCell>
+              <TableCell>
+                {order.contctEmail}
+              </TableCell>
+              <TableCell>
+                {order.contactNumber}
+              </TableCell>
+              <TableCell>
+                {order.address}
+              </TableCell>
+              <TableCell>{order.createdAt.toDateString()}</TableCell>
+              <TableCell><DeleteButton subaccountId={subaccountId} orderId={order.id}/></TableCell>
+              
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 };

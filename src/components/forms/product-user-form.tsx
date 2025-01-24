@@ -41,10 +41,6 @@ export const OrderFormSchema = z.object({
   contactNumber: z.string().max(191).min(1, "Required"),
   address: z.string().max(191).min(1, "Required"),
   quantity: number().min(1, "Required"),
-  city: z.string().max(191).min(1, "Required"),
-  state: z.string().max(191).min(1, "Required"),
-  country: z.string().max(191).min(1, "Required"),
-  zipCode: z.string().max(191).min(1, "Required"),
 });
 
 const ProductUserForm = ({ subaccountId, productId }: Props) => {
@@ -59,10 +55,6 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
       contactNumber: "",
       address: "",
       quantity: 1,
-      city: "",
-      state: "",
-      country: "",
-      zipCode: "",
     },
   });
 
@@ -181,69 +173,16 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
                 <FormItem>
                   <FormLabel>Quantity</FormLabel>
                   <FormControl>
-                    <Input placeholder="Quantity" {...field} />
+                    <Input
+                      placeholder="Quantity"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-              />
-            <FormField
-              disabled={isLoading}
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>City</FormLabel>
-                  <FormControl>
-                    <Input placeholder="City" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-            <FormField
-              disabled={isLoading}
-              control={form.control}
-              name="state"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>State</FormLabel>
-                  <FormControl>
-                    <Input placeholder="State" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-            <FormField
-              disabled={isLoading}
-              control={form.control}
-              name="country"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Country</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Country" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-            <FormField
-              disabled={isLoading}
-              control={form.control}
-              name="zipCode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Zip</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Zip" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-              
+              />            
             <Button className="mt-4" disabled={isLoading} type="submit">
               {form.formState.isSubmitting ? (
                 <Loading />

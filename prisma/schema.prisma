@@ -153,13 +153,8 @@ model Orders {
   contctEmail   String  @db.Text
   contactNumber String
   address       String
-  city          String
-  zipCode       String
-  state         String
-  country       String
   productId     String
   quantity      Int      @default(1)
-  status        Boolean  @default(false)
   subAccountId  String
 
   SubAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
