@@ -1,14 +1,15 @@
 import { EditorElement } from "@/providers/editor/editor-provider";
 
+import AccordionComponent from "./accordion-component";
+import CarouselComponent from "./carousel-component";
 import ContactFormComponent from "./contact-form-component";
 import Container from "./container";
 import ImageComponent from "./image";
 import LinkComponent from "./link-component";
+import ProductComponent from "./product";
 import SeparatorComponent from "./separator-component";
 import TextComponent from "./text";
 import VideoComponent from "./video";
-import CarouselComponent from "./carousel-component";
-import AccordionComponent from "./accordion-component";
 
 type Props = {
   element: EditorElement;
@@ -38,6 +39,8 @@ const Recursive = ({ element }: Props) => {
       return <CarouselComponent element={element} />;
     case "accordion":
       return <AccordionComponent element={element} />;
+    case "product":
+      return <ProductComponent element={element} />;
     default:
       return null;
   }

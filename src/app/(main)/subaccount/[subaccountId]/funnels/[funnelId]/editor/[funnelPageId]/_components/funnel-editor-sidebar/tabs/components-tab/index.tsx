@@ -6,16 +6,16 @@ import {
 } from "@/components/ui/accordion";
 import { EditorBtns } from "@/lib/constants";
 
+import AccordionPlaceholder from "./accordion-placeholder";
+import CarouselPlaceholder from "./carousel-placeholder";
 import ContactFormComponentPlaceholder from "./contact-form-placeholder";
 import ContainerPlaceholder from "./container-placeholder";
 import ImagePlaceHolder from "./image-placeholde";
 import LinkPlaceholder from "./link-placeholder";
+import SeparatorPlaceholder from "./serperator-placeholder";
 import TextPlaceholder from "./text-placeholder";
 import TwoColumnsPlaceholder from "./two-columns-placeholder";
 import VideoPlaceholder from "./video-placeholder";
-import CarouselPlaceholder from "./carousel-placeholder";
-import SeparatorPlaceholder from "./serperator-placeholder";
-import AccordionPlaceholder from "./accordion-placeholder";
 
 type Props = {};
 

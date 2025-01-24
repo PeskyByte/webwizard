@@ -211,6 +211,7 @@ export type EditorBtns =
   | "carousel"
   | "accordion"
   | null
+  | "product"
   | "3Col";
 
 export const defaultStyles: React.CSSProperties = {

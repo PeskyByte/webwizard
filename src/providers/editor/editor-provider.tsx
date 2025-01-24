@@ -29,6 +29,7 @@ export type EditorElement = {
         ac1?: string;
         ac2?: string;
         ac3?: string;
+        productId?: string;
       };
 };
 

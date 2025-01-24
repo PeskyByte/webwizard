@@ -221,7 +221,7 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
-        case "carousel":
+      case "carousel":
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
@@ -236,7 +236,7 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
-        case "accordion":
+      case "accordion":
         dispatch({
           type: "ADD_ELEMENT",
           payload: {
@@ -251,8 +251,24 @@ const Container = ({ element }: Props) => {
           },
         });
         break;
+      case "product":
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId,
+            elementDetails: {
+              content: { productId: e.dataTransfer.getData("product") },
+              id: v4(),
+              name: "Product",
+              styles: {},
+              type: "product",
+            },
+          },
+        });
+        break;
     }
 
+    e.dataTransfer.setData("product", "");
     e.dataTransfer.setData("componentType", "");
   };
 

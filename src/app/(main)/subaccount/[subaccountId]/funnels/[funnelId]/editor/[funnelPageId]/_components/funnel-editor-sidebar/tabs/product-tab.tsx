@@ -1,7 +1,6 @@
 import { Product } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 
-import ProductCard from "@/app/(main)/subaccount/[subaccountId]/products/_components/product-card";
 import ProductUploadButton from "@/app/(main)/subaccount/[subaccountId]/products/_components/product-upload-btn";
 import {
   Command,
@@ -12,6 +11,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { getSubaccountProducts } from "@/lib/queries";
+
+import ProductCard from "./_components/product-card";
 
 type Props = {
   subaccountId: string;
