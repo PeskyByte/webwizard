@@ -1,4 +1,10 @@
-import { Database, Plus, SettingsIcon, SquareStackIcon } from "lucide-react";
+import {
+  Database,
+  Plus,
+  SettingsIcon,
+  SquareStackIcon,
+  MessageSquareCode,
+} from "lucide-react";
 
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -31,6 +37,12 @@ const TabList = (props: Props) => {
         className="w-10 h-10 p-0 data-[state=active]:bg-muted"
       >
         <Database />
+      </TabsTrigger>
+      <TabsTrigger
+        value="AI"
+        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+      >
+        <MessageSquareCode />
       </TabsTrigger>
     </TabsList>
   );

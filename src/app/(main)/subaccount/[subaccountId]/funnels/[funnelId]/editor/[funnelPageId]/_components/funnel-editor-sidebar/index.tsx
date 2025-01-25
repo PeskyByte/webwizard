@@ -1,5 +1,6 @@
 "use client";
 
+import { FunnelPage } from "@prisma/client";
 import clsx from "clsx";
 
 import {
@@ -13,16 +14,23 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { useEditor } from "@/providers/editor/editor-provider";
 
 import TabList from "./tabs";
+import ChatTab from "./tabs/ai-chat-tab";
 import ComponentsTab from "./tabs/components-tab";
 import MediaBucketTab from "./tabs/media-bucket-tab";
 import ProductsTab from "./tabs/product-tab";
 import SettingsTab from "./tabs/settings-tab";
 
 type Props = {
+  funnelId: string;
+  funnelPageDetails: FunnelPage;
   subaccountId: string;
 };
 
-const FunnelEditorSidebar = ({ subaccountId }: Props) => {
+const FunnelEditorSidebar = ({
+  subaccountId,
+  funnelPageDetails,
+  funnelId,
+}: Props) => {
   const { state } = useEditor();
 
   return (
@@ -46,7 +54,7 @@ const FunnelEditorSidebar = ({ subaccountId }: Props) => {
             { hidden: state.editor.previewMode },
           )}
         >
-          <div className="grid gap-4 h-full pb-36 overflow-auto">
+          <div className="grid gap-4 h-full overflow-auto">
             <TabsContent value="Settings">
               <SheetHeader className="text-left p-6">
                 <SheetTitle>Styles</SheetTitle>
@@ -71,6 +79,13 @@ const FunnelEditorSidebar = ({ subaccountId }: Props) => {
             </TabsContent>
             <TabsContent value="Products">
               <ProductsTab subaccountId={subaccountId} />
+            </TabsContent>
+            <TabsContent value="AI">
+              <ChatTab
+                subaccountId={subaccountId}
+                funnelId={funnelId}
+                funnelPageDetails={funnelPageDetails}
+              />
             </TabsContent>
           </div>
         </SheetContent>

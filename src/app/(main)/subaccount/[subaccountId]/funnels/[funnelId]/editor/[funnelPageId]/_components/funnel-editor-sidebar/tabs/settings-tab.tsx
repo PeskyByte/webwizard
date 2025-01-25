@@ -87,7 +87,7 @@ const SettingsTab = (props: Props) => {
   return (
     <Accordion
       type="multiple"
-      className="w-full"
+      className="w-full h-full"
       defaultValue={["Typography", "Dimensions", "Decorations", "Flexbox"]}
     >
       <AccordionItem value="Custom" className="px-6 py-0  ">

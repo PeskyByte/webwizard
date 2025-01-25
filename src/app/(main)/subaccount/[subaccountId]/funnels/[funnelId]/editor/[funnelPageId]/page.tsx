@@ -44,7 +44,11 @@ const Page = async (props: Props) => {
           <FunnelEditor funnelPageId={params.funnelPageId} />
         </div>
 
-        <FunnelEditorSidebar subaccountId={params.subaccountId} />
+        <FunnelEditorSidebar
+          funnelId={params.funnelId}
+          funnelPageDetails={funnelPageDetails}
+          subaccountId={params.subaccountId}
+        />
       </EditorProvider>
     </div>
   );
