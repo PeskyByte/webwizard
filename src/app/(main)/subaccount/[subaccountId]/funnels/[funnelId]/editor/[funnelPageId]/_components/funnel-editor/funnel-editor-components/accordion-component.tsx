@@ -49,7 +49,7 @@ const AccordionComponent = (props: Props) => {
       onDragStart={(e) => handleDragStart(e, "accordion")}
       onClick={handleOnClick}
       className={clsx(
-        "w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
+        "w-full relative text-[16px] transition-all flex items-center justify-center",
         {
           "!border-blue-500":
             state.editor.selectedElement.id === props.element.id,

@@ -308,12 +308,12 @@ const Container = ({ element }: Props) => {
     <div
       id={id}
       style={styles}
-      className={clsx("relative p-4 transition-all group", {
+      className={clsx("relative transition-all group", {
         "max-w-full w-full": type === "container" || type === "2Col",
         "h-fit": type === "container",
         "h-full": type === "__body",
         "mb-[100px]": type === "__body" && !state.editor.liveMode,
-        "overflow-auto ": type === "__body",
+        "overflow-auto": type === "__body",
         "flex flex-col md:!flex-row": type === "2Col",
         "!border-blue-500":
           state.editor.selectedElement.id === id &&
@@ -325,7 +325,8 @@ const Container = ({ element }: Props) => {
           state.editor.selectedElement.type === "__body",
         "!border-solid":
           state.editor.selectedElement.id === id && !state.editor.liveMode,
-        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+        "border-dashed border-[1px] border-slate-300 p-4":
+          !state.editor.liveMode,
       })}
       onDrop={(e) => handleOnDrop(e, id)}
       onDragOver={handleDragOver}

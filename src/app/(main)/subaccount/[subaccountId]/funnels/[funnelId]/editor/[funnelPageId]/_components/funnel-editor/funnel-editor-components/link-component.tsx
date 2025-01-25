@@ -46,16 +46,13 @@ const LinkComponent = (props: Props) => {
       draggable
       onDragStart={(e) => handleDragStart(e, "text")}
       onClick={handleOnClickBody}
-      className={clsx(
-        "p-[2px] w-full m-[5px] relative text-[16px] transition-all",
-        {
-          "!border-blue-500":
-            state.editor.selectedElement.id === props.element.id,
+      className={clsx("p-[2px] w-full relative text-[16px] transition-all", {
+        "!border-blue-500":
+          state.editor.selectedElement.id === props.element.id,
 
-          "!border-solid": state.editor.selectedElement.id === props.element.id,
-          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
-        },
-      )}
+        "!border-solid": state.editor.selectedElement.id === props.element.id,
+        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+      })}
     >
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (

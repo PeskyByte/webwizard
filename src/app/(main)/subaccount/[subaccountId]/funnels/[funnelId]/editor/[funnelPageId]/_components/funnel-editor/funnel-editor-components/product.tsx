@@ -68,15 +68,12 @@ const ProductComponent = (props: Props) => {
   return (
     <div
       style={styles}
-      className={clsx(
-        "p-[2px] w-full m-[5px] relative text-[16px] transition-all",
-        {
-          "!border-blue-500":
-            state.editor.selectedElement.id === props.element.id,
-          "!border-solid": state.editor.selectedElement.id === props.element.id,
-          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
-        },
-      )}
+      className={clsx("p-[2px] w-full relative text-[16px] transition-all", {
+        "!border-blue-500":
+          state.editor.selectedElement.id === props.element.id,
+        "!border-solid": state.editor.selectedElement.id === props.element.id,
+        "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
+      })}
       draggable
       onClick={handleOnClickBody}
       onDragStart={(e) => handleDragStart(e, "product")}
