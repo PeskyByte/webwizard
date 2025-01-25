@@ -106,7 +106,7 @@ const MenuOptions = ({
                   <div className="flex flex-col">
                     {details.name}
                     <span className="text-muted-foreground">
-                      {details.address}
+                      {`${details.country}, ${details.city}, ${details.state}, ${details.address}`}
                     </span>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const MenuOptions = ({
                               <div className="flex flex-col flex-1">
                                 {user?.Agency?.name}
                                 <span className="text-muted-foreground">
-                                  {user?.Agency?.address}
+                                  {`${user?.Agency?.country}, ${user?.Agency?.city}, ${user?.Agency?.state}, ${user?.Agency?.address}`}
                                 </span>
                               </div>
                             </Link>
@@ -162,7 +162,7 @@ const MenuOptions = ({
                                 <div className="flex flex-col flex-1">
                                   {user?.Agency?.name}
                                   <span className="text-muted-foreground">
-                                    {user?.Agency?.address}
+                                    {`${user?.Agency?.country}, ${user?.Agency?.city}, ${user?.Agency?.state}, ${user?.Agency?.address}`}
                                   </span>
                                 </div>
                               </Link>
@@ -191,7 +191,7 @@ const MenuOptions = ({
                                 <div className="flex flex-col flex-1">
                                   {subaccount.name}
                                   <span className="text-muted-foreground">
-                                    {subaccount.address}
+                                    {`${subaccount.country}, ${subaccount.city}, ${subaccount.state}, ${subaccount.address}`}
                                   </span>
                                 </div>
                               </Link>
@@ -212,7 +212,7 @@ const MenuOptions = ({
                                   <div className="flex flex-col flex-1">
                                     {subaccount.name}
                                     <span className="text-muted-foreground">
-                                      {subaccount.address}
+                                      {`${subaccount.country}, ${subaccount.city}, ${subaccount.state}, ${subaccount.address}`}
                                     </span>
                                   </div>
                                 </Link>

@@ -71,7 +71,7 @@ const AllSubaccountsPage = async (props: Props) => {
                         <div className="flex flex-col">
                           {subaccount.name}
                           <span className="text-muted-foreground text-xs">
-                            {subaccount.address}
+                            {`${subaccount.country}, ${subaccount.city}, ${subaccount.state}, ${subaccount.address}`}
                           </span>
                         </div>
                       </div>

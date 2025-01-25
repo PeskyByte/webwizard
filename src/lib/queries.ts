@@ -251,11 +251,6 @@ export const upsertAgency = async (agency: Agency) => {
               link: `/agency/${agency.id}`,
             },
             {
-              name: "Launchpad",
-              icon: "clipboardIcon",
-              link: `/agency/${agency.id}/launchpad`,
-            },
-            {
               name: "Settings",
               icon: "settings",
               link: `/agency/${agency.id}/settings`,
@@ -328,11 +323,6 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
       },
       SidebarOption: {
         create: [
-          {
-            name: "Launchpad",
-            icon: "clipboardIcon",
-            link: `/subaccount/${subAccount.id}/launchpad`,
-          },
           {
             name: "Settings",
             icon: "settings",
