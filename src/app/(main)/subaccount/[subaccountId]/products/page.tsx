@@ -1,3 +1,4 @@
+import { Product } from "@prisma/client";
 import React from "react";
 
 import {
@@ -8,18 +9,17 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { getSubaccountProducts } from "@/lib/queries";
 
 import ProductCard from "./_components/product-card";
 import ProductUploadButton from "./_components/product-upload-btn";
-import { Product } from "@prisma/client";
-import { getSubaccountProducts } from "@/lib/queries";
 
 type Props = {
   params: Promise<{ subaccountId: string }>;
 };
 
 const Products = async ({ params }: Props) => {
-  const {subaccountId} = await params;
+  const { subaccountId } = await params;
   const data: Product[] = await getSubaccountProducts(subaccountId);
   return (
     <div className="flex flex-col gap-4 h-full w-full">
@@ -33,13 +33,11 @@ const Products = async ({ params }: Props) => {
           <CommandEmpty>No Products</CommandEmpty>
           <CommandGroup heading="Products">
             <div className="flex flex-wrap gap-4 pt-4">
-              {
-                data.map((product) => (
-                  <CommandItem key={product.id}>
-                    <ProductCard product={product} />
-                  </CommandItem>
-                ))
-              }
+              {data.map((product) => (
+                <CommandItem key={product.id} className="p-1 rounded-lg">
+                  <ProductCard product={product} />
+                </CommandItem>
+              ))}
             </div>
           </CommandGroup>
         </CommandList>

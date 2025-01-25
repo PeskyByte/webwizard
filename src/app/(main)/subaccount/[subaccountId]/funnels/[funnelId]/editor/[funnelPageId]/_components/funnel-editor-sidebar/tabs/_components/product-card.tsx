@@ -41,18 +41,21 @@ const ProductCard = ({ product }: Props) => {
   };
 
   return (
-    <div draggable onDragStart={(e) => handleDragState(e, "product")}>
+    <div
+      draggable
+      onDragStart={(e) => handleDragState(e, "product")}
+      className="w-full"
+    >
       <AlertDialog>
         <DropdownMenu>
-          <article className="border w-56 h-64 rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white pt-3 pl-3 pr-3">
-            <div className="relative w-full h-40">
-              <p className="overflow-ellipsis overflow-hidden whitespace-normal break-words">
+          <article className="rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white">
+            <div className="w-[275px] p-4">
+              <p className="break-words">
                 {product.description === ""
                   ? "---No Description---"
                   : product.description}
               </p>
             </div>
-            <p className="opacity-0 h-0 w-0">{product.name}</p>
             <div className="p-4 relative">
               <p className="text-muted-foreground">
                 {product.createdAt.toDateString()}
@@ -65,7 +68,6 @@ const ProductCard = ({ product }: Props) => {
                 </DropdownMenuTrigger>
               </div>
             </div>
-
             <DropdownMenuContent>
               <DropdownMenuLabel>Menu</DropdownMenuLabel>
               <DropdownMenuSeparator />

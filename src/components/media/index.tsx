@@ -34,7 +34,7 @@ const MediaComponent = ({ data, subaccountId }: Props) => {
               {data?.Media.map((file) => (
                 <CommandItem
                   key={file.id}
-                  className="p-0 max-w-[300px] w-full rounded-lg !bg-transparent !font-medium !text-white"
+                  className="p-1 max-w-[300px] w-full rounded-lg"
                 >
                   <MediaCard file={file} />
                 </CommandItem>

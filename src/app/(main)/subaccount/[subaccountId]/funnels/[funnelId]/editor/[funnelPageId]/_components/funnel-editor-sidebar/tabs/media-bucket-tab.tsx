@@ -22,7 +22,7 @@ const MediaBucketTab = (props: Props) => {
   }, [props]);
 
   return (
-    <div className="h-[900px] overflow-auto p-4">
+    <div className="overflow-auto p-4">
       <MediaComponent data={data} subaccountId={props.subaccountId} />
     </div>
   );

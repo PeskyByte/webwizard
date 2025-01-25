@@ -88,23 +88,24 @@ const ProductComponent = (props: Props) => {
           </Badge>
         )}
       {product && (
-        <article className="border w-56 h-64 rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white pt-3 pl-3 pr-3">
-          <div className="relative w-full h-40">
-            <p className="overflow-ellipsis overflow-hidden whitespace-normal break-words">
-              {product.description === ""
-                ? "---No Description---"
-                : product.description}
-            </p>
+        <article className="border rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white p-4 flex flex-col gap-8">
+          <p className="break-words">
+            {product.description === ""
+              ? "---No Description---"
+              : product.description}
+          </p>
+          <div>
+            <div>
+              <p>{product.name}</p>
+              <p>{String(product.price)}$</p>
+            </div>
+            <Button
+              onClick={(e) => handleCreateProduct(e, product.id)}
+              className="w-full"
+            >
+              Buy
+            </Button>
           </div>
-          <p className="opacity-0 h-0 w-0">{product.name}</p>
-          <div className="p-4 relative">
-            <p>{product.name}</p>
-            <p>{String(product.price)}$</p>
-          </div>
-          <Button
-            onClick={(e) => handleCreateProduct(e, product.id)}
-            className="w-full"
-          />
         </article>
       )}
       {state.editor.selectedElement.id === props.element.id &&
