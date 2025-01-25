@@ -83,9 +83,9 @@ const ProductComponent = (props: Props) => {
     >
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (
-          <Badge className="absolute -top-[23px] -left-[1px] rounded-none rounded-t-lg">
+          <div className="absolute -top-[23px] -left-[1px] rounded-none rounded-t-lg bg-primary px-2.5 py-1 text-xs font-bold !text-white">
             {state.editor.selectedElement.name}
-          </Badge>
+          </div>
         )}
       {product && (
         <article className="border rounded-lg bg-white text-black dark:bg-slate-900 dark:text-white p-4 flex flex-col gap-8">
