@@ -103,9 +103,12 @@ const currencyNumberRegex = /^\d+(\.\d{1,2})?$/;
 export const TicketFormSchema = z.object({
   name: z.string().max(191).min(1),
   description: z.string().max(191).optional(),
-  value: z.string().max(191).refine((value) => currencyNumberRegex.test(value), {
-    message: "Value must be a valid price.",
-  }),
+  value: z
+    .string()
+    .max(191)
+    .refine((value) => currencyNumberRegex.test(value), {
+      message: "Value must be a valid price.",
+    }),
 });
 
 export type TicketDetails = Prisma.PromiseReturnType<

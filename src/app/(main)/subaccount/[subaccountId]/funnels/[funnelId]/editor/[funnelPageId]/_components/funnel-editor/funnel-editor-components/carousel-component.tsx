@@ -2,11 +2,16 @@ import clsx from "clsx";
 import { Trash } from "lucide-react";
 import React from "react";
 
-
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 type Props = {
   element: EditorElement;
@@ -63,19 +68,19 @@ const CarouselComponent = (props: Props) => {
 
       {!Array.isArray(props.element.content) && (
         <Carousel>
-            <CarouselContent>
-                <CarouselItem className="w-full h-full">
-                    <img src={props.element.content.csrc1} alt="carousel" />
-                </CarouselItem>
-                <CarouselItem className="w-full h-full">
-                    <img src={props.element.content.csrc2} alt="carousel" />
-                </CarouselItem>
-                <CarouselItem className="w-full h-full">
-                    <img src={props.element.content.csrc3} alt="carousel" />
-                </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious/>
-            <CarouselNext/> 
+          <CarouselContent>
+            <CarouselItem className="w-full h-full">
+              <img src={props.element.content.csrc1} alt="carousel" />
+            </CarouselItem>
+            <CarouselItem className="w-full h-full">
+              <img src={props.element.content.csrc2} alt="carousel" />
+            </CarouselItem>
+            <CarouselItem className="w-full h-full">
+              <img src={props.element.content.csrc3} alt="carousel" />
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       )}
 

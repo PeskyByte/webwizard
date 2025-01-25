@@ -56,7 +56,10 @@ type Props = {
 };
 
 const FormSchema = z.object({
-  name: z.string().min(2, { message: "Agency name must be atleast 2 chars." }).max(191),
+  name: z
+    .string()
+    .min(2, { message: "Agency name must be atleast 2 chars." })
+    .max(191),
   companyEmail: z.string().min(1).max(191),
   companyPhone: z.string().min(1).max(191),
   whiteLabel: z.boolean(),

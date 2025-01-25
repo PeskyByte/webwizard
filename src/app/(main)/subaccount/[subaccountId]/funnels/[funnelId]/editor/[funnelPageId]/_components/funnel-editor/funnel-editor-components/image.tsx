@@ -60,15 +60,16 @@ const ImageComponent = (props: Props) => {
           </Badge>
         )}
 
-      {!Array.isArray(props.element.content) && (
-        console.log("ImageComponent.tsx", props.element),
-        <img
-          width={Number(props.element.styles.width) || 100}
-          height={Number(props.element.styles.height) || 100}
-          alt={"Image"}
-          src={props.element.content.src || noImage}
-        ></img>
-      )}
+      {!Array.isArray(props.element.content) &&
+        (console.log("ImageComponent.tsx", props.element),
+        (
+          <img
+            width={Number(props.element.styles.width) || 100}
+            height={Number(props.element.styles.height) || 100}
+            alt={"Image"}
+            src={props.element.content.src || noImage}
+          ></img>
+        ))}
 
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (

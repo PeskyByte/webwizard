@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FocusEventHandler, useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -24,9 +25,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
 import { saveActivityLogsNotification, upsertFunnelPage } from "@/lib/queries";
 import { DeviceTypes, useEditor } from "@/providers/editor/editor-provider";
-import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   funnelId: string;
@@ -71,7 +72,7 @@ const FunnelEditorNavigation = ({
       router.refresh();
     } else {
       toast({
-        title: "Oppse!", 
+        title: "Oppse!",
         description: "You need to have a title!",
       });
       event.target.value = funnelPageDetails.name;

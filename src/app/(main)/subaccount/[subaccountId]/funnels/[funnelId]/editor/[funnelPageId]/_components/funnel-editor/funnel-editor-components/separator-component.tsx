@@ -1,10 +1,11 @@
 import clsx from "clsx";
 import { Trash } from "lucide-react";
 import React from "react";
+
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
-import { Separator } from "@/components/ui/separator";
 
 type Props = {
   element: EditorElement;
@@ -59,10 +60,9 @@ const SeparatorComponent = (props: Props) => {
           </Badge>
         )}
 
-      {!Array.isArray(props.element.content) && (
-        console.log("SeparatorComponent.tsx", props.element),
-        <Separator className="my-6"/>
-      )}
+      {!Array.isArray(props.element.content) &&
+        (console.log("SeparatorComponent.tsx", props.element),
+        (<Separator className="my-6" />))}
 
       {state.editor.selectedElement.id === props.element.id &&
         !state.editor.liveMode && (

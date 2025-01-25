@@ -1,5 +1,7 @@
+import { Orders } from "@prisma/client";
 import React from "react";
 
+import { Avatar } from "@/components/ui/avatar";
 import {
   Command,
   CommandEmpty,
@@ -8,11 +10,16 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getSubaccountOrders } from "@/lib/queries";
-import { Orders } from "@prisma/client";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Avatar } from "@/components/ui/avatar";
+
 import DeleteButton from "./_components/delete-order";
 
 type Props = {
@@ -20,9 +27,9 @@ type Props = {
 };
 
 const Order = async ({ params }: Props) => {
-  const {subaccountId} = await params;
+  const { subaccountId } = await params;
   const data: Orders[] = await getSubaccountOrders(subaccountId);
-  
+
   return (
     <div className="flex flex-col gap-4 h-full w-full">
       <div className="flex justify-between items-center">
@@ -43,18 +50,13 @@ const Order = async ({ params }: Props) => {
           {data.map((order) => (
             <TableRow key={order.id}>
               <TableCell>{order.contactName}</TableCell>
-              <TableCell>
-                {order.contctEmail}
-              </TableCell>
-              <TableCell>
-                {order.contactNumber}
-              </TableCell>
-              <TableCell>
-                {order.address}
-              </TableCell>
+              <TableCell>{order.contctEmail}</TableCell>
+              <TableCell>{order.contactNumber}</TableCell>
+              <TableCell>{order.address}</TableCell>
               <TableCell>{order.createdAt.toDateString()}</TableCell>
-              <TableCell><DeleteButton subaccountId={subaccountId} orderId={order.id}/></TableCell>
-              
+              <TableCell>
+                <DeleteButton subaccountId={subaccountId} orderId={order.id} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

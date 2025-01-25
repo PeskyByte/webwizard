@@ -955,9 +955,7 @@ export const deleteProduct = async (productId: string) => {
   return response;
 };
 
-export const upsertOrder = async (
-  order: Prisma.OrdersUncheckedCreateInput,
-) => {
+export const upsertOrder = async (order: Prisma.OrdersUncheckedCreateInput) => {
   const response = await db.orders.upsert({
     where: { id: order.id || v4() },
     update: order,

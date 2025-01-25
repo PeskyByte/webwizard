@@ -22,7 +22,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
-import { saveActivityLogsNotification, upsertContact, upsertOrder } from "@/lib/queries";
+import {
+  saveActivityLogsNotification,
+  upsertContact,
+  upsertOrder,
+} from "@/lib/queries";
 import { ContactUserFormSchema } from "@/lib/types";
 
 import { useModal } from "../../providers/modal-provider";
@@ -66,14 +70,12 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
 
   const isLoading = form.formState.isLoading;
 
-  const handleSubmit = async (
-    values: z.infer<typeof OrderFormSchema>,
-  ) => {
+  const handleSubmit = async (values: z.infer<typeof OrderFormSchema>) => {
     try {
       const response = await upsertOrder({
-          ...values,
-          subAccountId: subaccountId,
-          productId: productId,
+        ...values,
+        subAccountId: subaccountId,
+        productId: productId,
       });
       await saveActivityLogsNotification({
         agencyId: undefined,
@@ -150,7 +152,7 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
                   <FormMessage />
                 </FormItem>
               )}
-              />
+            />
             <FormField
               disabled={isLoading}
               control={form.control}
@@ -164,7 +166,7 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
                   <FormMessage />
                 </FormItem>
               )}
-              />
+            />
             <FormField
               disabled={isLoading}
               control={form.control}
@@ -182,7 +184,7 @@ const ProductUserForm = ({ subaccountId, productId }: Props) => {
                   <FormMessage />
                 </FormItem>
               )}
-              />            
+            />
             <Button className="mt-4" disabled={isLoading} type="submit">
               {form.formState.isSubmitting ? (
                 <Loading />
