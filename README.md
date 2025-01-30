@@ -10,41 +10,9 @@ bun run build
 bun run start
 ```
 
-## desktop application
-
-```bash
-bun install
-bun tauri build
-```
-
 # development
 
 ```bash
 bun install
 bun dev
 ```
-
-# Todo
-
-based on a meeting with dr osama, we need to prioritize these
-
-- [x] finish the project
-
-- [x] Add dynamic behaviour, for example form submissions should show on the
-      dashboard of the subbaccount, users have the ability to add simple sign in
-      functionality.
-- [x] add product template page in the subaccount
-- [x] add orders page in the subaccount
-- [x] fix the drag and drop of element in the funnel editor
-  - [x] keep the original data when dragging
-  - [x] fix the dragging from the \_\_body container
-- [x] image explosion fix
-- [ ] extra padding for layout components
-- [x] add more widgets to the funnel editor
-- [ ] add more layouts to the funnel editor
-- [ ] agency and subaccount landig pages
-
-# on hold
-
-- [ ] add more custom stuff for the image component
-- [ ] go back to the default fonts
